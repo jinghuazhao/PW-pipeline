@@ -5,9 +5,9 @@ PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepli
 ### Introduction
 
 Pathway analysis is an important component of work in a GWAS. Broadly, a pathway analysis involves SNP annotation, such as Variant Effect Predictor (VEP), gene 
-analysis such as VEGAS2, and gene set analysis. Visualisation of a particular region is typically facilitated with locuszoom, while network(s) built from pathway 
-analysis can be visualised via gephi or Cytoscape, which accepts a collection of edges, directed or undirected to build a network. Aspects to consider include part 
-or all databases, individual vs summary statistics, computing speed, with and without tissue enrichment. 
+analysis such as VEGAS2, and gene set analysis. Visualisation of a particular region has been facilitated with LocusZoom, while network(s) from pathway analysis via 
+gephi or Cytoscape, which accepts a collection of edges, directed or undirected to build a network. Aspects to consider include part or all databases, individual vs 
+summary statistics, computing speed, with and without tissue enrichment.
 
 ### Methods
 
