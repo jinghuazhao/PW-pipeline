@@ -1,6 +1,6 @@
 ## PW-pipeline
 
-PathWay pipeline using GWAS summary statistics
+PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepline I have implemented.
 
 ### Introduction
 
