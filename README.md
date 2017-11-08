@@ -71,9 +71,9 @@ MSigDB v4.0 is distributed with PASCAL.
 Gene database | Entries | Bonferroni threshold
 --------------|---------|---------------------
 c2.all.v6.0.entrez.gmt | 4,731 | 0.05/4731=1.056859e-05
-msigBIOCARTA_KEGG_REACTOME.gmt | 1,077 |
-msigdb.v4.0.entrez.gmt | 10,295 
-msigdb.v6.0.entrez.gmt | 17,779 
+msigBIOCARTA_KEGG_REACTOME.gmt | 1,077 | 4.642525533890436e-05
+msigdb.v4.0.entrez.gmt | 10,295 | 4.85672656629431e-06
+msigdb.v6.0.entrez.gmt | 17,779 | 2.81230665391754e--06
 
 3. **DEPICT***. Some of the entries are described in the following table,
 
