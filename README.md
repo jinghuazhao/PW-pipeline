@@ -59,9 +59,8 @@ Initiative, 737 Reactome database pathways, 184 Kyoto Encyclopedia of Genes and 
 14,461 gene sets were assessed for enrichment in genes in associated regions. DEPICT also facilitates tissue and cell type enrichment analyses by testing whether 
 the genes in associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
 
-Input to DEPICT was 6696 SNPs achieved 5x10^-8 genomewide significance, from which 111 regions were clumped using PLINK options --clump-kb 500 --clump-p1 5e-08 
---clump-r2 0.1. 209 genes were listed for tissue-specific Z-scores and there were 72 independent loci. 10968 with reconstituted gene set enrichment Z-scores and 205 
-prioritised genes.
+Input to DEPICT was SNPs achieved certain level os genomewide significance, from which regions were clumped using PLINK options --clump-kb --clump-p1 --clump-r2. 
+results include or tissue-specific Z-scores, independent loci, reconstituted gene set enrichment Z-scores and prioritised genes.
 
 **PASCAL**
 
@@ -101,6 +100,13 @@ msigdb.v4.0.entrez.gmt | 10295
 msigdb.v6.0.entrez.gmt | 17779 
 
 **DEPICT***
+
+See above.
+
+An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
+indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
+feature facilitates comparison of software considerably. Comparative as well as individual results including figures are kept in two excel workbooks called mmp.xlsx 
+and xlsx.xlsx, respectively
 
 In line with the default setup for MAGENTA, pathways with less than 10 genes were excluded leading to 2529 (0.05/2529=1.977066e-05) pathways. Except DEPICT, 
 category 2 (c2) or all of pathways in Molecular Signatures Database (MSigDB) v6 is used. The MSigDB is divided into 8 major collections and several sub-collections 
