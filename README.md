@@ -6,14 +6,17 @@ PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepli
 
 ### Introduction
 
-Pathway analysis becomes an important element in GWAS. Broadly, it involves SNP annotation, such as Variant Effect Predictor (VEP), gene analysis such as VEGAS2, 
-and gene set analysis. Visualisation of a particular region has been facilitated with LocusZoom, while network(s) from pathway analysis via gephi or Cytoscape, 
-which accepts a collection of edges, directed or undirected to build a network. Aspects to consider include part or all databases, individual vs summary statistics, 
-computing speed, with and without tissue enrichment.
+Pathway analysis becomes an important element in GWAS. Broadly, it involves SNP annotation, such as 
+Variant Effect Predictor (VEP), gene analysis such as VEGAS2, and gene set analysis. Visualisation of 
+a particular region has been facilitated with LocusZoom, while network(s) from pathway analysis via 
+gephi or Cytoscape, which accepts a collection of edges, directed or undirected to build a network. 
+Aspects to consider include part or all databases, individual vs summary statistics, computing speed, 
+with and without tissue enrichment.
 
 ### Methods
 
-This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown below,
+This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
+below,
 
 Full name | Abbreviation | Reference
 ----------|--------------|----------
@@ -99,9 +102,11 @@ PANTHER_pathways | 141
 
 Only 2,529 contain 10 or more genes were used by MAGENTA by default, leading to Bonferroni threshold 0.05/2529=1.977066e-05.
 
-2. **MSigDB**. The MSigDB is divided into 8 major collections and several sub-collections on 17,779 gene sets, c2 containing 4,731 curated gene sets (from various 
-sources such as online pathway databases, the biomedical literature, and knowledge of domain experts. MSigDB/BIOCARTA_KEGG_REACTOME came as default to PASCAL and 
-MSigDB v4.0 is distributed with PASCAL.
+2. **MSigDB** (http://software.broadinstitute.org/gsea/msigdb/collections.jsp). The MSigDB v6.0 is 
+divided into 8 major collections and several sub-collections on 17,779 gene sets, c2 containing 4,731 
+curated gene sets (from various sources such as online pathway databases, the biomedical literature, 
+and knowledge of domain experts. MSigDB/BIOCARTA_KEGG_REACTOME came as default to PASCAL and MSigDB 
+v4.0 is distributed with PASCAL.
 
 Gene database | Entries | Bonferroni threshold
 --------------|---------|---------------------
@@ -119,18 +124,26 @@ Phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Ge
 Reactome database pathways | 737 
 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms | 184 
 
-An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
-indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
-feature facilitates comparison of software considerably. Comparative as well as individual results including figures are kept in two excel workbooks called mmp.xlsx 
-and xlsx.xlsx, respectively. Except DEPICT, category 2 (c2) or all of pathways in Molecular Signatures Database (MSigDB) v6 is used.
+An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene 
+IDs. Although MSigDB has an additional column after the pathway ID indicating URLs of the pathway, it 
+would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no 
+effect on the results. This feature facilitates comparison of software considerably. Comparative as 
+well as individual results including figures are kept in two excel workbooks called mmp.xlsx and 
+xlsx.xlsx, respectively. Except DEPICT, category 2 (c2) or all of pathways in Molecular Signatures 
+Database (MSigDB) v6 is used.
 
-An additional note relates to the DEPICT database: while it is appropriate for comparison, many entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, 
-linking a reconstituted geneset containing C20orf11 (3.2), TOMM22 (3.1), CSDA (2.3), C5orf47 (2.2), EIF4EBP1 (2.2), NCK1 (2.2), ZNF337 (2.2), GORASP2 (2.1), KDELR3 
-(2.1), SNX17 (2.1), FAM208B (2.0), ENSG00000243155 (1.9), ENSG00000227195 (1.9), GDI2 (1.9), INHBB (1.8), OCIAD1 (1.7), SMU1 (1.7), ENTPD6 (1.6), LRRC41 (1.6), 
-EIF2B4 (1.6), IRAK3 (1.5), SUMF2 (1.4), CCDC117 (1.4), POMGNT1 (1.3), NANP (1.3), SLC17A9 (1.3), TMEM14B (1.3), CRLS1 (1.2), APTX (1.2), SBNO1 (1.2), MPV17 (1.2), 
-EXD1 (1.2), DNAJB14 (1.2), CALCR (1.2), GSPT1 (1.1), ENSG00000228389 (1.1), METAP1D (1.0), MYCBP (1.0), RSL1D1 (0.9), IFT172 (0.9), SLC25A12 (0.9), C11orf46 (0.9), 
-PIWIL1 (0.9), ABHD12 (0.9), EIF3M (0.8), CBY1 (0.8), SLCO4A1 (0.8), ODF1(0.8), SUV420H2 (0.8), TNFRSF17 (0.7) with value in the bracket being the z-score in the 
-original DEPICT database, so extra work is required to work out the gene SYMBOL in pathways. This can be done via R/ensembldb.
+An additional note relates to the DEPICT database: while it is appropriate for comparison, many 
+entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, linking a reconstituted geneset 
+containing C20orf11 (3.2), TOMM22 (3.1), CSDA (2.3), C5orf47 (2.2), EIF4EBP1 (2.2), NCK1 (2.2), 
+ZNF337 (2.2), GORASP2 (2.1), KDELR3 (2.1), SNX17 (2.1), FAM208B (2.0), ENSG00000243155 (1.9), 
+ENSG00000227195 (1.9), GDI2 (1.9), INHBB (1.8), OCIAD1 (1.7), SMU1 (1.7), ENTPD6 (1.6), LRRC41 (1.6), 
+EIF2B4 (1.6), IRAK3 (1.5), SUMF2 (1.4), CCDC117 (1.4), POMGNT1 (1.3), NANP (1.3), SLC17A9 (1.3), 
+TMEM14B (1.3), CRLS1 (1.2), APTX (1.2), SBNO1 (1.2), MPV17 (1.2), EXD1 (1.2), DNAJB14 (1.2), CALCR 
+(1.2), GSPT1 (1.1), ENSG00000228389 (1.1), METAP1D (1.0), MYCBP (1.0), RSL1D1 (0.9), IFT172 (0.9), 
+SLC25A12 (0.9), C11orf46 (0.9), PIWIL1 (0.9), ABHD12 (0.9), EIF3M (0.8), CBY1 (0.8), SLCO4A1 (0.8), 
+ODF1(0.8), SUV420H2 (0.8), TNFRSF17 (0.7) with value in the bracket being the z-score in the original 
+DEPICT database, so extra work is required to work out the gene SYMBOL in pathways. This can be done 
+via R/ensembldb.
 
 The following code helps to obtain gene symbols,
 ```
@@ -139,8 +152,8 @@ chrall <- select(EnsDb.Hsapiens.v86, keys=paste(1:22), keytype="SEQNAME")
 chrall_table <- subset(chr22[selcol],!duplicated(chr22[selcol]))
 write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FALSE)
 ```
-So ENSG00000000419 corresponds to DPM1, ENSG00000243155 to RP11-46A10.5 but ENSG00000228389 does not correspond to any symbol. In general, a gene symbol may be
-mapped to more than one GENEID.
+So ENSG00000000419 corresponds to DPM1, ENSG00000243155 to RP11-46A10.5 but ENSG00000228389 does not 
+correspond to any symbol. In general, a gene symbol may be mapped to more than one GENEID.
 
 ### Acknowledgements
 
