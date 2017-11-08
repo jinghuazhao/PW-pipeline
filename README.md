@@ -27,19 +27,19 @@ Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Per
 
 Their features are briefly described as follows.
 
-1. **MAGENTA**. To quote Segre, et al. (2010): ``First, DNA variants, e.g. single-nucleotide 
-polymorphisms (SNPs), are mapped onto genes. Second, each gene is assigned a gene association score 
-that is a function of its regional SNP association p-values. Third, confounding effects on gene 
-association scores are identified and corrected for, without requiring genotype data (enabling use of 
-meta-analyses or other types of GWA studies where only variant association statistics are available). 
-Fourth, a Gene Set Enrichment Analysis (GSEA)-like statistical test is applied to predefined 
-biologically relevant gene sets to determine whether any of the gene sets are enriched for highly 
-ranked gene association scores compared to randomly sampled gene sets of identical size from the 
-genome.`` It maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended 
-boundaries to include regulatory regions. Each gene is then assigned a genetic set (GS) score, which 
-is the P-value of the most significant SNP within the gene’s extended boundaries, corrected for 
-potential confounding factors of physical and genetic properties of genes through a step-wise 
-multiple linear regression:
+1. **MAGENTA**. Segre, et al. (2010) describes how it works: ``First, DNA variants, e.g. 
+single-nucleotide polymorphisms (SNPs), are mapped onto genes. Second, each gene is assigned a gene 
+association score that is a function of its regional SNP association p-values. Third, confounding 
+effects on gene association scores are identified and corrected for, without requiring genotype data 
+(enabling use of meta-analyses or other types of GWA studies where only variant association 
+statistics are available). Fourth, a Gene Set Enrichment Analysis (GSEA)-like statistical test is 
+applied to predefined biologically relevant gene sets to determine whether any of the gene sets are 
+enriched for highly ranked gene association scores compared to randomly sampled gene sets of 
+identical size from the genome.`` It maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream 
+of each gene as extended boundaries to include regulatory regions. Each gene is then assigned a 
+genetic set (GS) score, which is the P-value of the most significant SNP within the gene’s extended 
+boundaries, corrected for potential confounding factors of physical and genetic properties of genes 
+through a step-wise multiple linear regression:
 
    * the physical size of the gene
    * number of SNPs per kilobase for each gene
