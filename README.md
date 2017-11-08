@@ -62,41 +62,32 @@ PANTHER_BioProc | 241
 PANTHER_MolFunc | 252
 PANTHER_pathways | 141
 
-Only 2,529 contain 10 or more genes were used by MAGENTA by default.
+Only 2,529 contain 10 or more genes were used by MAGENTA by default, leading to Bonferroni threshold 0.05/2529=1.977066e-05.
 
-2. **MSigDB**.
+2. **MSigDB**. The MSigDB is divided into 8 major collections and several sub-collections on 17,779 gene sets, c2 containing 4,731 curated gene sets (from various 
+sources such as online pathway databases, the biomedical literature, and knowledge of domain experts. MSigDB/BIOCARTA_KEGG_REACTOME came as default to PASCAL and 
+MSigDB v4.0 is distributed with PASCAL.
+
+Gene database | Entries | Bonferroni threshold
+--------------|---------|---------------------
+c2.all.v6.0.entrez.gmt | 4,731 | 0.05/4731=1.056859e-05
+msigBIOCARTA_KEGG_REACTOME.gmt | 1,077 |
+msigdb.v4.0.entrez.gmt | 10,295 
+msigdb.v6.0.entrez.gmt | 17,779 
+
+3. **DEPICT***. Some of the entries are described in the following table,
 
 Gene database | Entries
 --------------|--------
-c2.all.v6.0.entrez.gmt | 4,731 
-msigBIOCARTA_KEGG_REACTOME.gmt | 1077 
-msigdb.v4.0.entrez.gmt | 10295 
-msigdb.v6.0.entrez.gmt | 17779 
-
-3. **DEPICT***.
-
-Gene database | Entries
---------------|--------
-protein molecular pathways derived from 169,810 high-confidence experimentally derived protein-protein interactions | 5,984 
-phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative | 2,473 
+Protein molecular pathways derived from 169,810 high-confidence experimentally derived protein-protein interactions | 5,984 
+Phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative | 2,473 
 Reactome database pathways | 737 
 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms | 184 
 
-In total, 14,461 gene sets were assessed for enrichment in genes in associated regions.
-
 An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
 indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
 feature facilitates comparison of software considerably. Comparative as well as individual results including figures are kept in two excel workbooks called mmp.xlsx 
-and xlsx.xlsx, respectively
-
-In line with the default setup for MAGENTA, pathways with less than 10 genes were excluded leading to 2529 (0.05/2529=1.977066e-05) pathways. Except DEPICT, 
-category 2 (c2) or all of pathways in Molecular Signatures Database (MSigDB) v6 is used. The MSigDB is divided into 8 major collections and several sub-collections 
-on 17,779 gene sets, c2 containing 4,731 (0.05/4731=1.056859e-05) curated gene sets (from various sources such as online pathway databases, the biomedical 
-literature, and knowledge of domain experts. MSigDB/BIOCARTA_KEGG_REACTOME came as default to PASCAL and MSigDB v4.0 is distributed with PASCAL. 
-An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
-indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
-feature facilitates comparison of software considerably. Comparative as well as individual results including figures are kept in two excel workbooks called mmp.xlsx 
-and xlsx.xlsx, respectively.
+and xlsx.xlsx, respectively. Except DEPICT, category 2 (c2) or all of pathways in Molecular Signatures Database (MSigDB) v6 is used.
 
 For the discretised DEPICT-to-PASCAL database involving ENSEMBL IDs, the following code readily helps,
 ```
