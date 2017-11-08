@@ -22,7 +22,7 @@ Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
 
-Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, A [companion 
+Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
 database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
 from DEPICT website has also been converted to supply to all software.
 
