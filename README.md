@@ -38,27 +38,16 @@ with the phenotype. In addition the correlations between genes are estimated. Th
 for the dependencies between genes during the gene-set analysis. The gene p-values and gene correlation matrix are then used in the second part to perform the 
 actual gene-set analysis.
 
-3. **DEPICT**. DEPICT performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known 
-molecular pathways (jointly referred to as reconstituted gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other genes 
-in a given gene set based on a panel of 77,840 gene expression microarrays. Genes that are found to be transcriptionally co-regulated with genes from the original 
-gene set are added to the gene set, which results in the reconstitution. Several types of gene sets were reconstituted in DEPICT: 5,984 protein molecular pathways 
-derived from 169,810 high-confidence experimentally derived protein-protein interactions, 2,473 phenotypic gene sets derived from 211,882 gene-phenotype pairs from 
-the Mouse Genetics Initiative, 737 Reactome database pathways, 184 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database 
-terms. In total, 14,461 gene sets were assessed for enrichment in genes in associated regions. DEPICT also facilitates tissue and cell type enrichment analyses by 
-testing whether the genes in associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array 
-platform.
-
-Input to DEPICT was SNPs achieved certain level os genomewide significance, from which regions were clumped using PLINK options --clump-kb --clump-p1 --clump-r2. 
-results include or tissue-specific Z-scores, independent loci, reconstituted gene set enrichment Z-scores and prioritised genes.
+3. **DEPICT**. It performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known molecular 
+pathways (jointly referred to as reconstituted gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other genes in a given 
+gene set based on a panel of 77,840 gene expression microarrays. Genes that are found to be transcriptionally co-regulated with genes from the original gene set are 
+added to the gene set, which results in the reconstitution. DEPICT also facilitates tissue and cell type enrichment analyses by testing whether the genes in 
+associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
 
 4. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and 
-sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. This part by default is done for 
-msigBIOCARTA_KEGG_REACTOME.gmt (1,077 pathways) or msigdb.v4.0.entrez.gmt containing all MSigDB genes (10,295 pathways). As of 21 June, 7,949 and 12,198 genes have 
-been done, respectively.
-
-Gene sets are based on external databases for reported pathways by combining the scores of genes that belong to the same pathways. Pathway enrichment of 
-high-scoring (potentially fused) genes is evaluated using parameter-free procedures (chi-square or empirical score), avoiding any p-value cut-off inherent to 
-standard binary enrichment tests.
+sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. Gene sets are based on external 
+databases for reported pathways by combining the scores of genes that belong to the same pathways. Pathway enrichment of high-scoring (potentially fused) genes is 
+evaluated using parameter-free procedures (chi-square or empirical score), avoiding any p-value cut-off inherent to standard binary enrichment tests.
 
 ### Databases
 
@@ -76,14 +65,22 @@ PANTHER_pathways | 141
 Only 2,529 contain 10 or more genes were used by MAGENTA by default.
 
 2. **MSigDB**.
-Gene database | N
---------------|---
+Gene database | Entries
+--------------|--------
 c2.all.v6.0.entrez.gmt | 4,731 
 msigBIOCARTA_KEGG_REACTOME.gmt | 1077 
 msigdb.v4.0.entrez.gmt | 10295 
 msigdb.v6.0.entrez.gmt | 17779 
 
-3. **DEPICT***. See above.
+3. **DEPICT***.
+Gene database | Entries
+--------------|--------
+protein molecular pathways derived from 169,810 high-confidence experimentally derived protein-protein interactions | 5,984 
+phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative | 2,473 
+Reactome database pathways | 737 
+Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms | 184 
+
+In total, 14,461 gene sets were assessed for enrichment in genes in associated regions.
 
 An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
 indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
