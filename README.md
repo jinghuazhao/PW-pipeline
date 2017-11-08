@@ -65,6 +65,7 @@ PANTHER_pathways | 141
 Only 2,529 contain 10 or more genes were used by MAGENTA by default.
 
 2. **MSigDB**.
+
 Gene database | Entries
 --------------|--------
 c2.all.v6.0.entrez.gmt | 4,731 
@@ -73,6 +74,7 @@ msigdb.v4.0.entrez.gmt | 10295
 msigdb.v6.0.entrez.gmt | 17779 
 
 3. **DEPICT***.
+
 Gene database | Entries
 --------------|--------
 protein molecular pathways derived from 169,810 high-confidence experimentally derived protein-protein interactions | 5,984 
