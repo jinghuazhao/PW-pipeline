@@ -76,7 +76,7 @@ msigBIOCARTA_KEGG_REACTOME.gmt | 1,077 | 4.642525533890436e-05
 msigdb.v4.0.entrez.gmt | 10,295 | 4.85672656629431e-06
 msigdb.v6.0.entrez.gmt | 17,779 | 2.81230665391754e--06
 
-3. **DEPICT***. Some of the entries are described in the following table,
+3. **DEPICT**. Some of the entries are described in the following table,
 
 Gene database | Entries
 --------------|--------
