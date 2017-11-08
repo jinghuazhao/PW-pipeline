@@ -22,7 +22,7 @@ Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw C, et al. (2015)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers TH et al.(2015)
 Pathway scoring algorithm | PASCAL | Lamparter D, et al. (2016)
 
-While DEPECT uses its own database, several databases can be supplied to MAGENTA, MAGMA and PASCAL. A DEPICT-to-PASCAL database from PASCAL developers which can be 
+While DEPICT uses its own database, several databases can be supplied to MAGENTA, MAGMA and PASCAL. A DEPICT-to-PASCAL database from PASCAL developers which can be 
 used across all software.
 
 Their features are briefly described as follows.
