@@ -26,9 +26,13 @@ Their features are briefly described as follows.
 
 1. **MAGENTA**. It first maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended boundaries to include regulatory regions. Each gene 
 is then assigned a genetic set (GS) score, which is the P-value of the most significant SNP within the gene’s extended boundaries, corrected for six potential 
-confounding factors of physical and genetic properties of genes through a step-wise multiple linear regression: (i) the physical size of the gene, (ii) number of 
-SNPs per kilobase for each gene, (iii) estimated number of independent SNPs per gene, (iv) number of recombination hotspots spanning each gene, (v) genetic distance 
-of the gene and (vi) linkage disequilibrium (LD) unit distance per gene.
+confounding factors of physical and genetic properties of genes through a step-wise multiple linear regression: 
+* the physical size of the gene
+* number of SNPs per kilobase for each gene
+* estimated number of independent SNPs per gene
+* number of recombination hotspots spanning each gene
+* genetic distance of the gene 
+* linkage disequilibrium (LD) unit distance per gene
 
 2. **MAGMA**. The gene-set analysis is divided into two parts. In the first part a gene analysis is performed to quantify the degree of association each gene has 
 with the phenotype. In addition the correlations between genes are estimated. These correlations reflect the LD between genes, and are needed in order to compensate 
