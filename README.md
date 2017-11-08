@@ -19,8 +19,8 @@ Full name | Abbreviation | Reference
 ----------|--------------|----------
 Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre, et al (2010)
 Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
-Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
+Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
 Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
 database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
@@ -39,16 +39,16 @@ with the phenotype. In addition the correlations between genes are estimated. Th
 for the dependencies between genes during the gene-set analysis. The gene p-values and gene correlation matrix are then used in the second part to perform the 
 actual gene-set analysis.
 
-3. **DEPICT**. It performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known molecular 
+3. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and 
+sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. Gene sets are based on external 
+databases for reported pathways by combining the scores of genes that belong to the same pathways. Pathway enrichment of high-scoring (potentially fused) genes is 
+evaluated using parameter-free procedures (chi-square or empirical score), avoiding any p-value cut-off inherent to standard binary enrichment tests.
+
+4. **DEPICT**. It performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known molecular 
 pathways (jointly referred to as reconstituted gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other genes in a given 
 gene set based on a panel of 77,840 gene expression microarrays. Genes that are found to be transcriptionally co-regulated with genes from the original gene set are 
 added to the gene set, which results in the reconstitution. DEPICT also facilitates tissue and cell type enrichment analyses by testing whether the genes in 
 associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
-
-4. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and 
-sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. Gene sets are based on external 
-databases for reported pathways by combining the scores of genes that belong to the same pathways. Pathway enrichment of high-scoring (potentially fused) genes is 
-evaluated using parameter-free procedures (chi-square or empirical score), avoiding any p-value cut-off inherent to standard binary enrichment tests.
 
 ### Databases
 
