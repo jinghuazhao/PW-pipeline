@@ -13,6 +13,17 @@ gephi or Cytoscape, which accepts a collection of edges, directed or undirected 
 Aspects to consider include part or all databases, individual vs summary statistics, computing speed, 
 with and without tissue enrichment.
 
+### Usage
+
+The pipeline requires users to specify software to be used as well as database to use. It is possible 
+that a given database can be used for several software when appropriate.
+
+The input will be (some) GWAS summary statistics containing rsid, p values, and the syntax is
+```
+bash pwp.sh <input file>
+```
+and the output will be collected into an Excel file.
+
 ### Methods
 
 This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
@@ -157,8 +168,8 @@ correspond to any symbol. In general, a gene symbol may be mapped to more than o
 
 ### Acknowledgements
 
-The work drives from comparison of their performance using our own GWAS data. The practicality of a common DEPICT database to all software here was due to PASCAL 
-developer(s).
+The work drives from comparison of their performance using our own GWAS data. The practicality of a 
+common DEPICT database to all software here was due to PASCAL developer(s).
 
 ### Software and references
 
