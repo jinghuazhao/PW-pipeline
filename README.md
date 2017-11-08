@@ -50,6 +50,11 @@ gene set based on a panel of 77,840 gene expression microarrays. Genes that are 
 added to the gene set, which results in the reconstitution. DEPICT also facilitates tissue and cell type enrichment analyses by testing whether the genes in 
 associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
 
+The `p.adjust` function in `R/stats` can bee used to obtain FDRs and count the number of pathways reaching FDR<=0.05. It implements the so-called Benjamini-Hochberg 
+(BH) procedure, which attempts to control for expected proportion of false discoveries among the rejected hypotheses (i.e., those with p values below 0.05) and most 
+powerful for independent tests. The BH procedure for an m number of tests (pathways) achieves false discovery rate at level α by finding the largest number k such 
+that p values is no greater than (k/m)α, and declares only those below this threshold as being significant, https://en.wikipedia.org/wiki/False_discovery_rate.
+
 ### Databases
 
 Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
