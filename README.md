@@ -118,10 +118,20 @@ The work drives from comparison of their performance using our own GWAS data.
 
 ### Software and references
 
-DEPICT (Pers TH et al. Nat Commun. 2015 Jan 19;6:5890. doi: 10.1038/ncomms6890)
+[DEPICT](https://data.broadinstitute.org/mpg/depict/) ([GitHub](https://github.com/perslab/depict))
 
-MAGENTA (Segre AV, et al (2010). PLoS Genet. 2010 Aug 12;6(8). pii: e1001058. doi: 10.1371/journal.pgen.1001058)7
+Pers TH et al.(2015) Biological interpretation of genome-wide association studies using predicted gene functions. Nat Commun. 6:5890. doi: 10.1038/ncomms6890.
 
-MAGMA (de Leeuw C, et al. PLoS Comput Biol. 2015 Apr; 11(4): e1004219. doi:  10.1371/journal.pcbi.1004219)
+[MAGENTA](https://software.broadinstitute.org/mpg/magenta/)
 
-PASCAL (Lamparter D, et al. PLoS Comput Biol. 2016 Jan 25;12(1):e1004714. doi: 10.1371/journal.pcbi.1004714. eCollection 2016 Jan.)
+Segre AV, et al (2010). Common Inherited Variation in Mitochondrial Genes Is Not Enriched for Associations with Type 2 Diabetes or Related Glycemic Traits. PLoS 
+Genet. 12;6(8). pii: e1001058. doi: 10.1371/journal.pgen.1001058
+
+[MAGMA](http://ctg.cncr.nl/software/magma)
+
+de Leeuw C, et al. (2015) MAGMA: Generalized Gene-Set Analysis of GWAS Data. PLoS Comput Biol. 11(4): e1004219. doi:  10.1371/journal.pcbi.1004219
+
+[Pascal](http://www2.unil.ch/cbg/images/3/3d/PASCAL.zip) ([GitHub](https://github.com/perslab/depict))
+
+Lamparter D, et al. (2016) Fast and Rigorous Computation of Gene and Pathway Scores from SNP-Based Summary Statistics. PLoS Comput Biol. 2016 Jan 25;12(1):e1004714. 
+doi: 10.1371/journal.pcbi.1004714
