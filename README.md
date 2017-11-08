@@ -22,10 +22,6 @@ Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
 Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
-Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
-database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
-from DEPICT website has also been converted to supply to all software.
-
 Their features are briefly described as follows.
 
 1. **MAGENTA**. It first maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended boundaries to include regulatory regions. Each gene 
@@ -51,6 +47,10 @@ added to the gene set, which results in the reconstitution. DEPICT also facilita
 associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
 
 ### Databases
+
+Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
+database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
+from DEPICT website has also been converted to supply to all software.
 
 1. **MAGENTA**. The six databases (\_db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
 
