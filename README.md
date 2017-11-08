@@ -19,7 +19,7 @@ Full name | Abbreviation | Reference
 ----------|--------------|----------
 Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre AV, et al (2010)
 Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw C, et al. (2015)
-Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT
+Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers TH et al.(2015)
 Pathway scoring algorithm | PASCAL | Lamparter D, et al. (2016)
 
 It using several databases that can be supplied to MAGENTA, MAGMA and PASCAL, and also in particular with respect to a DEPICT-to-PASCAL database from PASCAL 
