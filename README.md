@@ -17,10 +17,10 @@ This repository inovles several software for pathway analysis using GWAS summary
 
 Full name | Abbreviation | Reference
 ----------|--------------|----------
-Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre AV, et al (2010)
-Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw C, et al. (2015)
-Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers TH et al.(2015)
-Pathway scoring algorithm | PASCAL | Lamparter D, et al. (2016)
+Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre, et al (2010)
+Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
+Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
+Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
 
 While DEPICT uses its own database, several databases can be supplied to MAGENTA, MAGMA and PASCAL. A DEPICT-to-PASCAL database from PASCAL developers which can be 
 used across all software.
