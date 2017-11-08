@@ -13,7 +13,7 @@ computing speed, with and without tissue enrichment.
 
 ### Methods
 
-This repository inovles several software for pathway analysis using GWAS summary statistics, as shown below,
+This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown below,
 
 Full name | Abbreviation | Reference
 ----------|--------------|----------
