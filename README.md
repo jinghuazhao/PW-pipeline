@@ -37,7 +37,7 @@ confounding factors of physical and genetic properties of genes through a step-w
 2. **MAGMA**. The gene-set analysis is divided into two parts. 
    * a gene analysis is performed to quantify the degree of association each gene has with the phenotype. In addition the correlations between genes are estimated.
      These correlations reflect the LD between genes, and are needed in order to compensate for the dependencies between genes during the gene-set analysis. 
-   * The gene p-values and gene correlation matrix are then used in the second part to perform the actual gene-set analysis.
+   * the gene p-values and gene correlation matrix are then used to perform the actual gene-set analysis.
 
 3. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and 
 sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. Gene sets are based on external 
