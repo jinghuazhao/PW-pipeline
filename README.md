@@ -100,7 +100,8 @@ write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FAL
 
 ### Acknowledgements
 
-The work drives from comparison of their performance using our own GWAS data. The common DEPICT database was due to PASCAL developer(s).
+The work drives from comparison of their performance using our own GWAS data. The practicality of a common DEPICT database to all software here was due to PASCAL 
+developer(s).
 
 ### Software and references
 
