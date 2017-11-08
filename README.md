@@ -22,52 +22,37 @@ Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw C, et al. (2015)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers TH et al.(2015)
 Pathway scoring algorithm | PASCAL | Lamparter D, et al. (2016)
 
-It using several databases that can be supplied to MAGENTA, MAGMA and PASCAL, and also in particular with respect to a DEPICT-to-PASCAL database from PASCAL 
-developers which can be used across all software.
+While DEPECT uses its own database, several databases can be supplied to MAGENTA, MAGMA and PASCAL. A DEPICT-to-PASCAL database from PASCAL developers which can be 
+used across all software.
 
 Their features are briefly described as follows.
 
-For the discretised DEPICT-to-PASCAL database involving ENSEMBL IDs, the following code readily helps,
-```
-library(EnsDb.Hsapiens.v86)
-chrall <- select(EnsDb.Hsapiens.v86, keys=paste(1:22), keytype="SEQNAME")
-chrall_table <- subset(chr22[selcol],!duplicated(chr22[selcol]))
-write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FALSE)
-```
+1. **MAGENTA**. It first maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended boundaries to include regulatory regions. Each gene 
+is then assigned a genetic set (GS) score, which is the P-value of the most significant SNP within the gene’s extended boundaries, corrected for six potential 
+confounding factors of physical and genetic properties of genes through a step-wise multiple linear regression: (i) the physical size of the gene, (ii) number of 
+SNPs per kilobase for each gene, (iii) estimated number of independent SNPs per gene, (iv) number of recombination hotspots spanning each gene, (v) genetic distance 
+of the gene and (vi) linkage disequilibrium (LD) unit distance per gene.
 
-**MAGENTA**
+2. **MAGMA**. The gene-set analysis is divided into two parts. In the first part a gene analysis is performed to quantify the degree of association each gene has 
+with the phenotype. In addition the correlations between genes are estimated. These correlations reflect the LD between genes, and are needed in order to compensate 
+for the dependencies between genes during the gene-set analysis. The gene p-values and gene correlation matrix are then used in the second part to perform the 
+actual gene-set analysis.
 
-It first maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended boundaries to include regulatory regions. Each gene is then 
-assigned a genetic set (GS) score, which is the P-value of the most significant SNP within the gene’s extended boundaries, corrected for six potential confounding 
-factors of physical and genetic properties of genes through a step-wise multiple linear regression: (i) the physical size of the gene, (ii) number of SNPs per 
-kilobase for each gene, (iii) estimated number of independent SNPs per gene, (iv) number of recombination hotspots spanning each gene, (v) genetic distance of the 
-gene and (vi) linkage disequilibrium (LD) unit distance per gene.
-
-**MAGMA**
-
-The gene-set analysis is divided into two parts. In the first part a gene analysis is performed to quantify the degree of association each gene has with the 
-phenotype. In addition the correlations between genes are estimated. These correlations reflect the LD between genes, and are needed in order to compensate for the 
-dependencies between genes during the gene-set analysis. The gene p-values and gene correlation matrix are then used in the second part to perform the actual 
-gene-set analysis.
-
-**DEPICT**
-
-DEPICT performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known molecular pathways 
-(jointly referred to as reconstituted gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other genes in a given gene set 
-based on a panel of 77,840 gene expression microarrays. Genes that are found to be transcriptionally co-regulated with genes from the original gene set are added to 
-the gene set, which results in the reconstitution. Several types of gene sets were reconstituted in DEPICT: 5,984 protein molecular pathways derived from 169,810 
-high-confidence experimentally derived protein-protein interactions, 2,473 phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics 
-Initiative, 737 Reactome database pathways, 184 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms. In total, 
-14,461 gene sets were assessed for enrichment in genes in associated regions. DEPICT also facilitates tissue and cell type enrichment analyses by testing whether 
-the genes in associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
+3. **DEPICT**. DEPICT performs gene set enrichment analyses by testing whether genes in GWAS-associated loci are enriched for reconstituted versions of known 
+molecular pathways (jointly referred to as reconstituted gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other genes 
+in a given gene set based on a panel of 77,840 gene expression microarrays. Genes that are found to be transcriptionally co-regulated with genes from the original 
+gene set are added to the gene set, which results in the reconstitution. Several types of gene sets were reconstituted in DEPICT: 5,984 protein molecular pathways 
+derived from 169,810 high-confidence experimentally derived protein-protein interactions, 2,473 phenotypic gene sets derived from 211,882 gene-phenotype pairs from 
+the Mouse Genetics Initiative, 737 Reactome database pathways, 184 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database 
+terms. In total, 14,461 gene sets were assessed for enrichment in genes in associated regions. DEPICT also facilitates tissue and cell type enrichment analyses by 
+testing whether the genes in associated regions are highly expressed in any of the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array 
+platform.
 
 Input to DEPICT was SNPs achieved certain level os genomewide significance, from which regions were clumped using PLINK options --clump-kb --clump-p1 --clump-r2. 
 results include or tissue-specific Z-scores, independent loci, reconstituted gene set enrichment Z-scores and prioritised genes.
 
-**PASCAL**
-
-Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and sum of 
-chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. This part by default is done for 
+4. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while correcting for LD using a reference population via the max and 
+sum of chi-squared statistics based on the most significant SNP and the average association signal across the region, respectively. This part by default is done for 
 msigBIOCARTA_KEGG_REACTOME.gmt (1,077 pathways) or msigdb.v4.0.entrez.gmt containing all MSigDB genes (10,295 pathways). As of 21 June, 7,949 and 12,198 genes have 
 been done, respectively.
 
@@ -77,9 +62,7 @@ standard binary enrichment tests.
 
 ### Databases
 
-**MAGENTA**
-
-The six databases (\_db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
+1. **MAGENTA**. The six databases (\_db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
 
 Name | Entries
 -----|--------
@@ -92,8 +75,7 @@ PANTHER_pathways | 141
 
 Only 2,529 contain 10 or more genes were used by MAGENTA by default.
 
-**MSigDB**
-
+2. **MSigDB**.
 Gene database | N
 --------------|---
 c2.all.v6.0.entrez.gmt | 4,731 
@@ -101,9 +83,7 @@ msigBIOCARTA_KEGG_REACTOME.gmt | 1077
 msigdb.v4.0.entrez.gmt | 10295 
 msigdb.v6.0.entrez.gmt | 17779 
 
-**DEPICT***
-
-See above.
+3. **DEPICT***. See above.
 
 An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID 
 indicating URLs of the pathway, it would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This 
@@ -119,6 +99,13 @@ indicating URLs of the pathway, it would be ignored by MAGMA for instance since 
 feature facilitates comparison of software considerably. Comparative as well as individual results including figures are kept in two excel workbooks called mmp.xlsx 
 and xlsx.xlsx, respectively.
 
+For the discretised DEPICT-to-PASCAL database involving ENSEMBL IDs, the following code readily helps,
+```
+library(EnsDb.Hsapiens.v86)
+chrall <- select(EnsDb.Hsapiens.v86, keys=paste(1:22), keytype="SEQNAME")
+chrall_table <- subset(chr22[selcol],!duplicated(chr22[selcol]))
+write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FALSE)
+```
 
 ### Acknowledgements
 
