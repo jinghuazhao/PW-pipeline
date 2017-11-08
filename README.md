@@ -24,7 +24,7 @@ bash pwp.sh <input file>
 ```
 and the output will be collected into an Excel file.
 
-### Methods
+### Software
 
 This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
 below,
