@@ -65,14 +65,15 @@ belong to the same pathways. Pathway enrichment of high-scoring (potentially fus
 evaluated using parameter-free procedures (chi-square or empirical score), avoiding any p-value 
 cut-off inherent to standard binary enrichment tests.
 
-4. **DEPICT**. It performs GSEA by testing whether genes in GWAS-associated loci are enriched for 
-reconstituted versions of known molecular pathways (jointly referred to as reconstituted gene sets). 
-The reconstitution is accomplished by identifying genes that are co-regulated with other genes in a 
-given gene set based on a panel of 77,840 gene expression microarrays. Genes that are found to be 
-transcriptionally co-regulated with genes from the original gene set are added to the gene set, which 
-results in the reconstitution. DEPICT also facilitates tissue and cell type enrichment analyses by 
-testing whether the genes in associated regions are highly expressed in any of the 209 MeSH 
-annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
+4. **DEPICT**. It is a computational framework for gene prioritization, GSEA and tissue/cell type 
+enrichment analysis. The GSEA is perfomed by testing whether genes in GWAS-associated loci are 
+enriched for reconstituted versions of known molecular pathways (jointly referred to as reconstituted 
+gene sets). The reconstitution is accomplished by identifying genes that are co-regulated with other 
+genes in a given gene set based on a panel of 77,840 gene expression microarrays. Genes that are 
+found to be transcriptionally co-regulated with genes from the original gene set are added to the 
+gene set, which results in the reconstitution. DEPICT also facilitates tissue and cell type 
+enrichment analyses by testing whether the genes in associated regions are highly expressed in any of 
+the 209 MeSH annotations for 37,427 microarrays on the Affymetrix U133 Plus 2.0 Array platform.
 
 The `p.adjust` function in `R/stats` can bee used to obtain FDRs and count the number of pathways 
 reaching FDR<=0.05. It implements the so-called Benjamini-Hochberg (BH) procedure, which attempts to 
