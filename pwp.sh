@@ -1,7 +1,7 @@
 #!/bin/bash
 # 14-11-2017 MRC-Epid JHZ
 
-## settings
+## SETTINGS
 
 export PW_location=/genetics/bin/PW-pipeline
 MAGMA=/genetics/bin/MAGMA
@@ -17,8 +17,8 @@ export depict=1
 
 ### databases
 
-export c2=/genetics/src/MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
-export msigdb=/genetics/src/MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
+export c2=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
+export msigdb=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
 export depict2=/genetics/bin/PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 export msigdb_c2=0
 export msigdb=0
