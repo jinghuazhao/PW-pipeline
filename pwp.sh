@@ -4,6 +4,8 @@
 ## settings
 
 export PW_location=/genetics/bin/PW-pipeline
+MAGMA=/genetics/bin/MAGMA
+MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export use_UCSC=0
 
 ### software
@@ -18,8 +20,6 @@ export depict=1
 export c2=/genetics/src/MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
 export msigdb=/genetics/src/MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
 export depict2=/genetics/bin/PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
-MAGMA=/genetics/bin/MAGMA
-MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export msigdb_c2=0
 export msigdb=0
 export magenta_db=1
