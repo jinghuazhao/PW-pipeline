@@ -1,5 +1,5 @@
 #!/bin/bash
-# 12-11-2017 MRC-Epid JHZ
+# 14-11-2017 MRC-Epid JHZ
 
 ## settings
 
@@ -35,17 +35,18 @@ if [ $magenta -eq 1 ]; then
    if [ ! -d "MAGENTA" ]; then
       mkdir MAGENTA
    fi
+   cd MAGENTA
    R -q --no-save < ${PW_location}/MAGENTA/data.R
    if [ $magenta_db -eq 1 ]; then
       export db=magenta
       qsub -V ${PW_location}/MAGENTA/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
       export db=c2
-      awk '{$2=$1; $1="c2"; print}' $c2 > MAGENTA/c2.db
+      awk '{$2=$1; $1="c2"; print}' $c2 > c2.db
       qsub -V ${PW_location}/MAGENTA/c2.sh
    elif [ $msigdb -eq 1 ]; then
       export db=msigdb
-      awk '{$2=$1; $1="msigdb"; print}' $msigdb > MAGENTA/msigdb.db
+      awk '{$2=$1; $1="msigdb"; print}' $msigdb > msigdb.db
       qsub -V ${PW_location}/MAGENTA/msigdb.sh
    else
       export db=depict2
@@ -54,7 +55,8 @@ if [ $magenta -eq 1 ]; then
    fi
    export suffix=MAGENTA.db_10000perm_Jul05_17
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
-   R -q --no-save < ${PW_location}/MAGENTA/collect.R > MAGENTA/collect.log
+   R -q --no-save < ${PW_location}/MAGENTA/collect.R > collect.log
+   cd -
 fi
 
 if [ $magma -eq 1 ]; then
@@ -62,12 +64,15 @@ if [ $magma -eq 1 ]; then
    if [ ! -d "MAGMA" ]; then
       mkdir MAGMA
    fi
+   cd MAGMA
    R -q --no-save < ${PW_location}/MAGMA/data.R
    # Annotation
-   magma --annotate window=50,50 --snp-loc magma.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out MAGMA/magma
+   magma --annotate window=50,50 --snp-loc magma.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out magma
    # Gene analysis - SNP p-values
-   magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out MGAMA/magma
+   magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $magenta_db -eq 1 ]; then
+      awk -vFS="\t" '{$1=sprintf("%00005d-%s",NR,$1);$2=""};1' $MAGENTTA/MAGENTA.db | awk '{$2=$2};1'> magenta.db
+      cut -f1,2 ../magenta.db | awk -vFS="\t" -vOFS="\t" '{$1=sprintf("%00005d-%s",NR,$1);gsub(/\t/," ",$2)};1' > magenta.id
       qsub -V ${PW_location}/MAGMA/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
       qsub -V ${PW_location}/MAGMA/c2.sh
@@ -76,7 +81,8 @@ if [ $magma -eq 1 ]; then
    else
       qsub -V ${PW_location}/MAGMA/depict.sh
    fi
-   R -q --no-save < ${PW_location}/MAGMA/collect.R > MAGMA/collect.log
+   R -q --no-save < ${PW_location}/MAGMA/collect.R > collect.log
+   cd -
 fi
 
 if [ $pascal -eq 1 ]; then
@@ -84,6 +90,7 @@ if [ $pascal -eq 1 ]; then
    if [ ! -d "PASCAL" ]; then
       mkdir PASCAL
    fi
+   cd PASCAL
    R -q --no-save < ${PW_location}/PASCAL/data.R
    if [ $magenta_db -eq 1 ]; then
       qsub -V ${PW_location}/PASCAL/magenta.sh
@@ -94,7 +101,8 @@ if [ $pascal -eq 1 ]; then
    else
       qsub -V ${PW_location}/PASCAL/depict.sh
    fi
-   R -q --no-save < $PW_location}/PASCAL/collect.R > PASCAL/collect.log
+   R -q --no-save < $PW_location}/PASCAL/collect.R > collect.log
+   cd -
 fi
 
 if [ $depict -eq 1 ]; then
@@ -102,13 +110,15 @@ if [ $depict -eq 1 ]; then
    if [ ! -d "DEPICT" ]; then
       mkdir DEPICT
    fi
+   cd DEPICT
    R -q --no-save < ${PW_location}/DEPICT/data.R
    if [ $depict_db -eq 1 ]; then
       qsub -V ${PW_location}/DEPICT/depict.sh
    elif [ $depict_db2 -eq 1 ]; then
       qsub -V ${PW_location}/DEPICT/depict2.sh
    fi
-   R -q --no-save < ${PW_location}/DEPICT/collect.R > DEPICT/collect.log
+   R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.log
+   cd -
 fi
 
 ## collection into Excel
