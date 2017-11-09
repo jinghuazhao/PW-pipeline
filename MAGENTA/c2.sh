@@ -8,6 +8,5 @@
 #$ -q all.q
 #$ -t 1
 
-cd /genetics/bin/MAGENTA_software_package_vs2_July2011
-# -singleCompThread
+cd $MAGENTA
 matlab -nodisplay -r "c2, exit"
