@@ -38,19 +38,19 @@ if [ $magenta -eq 1 ]; then
    R -q --no-save < ${PW_location}/MAGENTA/data.R
    if [ $magenta_db -eq 1 ]; then
       export db=magenta
-      qsub ${PW_location}/MAGENTA/magenta.sh
+      qsub -V ${PW_location}/MAGENTA/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
       export db=c2
       awk '{$2=$1; $1="c2"; print}' $c2 > MAGENTA/c2.db
-      qsub ${PW_location}/MAGENTA/c2.sh
+      qsub -V ${PW_location}/MAGENTA/c2.sh
    elif [ $msigdb -eq 1 ]; then
       export db=msigdb
       awk '{$2=$1; $1="msigdb"; print}' $msigdb > MAGENTA/msigdb.db
-      qsub ${PW_location}/MAGENTA/msigdb.sh
+      qsub -V ${PW_location}/MAGENTA/msigdb.sh
    else
       export db=depict2
       awk '{FS=OFS="\t";$2=$1;$1="depict";print}' $depict2 > MAGENTA/depict.db
-      qsub ${PW_location}/MAGENTA/depict2.sh
+      qsub -V ${PW_location}/MAGENTA/depict2.sh
    fi
    export suffix=MAGENTA.db_10000perm_Jul05_17
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
@@ -68,13 +68,13 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out MGAMA/magma
    if [ $magenta_db -eq 1 ]; then
-      qsub ${PW_location}/MAGMA/magenta.sh
+      qsub -V ${PW_location}/MAGMA/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
-      qsub ${PW_location}/MAGMA/c2.sh
+      qsub -V ${PW_location}/MAGMA/c2.sh
    elif [ $msigbdb -eq 1 ]; then
-      qsub ${PW_location}/MAGMA/msigdb.sh
+      qsub -V ${PW_location}/MAGMA/msigdb.sh
    else
-      qsub ${PW_location}/MAGMA/depict.sh
+      qsub -V ${PW_location}/MAGMA/depict.sh
    fi
    R -q --no-save < ${PW_location}/MAGMA/collect.R > MAGMA/collect.log
 fi
@@ -86,13 +86,13 @@ if [ $pascal -eq 1 ]; then
    fi
    R -q --no-save < ${PW_location}/PASCAL/data.R
    if [ $magenta_db -eq 1 ]; then
-      qsub ${PW_location}/PASCAL/magenta.sh
+      qsub -V ${PW_location}/PASCAL/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
-      qsub ${PW_location}/PASCAL/c2.sh
+      qsub -V ${PW_location}/PASCAL/c2.sh
    elif [ $msigbdb -eq 1 ]; then
-      qsub ${PW_location}/PASCAL/msigdb.sh
+      qsub -V ${PW_location}/PASCAL/msigdb.sh
    else
-      qsub ${PW_location}/PASCAL/depict.sh
+      qsub -V ${PW_location}/PASCAL/depict.sh
    fi
    R -q --no-save < $PW_location}/PASCAL/collect.R > PASCAL/collect.log
 fi
@@ -104,9 +104,9 @@ if [ $depict -eq 1 ]; then
    fi
    R -q --no-save < ${PW_location}/DEPICT/data.R
    if [ $depict_db -eq 1 ]; then
-      qsub ${PW_location}/DEPICT/depict.sh
+      qsub -V ${PW_location}/DEPICT/depict.sh
    elif [ $depict_db2 -eq 1 ]; then
-      qsub ${PW_location}/DEPICT/depict2.sh
+      qsub -V ${PW_location}/DEPICT/depict2.sh
    fi
    R -q --no-save < ${PW_location}/DEPICT/collect.R > DEPICT/collect.log
 fi
