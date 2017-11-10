@@ -100,7 +100,7 @@ Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPIC
 database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
 from DEPICT website has also been converted to supply to all software.
 
-1. **MAGENTA**. The six databases (\_db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
+1. **MAGENTA**. The six databases (.db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
 
 Name | Entries
 -----|--------
