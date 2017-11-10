@@ -109,7 +109,12 @@ DEPICT*  |   x     |   x   |  x     |   x
 \* The common database to all software is derived from [a database from DEPICT 
 website](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz).
 
-Next we give more details about them.
+Except DEPICT, MAGENTA database, all or part (c2) of pathways in Molecular Signatures Database (MSigDB) can also be used. An entry in MAGENTA database contains a 
+database ID, a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID indicating URLs of the pathway, it 
+would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This feature facilitates use of software 
+considerably. Comparative as well as individual results including figures are kept in Excel workbooks called mmp.xlsx, depict.xlsx and xlsx.xlsx, respectively.
+
+Additional details about these databases are described here.
 
 1. **MAGENTA**. There are six databases (.db) with a total of 10,327 entries were distributed with the MATLAB implementation: 
 
@@ -145,14 +150,6 @@ Protein molecular pathways derived from 169,810 high-confidence experimentally d
 Phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative | 2,473 
 Reactome database pathways | 737 
 Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms | 184 
-
-An entry in the MAGENTA pathway database contains a pathway ID, followed by a list of Entrez gene 
-IDs. Although MSigDB has an additional column after the pathway ID indicating URLs of the pathway, it 
-would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no 
-effect on the results. This feature facilitates comparison of software considerably. Comparative as 
-well as individual results including figures are kept in two excel workbooks called mmp.xlsx and 
-xlsx.xlsx, respectively. Except DEPICT, category 2 (c2) or all of pathways in Molecular Signatures 
-Database (MSigDB) v6 is used.
 
 An additional note relates to the common database: while it is appropriate for comparison, many 
 entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, linking a reconstituted geneset 
