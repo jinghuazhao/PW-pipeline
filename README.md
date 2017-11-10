@@ -96,9 +96,18 @@ https://en.wikipedia.org/wiki/False_discovery_rate.
 
 ### Databases
 
-Several databases can be supplied to MAGENTA, MAGMA and PASCAL. By default DEPICT uses its own database, a [companion 
-database](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz) 
-from DEPICT website has also been converted to supply to all software.
+Several databases can be supplied to MAGENTA, MAGMA and PASCAL while by default DEPICT uses its own database, as shown in the following table,
+
+Database | MAGENTA | MAGMA | PASCAL | DEPICT
+---------|---------|-------|--------|-------
+MAGENTA  |   x     |   x   |  x
+MSigDB/c2|   x     |   x   |  x
+MSigDB   |   x     |   x   |  x
+DEPICT   |         |       |        |   x
+DEPICT*  |   x     |   x   |  x     |   x  
+
+* For all software, a [database from DEPICT website](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz)
+can be used.
 
 1. **MAGENTA**. The six databases (.db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
 
