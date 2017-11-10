@@ -26,51 +26,6 @@ sort -k3,3 > snp150.txt
 ```
 where it first obtains build 37 positions, sorts them by RSid into the file `snp150.txt`.
 
-## USAGE
-
-The pipeline requires users to specify software to be used as well as database to use. It is possible 
-that a given database can be used for several software when appropriate.
-
-The syntax is
-```
-bash pwp.sh <input file>
-```
-
-### Input
-
-The input will be GWAS summary statistics with the following columns,
-
-Column | Name | Description
--------|------|------------
-1 | SNP | RSid
-2 | A1 | Effect allele
-3 | A2 | Other allele
-4 | freqA1 | A1 frequency
-5 | beta | effect estimate
-6 | se | standard error of effect
-7 | P | P-vale
-8 | N | sample size
-9*  | chr | chromosome
-10* | pos | position
- 
-### Output
-
-The output will be Excel workbook containing results from various software.
-
-
-## EXAMPLE
-
-We can take the GIANT summary statistics as example which requires build 37 positions than can be downloaded from the UCSC website.
-```
-# GWAS summary statistics
-wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
-gunzip -c SNP_gwas_mc_merge_nogc.tbl.uniq.gz |
-awk 'NR>1' | \
-sort -k1,1 | \
-join -11 -23 - snp150.txt > bmi.txt
-```
-where file containing the GWAS summary statistics is downloaded, its header dropped, sorted and positional information added leading to a file named `bmi.txt`.
-
 ## SOFTWARE
 
 This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
@@ -219,6 +174,49 @@ write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FAL
 ```
 So ENSG00000000419 corresponds to DPM1, ENSG00000243155 to RP11-46A10.5 but ENSG00000228389 does not 
 correspond to any symbol. In general, a gene symbol may be mapped to more than one GENEID.
+
+## USAGE
+
+The pipeline requires users to specify software to be used as well as database to use. It is possible 
+that a given database can be used for several software when appropriate.
+
+The syntax is
+```
+bash pwp.sh <input file>
+```
+### Input
+
+The input will be GWAS summary statistics with the following columns,
+
+Column | Name | Description
+-------|------|------------
+1 | SNP | RSid
+2 | A1 | Effect allele
+3 | A2 | Other allele
+4 | freqA1 | A1 frequency
+5 | beta | effect estimate
+6 | se | standard error of effect
+7 | P | P-vale
+8 | N | sample size
+9*  | chr | chromosome
+10* | pos | position
+ 
+### Output
+
+The output will be Excel workbook containing results from various software.
+
+## EXAMPLE
+
+We can take the GIANT summary statistics as example which requires build 37 positions than can be downloaded from the UCSC website.
+```
+# GWAS summary statistics
+wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
+gunzip -c SNP_gwas_mc_merge_nogc.tbl.uniq.gz |
+awk 'NR>1' | \
+sort -k1,1 | \
+join -11 -23 - snp150.txt > bmi.txt
+```
+where file containing the GWAS summary statistics is downloaded, its header dropped, sorted and positional information added leading to a file named `bmi.txt`.
 
 ## ACKNOWLEDGEMENTS
 
