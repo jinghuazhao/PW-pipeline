@@ -18,6 +18,12 @@ MAGENTA.
 
 The pipeline itself can be installed from GitHub in the usual way. Optionally, the chromosomal positions for the current build can be downloaded from the UCSC 
 website, which should be helpful for GWAS summary statistics either using chromosomal positions from different build or without these at all.
+```
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/snp150.txt.gz
+gunzip -c snp150.txt.gz | \
+awk '{split($2,a,"_");sub(/chr/,"",a[1]);print a[1],$4,$5}' | \
+sort -k3,3 > snp150.txt
+```
 
 ## USAGE
 
@@ -54,6 +60,15 @@ The output will be Excel workbook containing results from various software.
 ## EXAMPLE
 
 We can take the GIANT summary statistics as example which requires build 37 positions than can be downloaded from the UCSC website.
+```
+# GWAS summary statistics
+wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
+gunzip -c SNP_gwas_mc_merge_nogc.tbl.uniq.gz |
+awk 'NR>1' | \
+sort -k1,1 | \
+joint -11 -23 - snp150.txt > bmi.txt
+```
+where it first obtains build 37 positions, sorts them by RSid, and merges by RSid with positional information as available above.
 
 ## SOFTWARE
 
