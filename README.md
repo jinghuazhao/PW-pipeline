@@ -24,6 +24,7 @@ gunzip -c snp150.txt.gz | \
 awk '{split($2,a,"_");sub(/chr/,"",a[1]);print a[1],$4,$5}' | \
 sort -k3,3 > snp150.txt
 ```
+where it first obtains build 37 positions, sorts them by RSid into the file `snp150.txt`.
 
 ## USAGE
 
@@ -66,9 +67,9 @@ wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_
 gunzip -c SNP_gwas_mc_merge_nogc.tbl.uniq.gz |
 awk 'NR>1' | \
 sort -k1,1 | \
-joint -11 -23 - snp150.txt > bmi.txt
+join -11 -23 - snp150.txt > bmi.txt
 ```
-where it first obtains build 37 positions, sorts them by RSid, and merges by RSid with positional information as available above.
+where it downloads the GWAS summary statistics, drops the header, sorts by RSid and add positional information as available above into `bmi.txt`.
 
 ## SOFTWARE
 
