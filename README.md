@@ -4,14 +4,21 @@ PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepli
 
 ![diagram from Cytoscape](files/galFiltered.sif.png)
 
-## Introduction
+## INTRODUCTION
 
 Pathway analysis becomes an important element in GWAS. Broadly, it involves SNP annotation, such as Variant Effect Predictor (VEP), gene analysis such as VEGAS2, and 
 gene set analysis. Visualisation of a particular region has been facilitated with LocusZoom, while network(s) from pathway analysis via gephi or Cytoscape, which 
 accepts a collection of edges, directed or undirected to build a network. Aspects to consider include part or all databases, individual level genotype data vs GWAS 
 summary statistics, computing speed, with and without tissue enrichment.
 
-## Usage
+## INSTALLATION
+
+The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil their requirements, e.g., Matlab for 
+MAGENTA.
+
+The pipeline its can be installed from GitHub in the usual way.
+
+## USAGE
 
 The pipeline requires users to specify software to be used as well as database to use. It is possible 
 that a given database can be used for several software when appropriate.
@@ -42,7 +49,12 @@ Column | Name | Description
 
 The output will be Excel workbook containing results from various software.
 
-## Software
+
+## EXAMPLE
+
+We can take the GIANT summary statistics as example which requires build 37 positions than can be downloaded from the UCSC website.
+
+## SOFTWARE
 
 This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
 below,
@@ -112,7 +124,7 @@ tests (pathways) achieves false discovery rate at level α by finding the larges
 values is no greater than (k/m)α, and declares only those below this threshold as being significant, 
 https://en.wikipedia.org/wiki/False_discovery_rate.
 
-## Databases
+## DATABASES
 
 Several databases can be supplied to MAGENTA, MAGMA and PASCAL while by default DEPICT uses its own database. The following table helps to choose specific software 
 and database combinations,
@@ -191,12 +203,12 @@ write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FAL
 So ENSG00000000419 corresponds to DPM1, ENSG00000243155 to RP11-46A10.5 but ENSG00000228389 does not 
 correspond to any symbol. In general, a gene symbol may be mapped to more than one GENEID.
 
-## Acknowledgements
+## ACKNOWLEDGEMENTS
 
 The work drives from comparison of their performance using our own GWAS data. The practicality of a 
 common DEPICT database to all software here was due to PASCAL developer(s).
 
-## Software and references
+## SOFTWARE AND REFERENCES
 
 [DEPICT](https://data.broadinstitute.org/mpg/depict/) ([GitHub](https://github.com/perslab/depict))
 
