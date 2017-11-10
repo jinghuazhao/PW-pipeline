@@ -69,8 +69,7 @@ awk 'NR>1' | \
 sort -k1,1 | \
 join -11 -23 - snp150.txt > bmi.txt
 ```
-where file containing the GWAS summary statistics is downloaded, its header dropped, sorted by RSid and positional information added leading to a file named 
-`bmi.txt`.
+where file containing the GWAS summary statistics is downloaded, its header dropped, sorted and positional information added leading to a file named `bmi.txt`.
 
 ## SOFTWARE
 
