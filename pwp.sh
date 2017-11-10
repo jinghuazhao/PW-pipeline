@@ -3,6 +3,7 @@
 ## settings
 
 export PW_location=/genetics/bin/PW-pipeline
+export use_UCSC=0
 
 ### software
 
