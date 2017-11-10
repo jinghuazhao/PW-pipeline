@@ -109,7 +109,9 @@ DEPICT*  |   x     |   x   |  x     |   x
 \* The common database to all software is derived from [a database from DEPICT 
 website](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz).
 
-1. **MAGENTA**. The six databases (.db) contain a total of 10,327 entries were distributed with the MATLAB implementation: 
+Next we give more details about them.
+
+1. **MAGENTA**. There are six databases (.db) with a total of 10,327 entries were distributed with the MATLAB implementation: 
 
 Name | Entries
 -----|--------
@@ -152,7 +154,7 @@ well as individual results including figures are kept in two excel workbooks cal
 xlsx.xlsx, respectively. Except DEPICT, category 2 (c2) or all of pathways in Molecular Signatures 
 Database (MSigDB) v6 is used.
 
-An additional note relates to the DEPICT database: while it is appropriate for comparison, many 
+An additional note relates to the common database: while it is appropriate for comparison, many 
 entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, linking a reconstituted geneset 
 containing C20orf11 (3.2), TOMM22 (3.1), CSDA (2.3), C5orf47 (2.2), EIF4EBP1 (2.2), NCK1 (2.2), 
 ZNF337 (2.2), GORASP2 (2.1), KDELR3 (2.1), SNX17 (2.1), FAM208B (2.0), ENSG00000243155 (1.9), 
@@ -163,9 +165,7 @@ TMEM14B (1.3), CRLS1 (1.2), APTX (1.2), SBNO1 (1.2), MPV17 (1.2), EXD1 (1.2), DN
 SLC25A12 (0.9), C11orf46 (0.9), PIWIL1 (0.9), ABHD12 (0.9), EIF3M (0.8), CBY1 (0.8), SLCO4A1 (0.8), 
 ODF1(0.8), SUV420H2 (0.8), TNFRSF17 (0.7) with value in the bracket being the z-score in the original 
 DEPICT database, so extra work is required to work out the gene SYMBOL in pathways. This can be done 
-via R/ensembldb.
-
-The following code helps to obtain gene symbols,
+via R/ensembldb as follows,
 ```
 library(EnsDb.Hsapiens.v86)
 chrall <- select(EnsDb.Hsapiens.v86, keys=paste(1:22), keytype="SEQNAME")
