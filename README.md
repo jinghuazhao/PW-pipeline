@@ -135,8 +135,8 @@ curated gene sets (from various sources such as online pathway databases, the bi
 and knowledge of domain experts. MSigDB/BIOCARTA_KEGG_REACTOME came as default to PASCAL and MSigDB 
 v4.0 is distributed with PASCAL.
 
-Gene database | Entries | Bonferroni threshold
---------------|---------|---------------------
+Name | Entries | Bonferroni threshold
+-----|---------|---------------------
 c2.all.v6.0.entrez.gmt | 4,731 | 1.056859015007398e-05
 msigBIOCARTA_KEGG_REACTOME.gmt | 1,077 | 4.642525533890436e-05
 msigdb.v4.0.entrez.gmt | 10,295 | 4.85672656629431e-06
