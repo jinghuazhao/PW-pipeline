@@ -149,10 +149,13 @@ msigdb.v6.0.entrez.gmt | 17,779 | 2.81230665391754e--06
 
 Gene database | Entries
 --------------|--------
-Protein molecular pathways derived from 169,810 high-confidence experimentally derived protein-protein interactions | 5,984 
-Phenotypic gene sets derived from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative | 2,473 
+Protein molecular pathways | 5,984 
+Phenotypic gene sets | 2,473 
 Reactome database pathways | 737 
-Kyoto Encyclopedia of Genes and Genomes (KEGG) database pathways and 5,083 Gene Ontology database terms | 184 
+KEGG) database pathways and Gene Ontology database terms | 184 
+
+The protein molecular pathways were deribed from 169,810 high-confidence experimentally derived protein-protein interactions, the phenotypic gene sets were from
+from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative and 5,083 gene ontology database terms.
 
 An additional note relates to the common database: while it is appropriate for comparison, many 
 entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, linking a reconstituted geneset 
