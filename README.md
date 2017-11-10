@@ -106,7 +106,7 @@ MSigDB   |   x     |   x   |  x
 DEPICT   |         |       |        |   x
 DEPICT*  |   x     |   x   |  x     |   x  
 
-\* A [common database derived from DEPICT 
+\* The common database to all software is derived from [a databased from DEPICT 
 website](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz)
 can be used.
 
