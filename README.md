@@ -18,17 +18,14 @@ with and without tissue enrichment.
 The pipeline requires users to specify software to be used as well as database to use. It is possible 
 that a given database can be used for several software when appropriate.
 
-The input will be (some) GWAS summary statistics containing rsid, p values, and the syntax is
+The syntax is
 ```
 bash pwp.sh <input file>
 ```
-and the output will be collected into an Excel file.
 
-## Inputs
+### Input
 
-### --- GWAS summary statistics and lead SNPs ---
-
-The **first input file** will be GWAS summary statistics with the following columns,
+The input will be GWAS summary statistics with the following columns,
 
 Column | Name | Description
 -------|------|------------
@@ -43,6 +40,10 @@ Column | Name | Description
 9*  | chr | chromosome
 10* | pos | position
  
+### Output
+
+The output will be Excel workbook containing results from various software.
+
 ## Software
 
 This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown 
