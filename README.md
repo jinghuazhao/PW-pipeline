@@ -152,10 +152,10 @@ Gene database | Entries
 Protein molecular pathways | 5,984 
 Phenotypic gene sets | 2,473 
 Reactome database pathways | 737 
-KEGG pathways and Gene Ontology terms | 184 
+KEGG pathways and gene ontology terms | 184 
 
 The protein molecular pathways were deribed from 169,810 high-confidence experimentally derived protein-protein interactions, 
-the phenotypic gene sets were from from 211,882 gene-phenotype pairs from the Mouse Genetics Initiative and 5,083 gene 
+the phenotypic gene sets were from from 211,882 gene-phenotype pairs from the mouse genetics initiative and 5,083 gene 
 ontology terms.
 
 An additional note relates to the common database: while it is appropriate for comparison, many 
