@@ -1,15 +1,16 @@
-# 4-7-2017 MRC-Epid JHZ
+# 12-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 library(Rmpfr)
-d <- read.table("doc/mm1kg.dat",as.is=TRUE)
-colnames(d) <- c("chr", "pos", "Freq1", "Effect", "StdErr", "p", "NOBS", "SNP")
+f <- Sys.getnev("f")
+d <- read.table(f,as.is=TRUE)
+colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "p", "N", "chr", "pos")
 d <- within(d, {
-  Marker <- sprintf("%s:%d",chr,pos)
-  z_score <- Effect/StdErr
+  z_score <- b/se
   P <- format(2*pnorm(mpfr(abs(z_score),100),lower.tail=FALSE))
+  Marker <- sprintf("%s:%d",chr,pos)
 })[c("SNP","P","Marker")]
 snp.is.dot <- with(d,SNP==".")
 d[snp.is.dot,'SNP'] <- d[snp.is.dot,'Marker']
 names(d) <- c("SNP","P","Marker")
-write.table(d[c("SNP","P")],file='vegas2v2',quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")
+write.table(d[c("SNP","P")],file='PASCAL/vegas2v2',quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")

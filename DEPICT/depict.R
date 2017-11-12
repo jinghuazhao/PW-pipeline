@@ -1,15 +1,16 @@
-# 4-7-2017 MRC-Epid JHZ
+# 12-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 library(Rmpfr)
-d <- read.table("doc/mm1kg.dat",as.is=TRUE)
-colnames(d) <- c("Chr", "Pos", "Freq1", "Effect", "StdErr", "p", "TOTALSAMPLESIZE", "SNP")
+f <- Sys.getnev("f")
+d <- read.table(f,as.is=TRUE)
+colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "p", "N", "Chr", "Pos")
 d <- within(d, {
-  Marker <- sprintf("%s:%d",Chr,Pos)
-  z_score <- Effect/StdErr
+  z_score <- b/se
   P <- format(2*pnorm(mpfr(abs(z_score),100),lower.tail=FALSE))
   logP <- as.numeric(-log10(mpfr(P,100)))
+  Marker <- sprintf("%s:%d",Chr,Pos)
 })[c("SNP","Chr","Pos","P","logP","Marker")]
 gwas_threshold <- as.numeric(-log10(mpfr(5e-8,100)))
-z <- gzfile("depict.txt.gz")
+z <- gzfile("DEPICT/depict.txt.gz")
 write.table(subset(d,logP>=gwas_threshold),file=z,quote=FALSE,row.name=FALSE,sep="\t")
