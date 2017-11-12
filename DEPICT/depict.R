@@ -1,9 +1,7 @@
 # 12-11-2017 MRC-Epid JHZ
 
-options(digits = 3, scipen=20)
-library(Rmpfr)
-f <- Sys.getnev("f")
-d <- read.table(f,as.is=TRUE)
+sumstats <- Sys.getnev("sumstats")
+source(sumstats)
 colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "p", "N", "Chr", "Pos")
 d <- within(d, {
   z_score <- b/se

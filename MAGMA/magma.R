@@ -1,7 +1,7 @@
 # 12-11-2017 MRC-Epid JHZ
 
-f <- Sys.getnev("f")
-d <- read.table(f,as.is=TRUE)
+sumstats <- Sys.getnev("sumstats")
+source(sumstats)
 colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "P", "NOBS", "CHR", "BP")
 d <- d[c("SNP","CHR","BP","P","NOBS")]
 d <- subset(d, SNP!=".")
