@@ -3,9 +3,10 @@
 
 ## SETTINGS
 
+export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
+export MAGMA=/genetics/bin/MAGMA
+export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export PW_location=/genetics/bin/PW-pipeline
-MAGMA=/genetics/bin/MAGMA
-MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export use_UCSC=0
 
 ### software
@@ -30,6 +31,16 @@ export depict_db2=1
 
 export sumstats=${PW_location}/files/sumstats.R
 
+if [ $magenta_db -eq 1 ]; then
+   if [ ! -d "MAGENTA" ]; then
+      mkdir MAGENTA
+   fi
+   cd MAGENTA
+   for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
+   cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
+   awk '{$1="MAGENTA"};1' FS="\t" OFS="\t" > magenta.db
+   cd -
+fi
 if [ $magenta -eq 1 ]; then
    echo "MAGENTA"
    if [ ! -d "MAGENTA" ]; then
@@ -37,6 +48,8 @@ if [ $magenta -eq 1 ]; then
    fi
    cd MAGENTA
    R -q --no-save < ${PW_location}/MAGENTA/data.R
+   for f in $(ls $MAGENTA); do ln -sf $f; done
+   for f in ($ls $PW_location/MAGENTA); do ln -sf $f; done
    if [ $magenta_db -eq 1 ]; then
       export db=magenta
       qsub -V ${PW_location}/MAGENTA/magenta.sh
