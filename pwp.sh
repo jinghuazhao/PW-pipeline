@@ -6,6 +6,8 @@
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
 export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
+export PASCAL=/genetics/bin/PASCAL
+export DEPICT=/genetics/bin
 export PW_location=/genetics/bin/PW-pipeline
 export use_UCSC=0
 
@@ -106,13 +108,18 @@ if [ $pascal -eq 1 ]; then
    fi
    cd PASCAL
    R -q --no-save < ${PW_location}/PASCAL/data.R
+   cp $PW_location/PASCAL/* .
    if [ $magenta_db -eq 1 ]; then
+      sed -i 's///g' magenta.txt
       qsub -V -sync y ${PW_location}/PASCAL/magenta.sh
    elif [ $msigdb_c2 -eq 1 ]; then
+      sed -i 's///g' c2.txt
       qsub -V -sync y ${PW_location}/PASCAL/c2.sh
    elif [ $msigbdb -eq 1 ]; then
+      sed -i 's///g' msigdb.txt
       qsub -V -sync y ${PW_location}/PASCAL/msigdb.sh
    else
+      sed -i 's///g' depict.txt
       qsub -V -sync y ${PW_location}/PASCAL/depict.sh
    fi
    R -q --no-save < $PW_location}/PASCAL/collect.R > collect.log
@@ -126,9 +133,12 @@ if [ $depict -eq 1 ]; then
    fi
    cd DEPICT
    R -q --no-save < ${PW_location}/DEPICT/data.R
+   cp $PW_location/DEPICT/* .
    if [ $depict_db -eq 1 ]; then
+      sed -i 's///g' depict.cfg
       qsub -V -sync y ${PW_location}/DEPICT/depict.sh
    elif [ $depict_db2 -eq 1 ]; then
+      sed -i 's///g' depict2.cfg
       qsub -V -sync y ${PW_location}/DEPICT/depict2.sh
    fi
    cd -
