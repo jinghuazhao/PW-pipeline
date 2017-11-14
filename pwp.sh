@@ -43,10 +43,11 @@ if [ $magenta -eq 1 ]; then
    elif [ $msigdb_c2 -eq 1 ]; then
       export db=c2
       awk '{$2=$1; $1="c2"; print}' $c2 > c2.db
+      awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" $c2 > c2.db
       qsub -V ${PW_location}/MAGENTA/c2.sh
    elif [ $msigdb -eq 1 ]; then
       export db=msigdb
-      awk '{$2=$1; $1="msigdb"; print}' $msigdb > msigdb.db
+      awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" $msigdb > msigdb.db
       qsub -V ${PW_location}/MAGENTA/msigdb.sh
    else
       export db=depict2
