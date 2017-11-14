@@ -1,7 +1,6 @@
-# 19-10-2017 MRC-Epid JHZ
+# 14-12-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
-setwd("/genetics/data/gwas/4-7-17")
 library(openxlsx)
 xlsx <- "mmpd.xlsx"
 unlink(xlsx, recursive = FALSE, force = FALSE)
@@ -9,14 +8,14 @@ wb <- createWorkbook(xlsx)
 
 # depict_discretized_cutoff3.2 results
 t <- -log10(0.05/14463)
-load("MAGENTA.depict/MAGENTA.rda")
+load("MAGENTA/MAGENTA.rda")
 load("MAGMA/MAGMA.rda")
-load("PASCAL.depict/PASCAL.rda")
+load("PASCAL/PASCAL.rda")
 for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", "_tissueenrichment.txt",".clumped", "_depict.tab"))
 {
   file <- paste0("depict",tbl)
   sep <- ifelse(tbl==".clumped","", "\t")
-  assign(file,read.table(paste0("DEPICT2/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
+  assign(file,read.table(paste0("DEPICT/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
 }
 mm4 <- merge(MAGENTA,set3,by.x=c("GS"),by.y=c("FULL_NAME"))
 mmp4 <- merge(mm4,ps,by.x=c("GS"),by.y=c("Name"))
