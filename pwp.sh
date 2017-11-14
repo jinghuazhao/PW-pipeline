@@ -67,7 +67,7 @@ if [ $magenta -eq 1 ]; then
       awk '{FS=OFS="\t";$2=$1;$1="depict";print}' $depict2 > MAGENTA/depict.db
       qsub -V -sync y ${PW_location}/MAGENTA/depict2.sh
    fi
-   export suffix=MAGENTA.db_10000perm_Jul05_17
+   export suffix=MAGENTA.db_10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
    R -q --no-save < ${PW_location}/MAGENTA/collect.R > collect.log
    cd -
@@ -136,8 +136,8 @@ fi
 
 ## collection into Excel workbook(s)
 
-if [ $depict_db2 -eq 1]; then
-    R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
-else
+if [ $depict_db -eq 1]; then
     R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
+elif [ $depict_db2 -eq 1]; then
+    R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
 fi
