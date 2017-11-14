@@ -22,7 +22,7 @@ export depict=1
 
 export c2=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
 export msigdb=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
-export depict2=/genetics/bin/PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
+export depict2=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 export msigdb_c2=0
 export msigdb=0
 export magenta_db=1
