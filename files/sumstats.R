@@ -1,12 +1,13 @@
+#!/usr/local/bin/Rscript --vanilla -q
 # 15-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 
-SUMSTATS <- Sys.getenv("SUMSTATS")
-if(file.exists("sumstats.rda")) load("sumstats.rda") else {
+args <- commandArgs(trailingOnly=TRUE)
+sumstats <- args[1]
+if(!file.exists("sumstats.rda")) {
   library(Rmpfr)
-  sumstats <- Sys.getenv(SUMSTATS)
-  d <- read.table(SUMSTATS,as.is=TRUE)
+  d <- read.table(sumstats,as.is=TRUE)
   colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "P", "N", "chr", "pos")
   d <- within(d, {
     z_score <- b/se
