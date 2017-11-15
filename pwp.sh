@@ -10,7 +10,6 @@ export PASCAL=/genetics/bin/PASCAL
 export DEPICT=/genetics/bin/DEPICT/src/python
 export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
 export PW_location=/genetics/bin/PW-pipeline
-export use_UCSC=0
 
 ### software flags
 
