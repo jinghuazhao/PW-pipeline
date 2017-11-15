@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript --vanilla -q
+#!/genetics/data/software/bin/Rscript --vanilla -q
 # 15-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
