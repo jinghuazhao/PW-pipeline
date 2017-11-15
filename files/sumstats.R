@@ -1,10 +1,9 @@
-# 12-11-2017 MRC-Epid JHZ
+# 15-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 
 SUMSTATS <- Sys.getenv("SUMSTATS")
-if(file.exists("sumstats.rda")) load("sumstats.rda")
-else {
+if(file.exists("sumstats.rda")) load("sumstats.rda") else {
   library(Rmpfr)
   sumstats <- Sys.getnev(SUMSTATS)
   d <- read.table(sumstats,as.is=TRUE)
