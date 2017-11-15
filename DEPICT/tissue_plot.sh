@@ -4,7 +4,7 @@
 
 Rscript tissue_plot.R depict_tissueenrichment.txt depict
 
-# pdf --> png conversion to facilitate generation of Excel workbook
+# pdf --> png conversion via xpdf to facilitate generation of Excel workbook
 
 for p in cells multiplot system tissues
 do
@@ -20,7 +20,7 @@ done
 
 exit
 
-# A possible alternative via ImageMagick:
+# conversion via ImageMagick:
 
 export prefix=tissue_plot_depict_genenetwork_
 for type in cells multiplot system tissues
