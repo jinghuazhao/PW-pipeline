@@ -51,7 +51,7 @@ if [ $magenta -eq 1 ]; then
    for f in $(ls $MAGENTA); do ln -sf $f; done
    for f in $(ls $PW_location/MAGENTA); do ln -sf $f; done
    R -q --no-save < data.R > data.log
-   if [ $_db -eq "magenta" ]; then
+   if [ $_db == "magenta" ]; then
       export db=magenta.db
    elif [ $_db == "c2" ]; then
       export db=c2.db
