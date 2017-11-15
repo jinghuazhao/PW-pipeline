@@ -66,7 +66,7 @@ if [ $magenta -eq 1 ]; then
       awk '{FS=OFS="\t";$2=$1;$1="depict";print}' ${depict_db} > depict.db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
-   qsub -cwd -V -sync y ${PW_location}/MAGENTA/magenta.sh
+   qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
    export suffix=10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' magenta.db_${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > header.dat
    R -q --no-save < collect.R > collect.log
