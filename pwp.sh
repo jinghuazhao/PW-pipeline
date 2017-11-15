@@ -12,23 +12,22 @@ export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
 export PW_location=/genetics/bin/PW-pipeline
 export use_UCSC=0
 
-### software
+### software flags
 
 export magenta=1
 export magma=1
 export pascal=1
 export depict=1
 
-### databases
+### database flags and names
 
-export c2=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
-export msigdb=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
-export depict2=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
-export msigdb_c2=0
-export msigdb=0
 export magenta_db=1
+export c2=0
+export msigdb=0
 export depict_db=1
-export depict_db2=1
+export c2.db=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
+export msigdb.db=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
+export depict.db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
 ## indidivual analyses according to request
 
@@ -41,7 +40,7 @@ if [ $magenta_db -eq 1 ]; then
    cd MAGENTA
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
-   awk '{$1="MAGENTA"};1' FS="\t" OFS="\t" > magenta.db
+   awk '{$1="magenta"};1' FS="\t" OFS="\t" > magenta.db
    export MAGENTA_db=${PWD}/magenta.db
    cd -
 fi
@@ -51,27 +50,26 @@ if [ $magenta -eq 1 ]; then
       mkdir MAGENTA
    fi
    cd MAGENTA
-   R -q --no-save < ${PW_location}/MAGENTA/data.R
+   R -q --no-save < ${PW_location}/MAGENTA/data.R > data.log
    for f in $(ls $MAGENTA); do ln -sf $f; done
    for f in ($ls $PW_location/MAGENTA); do ln -sf $f; done
    if [ $magenta_db -eq 1 ]; then
       export db=magenta.db
-   elif [ $msigdb_c2 -eq 1 ]; then
+   elif [ $c2 -eq 1 ]; then
       export db=c2.db
-      awk '{$2=$1; $1="c2"; print}' $c2 > c2.db
-      awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" $c2 > c2.db
+      awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" ${c2.db} > c2.db
    elif [ $msigdb -eq 1 ]; then
       export db=msigdb.db
-      awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" $msigdb > msigdb.db
+      awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb.db} > msigdb.db
    else
       export db=depict.db
-      awk '{FS=OFS="\t";$2=$1;$1="depict";print}' $depict2 > depict.db
+      awk '{FS=OFS="\t";$2=$1;$1="depict";print}' ${depict.db} > depict.db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    qsub -V -sync y ${PW_location}/MAGENTA/magenta.sh
    export suffix=MAGENTA.db_10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
-   R -q --no-save < ${PW_location}/MAGENTA/collect.R > collect.log
+   R -q --no-save < collect.R > collect.log
    cd -
 fi
 
@@ -81,7 +79,7 @@ if [ $magma -eq 1 ]; then
       mkdir MAGMA
    fi
    cd MAGMA
-   R -q --no-save < ${PW_location}/MAGMA/data.R
+   R -q --no-save < ${PW_location}/MAGMA/data.R > data.log
    # Annotation
    magma --annotate window=50,50 --snp-loc magma.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out magma
    # Gene analysis - SNP p-values
@@ -97,7 +95,7 @@ if [ $magma -eq 1 ]; then
       export MAGMA_DB=$depict2
    fi
    qsub -V -sync y ${PW_location}/MAGMA/magma.sh
-   R -q --no-save < ${PW_location}/MAGMA/collect.R > collect.log
+   R -q --no-save < collect.R > collect.log
    cd -
 fi
 
@@ -107,10 +105,9 @@ if [ $pascal -eq 1 ]; then
       mkdir PASCAL
    fi
    cd PASCAL
-   R -q --no-save < ${PW_location}/PASCAL/data.R
+   R -q --no-save < ${PW_location}/PASCAL/data.R > data.log
    cp $PW_location/PASCAL/* .
-   sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g' settings.txt
-   sed -i 's|PASCAL_location|'"$PASCAL"'|g' settings.txt
+   sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
    if [ $magenta_db -eq 1 ]; then
       sed -i 's|GENESETFILE|'"$MAGENTA_db"'|g' settings.txt
    elif [ $msigdb_c2 -eq 1 ]; then
@@ -121,7 +118,7 @@ if [ $pascal -eq 1 ]; then
       sed -i 's|GENESETFILE|'"$depict2"'|g' settings.txt
    fi
    qsub -V -sync y ${PW_location}/PASCAL/pascal.sh
-   R -q --no-save < $PW_location}/PASCAL/collect.R > collect.log
+   R -q --no-save < collect.R > collect.log
    cd -
 fi
 
@@ -131,14 +128,13 @@ if [ $depict -eq 1 ]; then
       mkdir DEPICT
    fi
    cd DEPICT
-   R -q --no-save < ${PW_location}/DEPICT/data.R
+   R -q --no-save < ${PW_location}/DEPICT/data.R > data.log
    cp $PW_location/DEPICT/* .
-   sed -i 's|ANALYSIS_PATH|'"$PWD"'|g' depict.cfg
-   sed -i 's|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
+   sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $depict_db -eq 1 ]; then
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
-   elif [ $depict_db2 -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
+   else
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    fi
    qsub -V -sync y ${PW_location}/DEPICT/depict.sh
    cd -
@@ -146,8 +142,8 @@ fi
 
 ## collection into Excel workbook(s)
 
-if [ $depict_db -eq 1]; then
-    R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
-elif [ $depict_db2 -eq 1]; then
+if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $depict_db -eq 1]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
+elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ]; then
+    R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
 fi
