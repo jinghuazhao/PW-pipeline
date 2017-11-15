@@ -21,7 +21,7 @@ export depict=1
 
 ### database flags (magenta, c2, msigdb, depict) and names
 
-export _db=c2
+export _db=magenta
 export c2_db=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
 export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
