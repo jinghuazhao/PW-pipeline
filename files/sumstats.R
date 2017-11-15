@@ -14,6 +14,7 @@ if(!file.exists("sumstats.rda")) {
   save("sumstats.rda")
 }
 
+#It might be that to be too specific will be confusing:
 #!/genetics/data/software/bin/Rscript --vanilla -q
 args <- commandArgs(trailingOnly=TRUE)
 sumstats <- args[1]
