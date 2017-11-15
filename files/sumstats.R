@@ -2,10 +2,11 @@
 
 options(digits = 3, scipen=20)
 
+SUMSTATS <- Sys.getenv("SUMSTATS")
 if(file.exists("sumstats.rda")) load("sumstats.rda")
 else {
   library(Rmpfr)
-  sumstats <- Sys.getnev("sumstats")
+  sumstats <- Sys.getnev(SUMSTATS)
   d <- read.table(sumstats,as.is=TRUE)
   colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "P", "N", "chr", "pos")
   d <- within(d, {
