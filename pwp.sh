@@ -128,8 +128,8 @@ if [ $depict -eq 1 ]; then
       mkdir DEPICT
    fi
    cd DEPICT
-   R -q --no-save < ${PW_location}/DEPICT/data.R > data.log
    cp $PW_location/DEPICT/* .
+   R -q --no-save < data.R > data.log
    sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $_db == "depict" ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
