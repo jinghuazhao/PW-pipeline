@@ -64,7 +64,7 @@ if [ $magenta -eq 1 ]; then
       awk '{FS=OFS="\t";$2=$1;$1="depict";print}' ${depict_db} > depict.db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
-   qsub -V -sync y ${PW_location}/MAGENTA/magenta.sh
+   qsub -cwd -V -sync y ${PW_location}/MAGENTA/magenta.sh
    export suffix=MAGENTA.db_10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
    R -q --no-save < collect.R > collect.log
@@ -92,7 +92,7 @@ if [ $magma -eq 1 ]; then
    else
       export db=${depict_db}
    fi
-   qsub -V -sync y ${PW_location}/MAGMA/magma.sh
+   qsub -cwd -V -sync y ${PW_location}/MAGMA/magma.sh
    R -q --no-save < collect.R > collect.log
    cd -
 fi
@@ -115,7 +115,7 @@ if [ $pascal -eq 1 ]; then
    else
       sed -i 's|GENESETFILE|'"${depict_db}"'|g' settings.txt
    fi
-   qsub -V -sync y ${PW_location}/PASCAL/pascal.sh
+   qsub -cwd -V -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > collect.log
    cd -
 fi
@@ -134,7 +134,7 @@ if [ $depict -eq 1 ]; then
    else
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    fi
-   qsub -V -sync y ${PW_location}/DEPICT/depict.sh
+   qsub -cwd -V -sync y ${PW_location}/DEPICT/depict.sh
    cd -
 fi
 
