@@ -1,6 +1,6 @@
-# 14-11-2017 MRC-Epid JHZ
+# 15-11-2017 MRC-Epid JHZ
 
-db <- Sys.getnev("db")
+db <- Sys.getenv("db")
 suffix <- Sys.getenv("suffix")
 
 get.results <- function(db,date=suffix)

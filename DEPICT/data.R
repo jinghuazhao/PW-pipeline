@@ -4,6 +4,7 @@ sumstats <- Sys.getenv("sumstats_rda")
 load(sumstats)
 colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "p", "N", "Chr", "Pos")
 d <- within(d, {
+  library(Rmpfr)
   z_score <- b/se
   P <- format(2*pnorm(mpfr(abs(z_score),100),lower.tail=FALSE))
   logP <- as.numeric(-log10(mpfr(P,100)))
