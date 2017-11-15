@@ -55,22 +55,20 @@ if [ $magenta -eq 1 ]; then
    for f in $(ls $MAGENTA); do ln -sf $f; done
    for f in ($ls $PW_location/MAGENTA); do ln -sf $f; done
    if [ $magenta_db -eq 1 ]; then
-      export db=magenta
-      qsub -V -sync y ${PW_location}/MAGENTA/magenta.sh
+      export db=magenta.db
    elif [ $msigdb_c2 -eq 1 ]; then
-      export db=c2
+      export db=c2.db
       awk '{$2=$1; $1="c2"; print}' $c2 > c2.db
       awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" $c2 > c2.db
-      qsub -V -sync y ${PW_location}/MAGENTA/c2.sh
    elif [ $msigdb -eq 1 ]; then
-      export db=msigdb
+      export db=msigdb.db
       awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" $msigdb > msigdb.db
-      qsub -V -sync y ${PW_location}/MAGENTA/msigdb.sh
    else
-      export db=depict2
-      awk '{FS=OFS="\t";$2=$1;$1="depict";print}' $depict2 > MAGENTA/depict.db
-      qsub -V -sync y ${PW_location}/MAGENTA/depict2.sh
+      export db=depict.db
+      awk '{FS=OFS="\t";$2=$1;$1="depict";print}' $depict2 > depict.db
    fi
+   sed -i 's|magenta.db|'"$db"'|g' magenta.m
+   qsub -V -sync y ${PW_location}/MAGENTA/magenta.sh
    export suffix=MAGENTA.db_10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
    R -q --no-save < ${PW_location}/MAGENTA/collect.R > collect.log
