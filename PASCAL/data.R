@@ -1,7 +1,7 @@
 # 15-11-2017 MRC-Epid JHZ
 
 sumstats <- Sys.getenv("sumstats")
-source(sumstats)
+load(sumstats)
 colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "p", "N", "chr", "pos")
 d <- within(d, {
   z_score <- b/se
