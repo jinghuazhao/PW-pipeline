@@ -1,8 +1,10 @@
-# 5-7-2017 MRC-Epid JHZ
+# 15-11-2017 MRC-Epid JHZ
 
 # R CMD BATCH --no-save --no-restore '--args depict_tissueenrichment.txt' tissue_plot.R depict.out
 
 Rscript tissue_plot.R depict_tissueenrichment.txt depict
+
+# pdf --> png conversion to facilitate generation of Excel workbook
 
 for p in cells multiplot system tissues
 do
@@ -16,8 +18,13 @@ do
    fi
 done
 
-#convert tissue_plot_depict_genenetwork_cells.pdf tissue_plot_depict_genenetwork_cells.png
-#convert tissue_plot_depict_genenetwork_multiplot.pdf tissue_plot_depict_genenetwork_multiplot.png
-#convert tissue_plot_depict_genenetwork_system.pdf tissue_plot_depict_genenetwork_system.png
-#convert tissue_plot_depict_genenetwork_tissues.pdf tissue_plot_depict_genenetwork_tissues.png
+exit
 
+# A possible alternative via ImageMagick:
+
+export prefix=tissue_plot_depict_genenetwork_
+for type in cells multiplot system tissues
+do
+   echo Converting ${prefix}{type} ...
+   convert -units PixelsPerInch ${prefix}${type}.pdf -density 300 ${prefix}${type}.png
+done
