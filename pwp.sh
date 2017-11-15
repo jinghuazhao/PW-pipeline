@@ -27,8 +27,9 @@ export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
 ## indidivual analyses according to request
 
-${PW_location}/files/sumstats.R $1
-export sumstats=${PWD}/sumstats.rda
+export sumstats=$1
+R -q --no-save <${PW_location}/files/sumstats.R
+export sumstats_rda=${PWD}/sumstats.rda
 
 if [ $_db == "magenta" ]; then
    if [ ! -d "MAGENTA" ]; then
