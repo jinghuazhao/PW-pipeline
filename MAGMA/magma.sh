@@ -1,5 +1,11 @@
-# 15-11-2017 MRC-Epid JHZ
+#!/usr/bash
 
-# Gene-set analysis
+#$ -S /bin/bash
+#$ -o $HOME/magma.out
+#$ -e $HOME/magma.err
+#$ -pe make -5
+#$ -q all.q
+#$ -t 1
+
 magma --gene-results magma.genes.raw --set-annot $db self-contained --out magma
 
