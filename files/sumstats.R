@@ -3,7 +3,7 @@
 
 options(digits = 3, scipen=20)
 
-args <- commandArgs(trailingOnly=FALSE)
+args <- commandArgs(trailingOnly=TRUE)
 sumstats <- args[1]
 if(!file.exists("sumstats.rda")) {
   library(Rmpfr)
