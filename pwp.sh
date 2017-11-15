@@ -5,7 +5,6 @@
 
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
-export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export PASCAL=/genetics/bin/PASCAL
 export DEPICT=/genetics/bin/DEPICT/src/python
 export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
@@ -21,6 +20,7 @@ export depict=1
 ### database flags (magenta, c2, msigdb, depict) and names
 
 export _db=magenta
+export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export c2_db=$MSigDB/msigdb_v6.0_GMTs/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb_v6.0_GMTs/msigdb.v6.0.entrez.gmt
 export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
