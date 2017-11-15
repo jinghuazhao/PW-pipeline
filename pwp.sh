@@ -8,6 +8,7 @@ export MAGMA=/genetics/bin/MAGMA
 export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export PASCAL=/genetics/bin/PASCAL
 export DEPICT=/genetics/bin
+export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
 export PW_location=/genetics/bin/PW-pipeline
 export use_UCSC=0
 
@@ -88,16 +89,16 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $magenta_db -eq 1 ]; then
-      awk -vFS="\t" '{$1=$2;$2=""};1' $PW_location/MAGENTTA/magenta.db | awk '{$2=$2};1'> magenta.db
-      cut -f1 magenta.db | awk -vFS="\t" -vOFS="\t" '{print $1)}' > magenta.id
-      qsub -V -sync y ${PW_location}/MAGMA/magenta.sh
+      awk -vFS="\t" '{$1=$2;$2=""};1' $MAGENTTA_db | awk '{$2=$2};1'> magenta.db
+      export MAGMA_DB=$PWD/magenta.db
    elif [ $msigdb_c2 -eq 1 ]; then
-      qsub -V -sync y ${PW_location}/MAGMA/c2.sh
+      export MAGMA_DB=$c2
    elif [ $msigbdb -eq 1 ]; then
-      qsub -V -sync y ${PW_location}/MAGMA/msigdb.sh
+      export MAGMA_DB=$msigdb
    else
-      qsub -V -sync y ${PW_location}/MAGMA/depict.sh
+      export MAGMA_DB=$depict2
    fi
+   qsub -V -sync y ${PW_location}/MAGMA/magma.sh
    R -q --no-save < ${PW_location}/MAGMA/collect.R > collect.log
    cd -
 fi
@@ -135,6 +136,7 @@ if [ $depict -eq 1 ]; then
    R -q --no-save < ${PW_location}/DEPICT/data.R
    cp $PW_location/DEPICT/* .
    sed -i 's|ANALYSIS_PATH|'"$PWD"'|g' depict.cfg
+   sed -i 's|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $depict_db -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    elif [ $depict_db2 -eq 1 ]; then
