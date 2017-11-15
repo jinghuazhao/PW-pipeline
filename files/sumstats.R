@@ -11,7 +11,7 @@ if(!file.exists("sumstats.rda")) {
     z_score <- b/se
     p <- format(2*pnorm(mpfr(abs(z_score),100),lower.tail=FALSE))
   })
-  save("sumstats.rda")
+  save(d,file="sumstats.rda")
 }
 
 #It might be that to be too specific will be confusing:
