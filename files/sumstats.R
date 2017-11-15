@@ -6,7 +6,7 @@ SUMSTATS <- Sys.getenv("SUMSTATS")
 if(file.exists("sumstats.rda")) load("sumstats.rda") else {
   library(Rmpfr)
   sumstats <- Sys.getenv(SUMSTATS)
-  d <- read.table(sumstats,as.is=TRUE)
+  d <- read.table(SUMSTATS,as.is=TRUE)
   colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "P", "N", "chr", "pos")
   d <- within(d, {
     z_score <- b/se
