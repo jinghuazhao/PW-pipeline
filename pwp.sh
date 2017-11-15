@@ -28,7 +28,7 @@ export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
 ## indidivual analyses according to request
 
-export SUMSTATS=$1
+export SUMSTATS=${PWD}/$1
 export sumstats=${PW_location}/files/sumstats.R
 
 if [ $_db == "magenta" ]; then
