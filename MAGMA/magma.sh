@@ -1,3 +1,5 @@
-# Gene-set analysis, msigdb.v6.0.entrez.gmt
-magma --gene-results magma.genes.raw --set-annot $msigdb self-contained --out magma
+# 15-11-2017 MRC-Epid JHZ
+
+# Gene-set analysis
+magma --gene-results magma.genes.raw --set-annot $MAGMA_DB self-contained --out magma
 

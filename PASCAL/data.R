@@ -1,4 +1,4 @@
-# 12-11-2017 MRC-Epid JHZ
+# 15-11-2017 MRC-Epid JHZ
 
 sumstats <- Sys.getnev("sumstats")
 source(sumstats)
@@ -11,4 +11,4 @@ d <- within(d, {
 snp.is.dot <- with(d,SNP==".")
 d[snp.is.dot,'SNP'] <- d[snp.is.dot,'Marker']
 names(d) <- c("SNP","P","Marker")
-write.table(d[c("SNP","P")],file='PASCAL/vegas2v2',quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")
+write.table(d[c("SNP","P")],file='vegas2v2',quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")
