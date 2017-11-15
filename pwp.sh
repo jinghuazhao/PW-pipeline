@@ -48,8 +48,8 @@ if [ $magenta -eq 1 ]; then
       mkdir MAGENTA
    fi
    cd MAGENTA
-   for f in $(ls $MAGENTA); do ln -sf $f; done
-   for f in $(ls $PW_location/MAGENTA); do ln -sf $f; done
+   for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
+   for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
    R -q --no-save < data.R > data.log
    if [ $_db == "magenta" ]; then
       export db=magenta.db
