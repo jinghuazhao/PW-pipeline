@@ -41,7 +41,7 @@ if [ $magenta_db -eq 1 ]; then
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
    awk '{$1="magenta"};1' FS="\t" OFS="\t" > magenta.db
-   export MAGENTA_db=${PWD}/magenta.db
+   export magenta.db=${PWD}/magenta.db
    cd -
 fi
 if [ $magenta -eq 1 ]; then
@@ -50,9 +50,9 @@ if [ $magenta -eq 1 ]; then
       mkdir MAGENTA
    fi
    cd MAGENTA
-   R -q --no-save < ${PW_location}/MAGENTA/data.R > data.log
    for f in $(ls $MAGENTA); do ln -sf $f; done
    for f in ($ls $PW_location/MAGENTA); do ln -sf $f; done
+   R -q --no-save < data.R > data.log
    if [ $magenta_db -eq 1 ]; then
       export db=magenta.db
    elif [ $c2 -eq 1 ]; then
@@ -85,14 +85,14 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $magenta_db -eq 1 ]; then
-      awk -vFS="\t" '{$1=$2;$2=""};1' $MAGENTTA_db | awk '{$2=$2};1'> magenta.db
-      export MAGMA_DB=$PWD/magenta.db
+      awk -vFS="\t" '{$1=$2;$2=""};1' $magenta.db | awk '{$2=$2};1'> magenta.db
+      export db=magenta.db
    elif [ $msigdb_c2 -eq 1 ]; then
-      export MAGMA_DB=$c2
+      export db=${c2.db}
    elif [ $msigbdb -eq 1 ]; then
-      export MAGMA_DB=$msigdb
+      export db=${msigdb.db}
    else
-      export MAGMA_DB=$depict2
+      export db=${depict.db}
    fi
    qsub -V -sync y ${PW_location}/MAGMA/magma.sh
    R -q --no-save < collect.R > collect.log
@@ -105,17 +105,17 @@ if [ $pascal -eq 1 ]; then
       mkdir PASCAL
    fi
    cd PASCAL
-   R -q --no-save < ${PW_location}/PASCAL/data.R > data.log
    cp $PW_location/PASCAL/* .
+   R -q --no-save < data.R > data.log
    sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
    if [ $magenta_db -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$MAGENTA_db"'|g' settings.txt
+      sed -i 's|GENESETFILE|'"${magenta.db}"'|g' settings.txt
    elif [ $msigdb_c2 -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$c2"'|g' settings.txt
+      sed -i 's|GENESETFILE|'"${c2.db}"'|g' settings.txt
    elif [ $msigdb -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$MSigDB"'|g' settings.txt
+      sed -i 's|GENESETFILE|'"${msigdb.db}"'|g' settings.txt
    else
-      sed -i 's|GENESETFILE|'"$depict2"'|g' settings.txt
+      sed -i 's|GENESETFILE|'"${depict.db}"'|g' settings.txt
    fi
    qsub -V -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > collect.log
