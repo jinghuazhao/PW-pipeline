@@ -1,10 +1,8 @@
-#!/genetics/data/software/bin/Rscript --vanilla -q
 # 15-11-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 
-args <- commandArgs(trailingOnly=TRUE)
-sumstats <- args[1]
+sumstats <- Sys.getenv("sumstats")
 if(!file.exists("sumstats.rda")) {
   library(Rmpfr)
   d <- read.table(sumstats,as.is=TRUE)
@@ -15,3 +13,8 @@ if(!file.exists("sumstats.rda")) {
   })
   save("sumstats.rda")
 }
+
+#!/genetics/data/software/bin/Rscript --vanilla -q
+args <- commandArgs(trailingOnly=TRUE)
+sumstats <- args[1]
+
