@@ -39,7 +39,7 @@ if [ $_db == "magenta" ]; then
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
    awk '{$1="magenta"};1' FS="\t" OFS="\t" > magenta.db
-   export magenta.db=${PWD}/magenta.db
+   export magenta_db=${PWD}/magenta.db
    cd -
 fi
 if [ $magenta -eq 1 ]; then
@@ -49,7 +49,7 @@ if [ $magenta -eq 1 ]; then
    fi
    cd MAGENTA
    for f in $(ls $MAGENTA); do ln -sf $f; done
-   for f in ($ls $PW_location/MAGENTA); do ln -sf $f; done
+   for f in $(ls $PW_location/MAGENTA); do ln -sf $f; done
    R -q --no-save < data.R > data.log
    if [ $_db -eq "magenta" ]; then
       export db=magenta.db
@@ -83,7 +83,7 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $_db == "magenta" ]; then
-      awk -vFS="\t" '{$1=$2;$2=""};1' $magenta.db | awk '{$2=$2};1'> magenta.db
+      awk -vFS="\t" '{$1=$2;$2=""};1' ${magenta_db} | awk '{$2=$2};1'> magenta.db
       export db=magenta.db
    elif [ $_db == "c2" ]; then
       export db=${c2_db}
