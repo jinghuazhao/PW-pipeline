@@ -1,5 +1,5 @@
 #!/bin/bash
-# 14-11-2017 MRC-Epid JHZ
+# 15-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -41,6 +41,7 @@ if [ $magenta_db -eq 1 ]; then
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
    awk '{$1="MAGENTA"};1' FS="\t" OFS="\t" > magenta.db
+   export MAGENTA_db=${PWD}/magenta.db
    cd -
 fi
 if [ $magenta -eq 1 ]; then
@@ -109,19 +110,18 @@ if [ $pascal -eq 1 ]; then
    cd PASCAL
    R -q --no-save < ${PW_location}/PASCAL/data.R
    cp $PW_location/PASCAL/* .
+   sed -i 's/OUTPUTDIRECTORY/./g' settings.txt
+   sed -i 's|PASCAL_location|'"$PASCAL"'|' settings.txt
    if [ $magenta_db -eq 1 ]; then
-      sed -i 's///g' magenta.txt
-      qsub -V -sync y ${PW_location}/PASCAL/magenta.sh
+      sed -i 's|GENESETFILE|'"$MAGENTA_db"'|' settings.txt
    elif [ $msigdb_c2 -eq 1 ]; then
-      sed -i 's///g' c2.txt
-      qsub -V -sync y ${PW_location}/PASCAL/c2.sh
-   elif [ $msigbdb -eq 1 ]; then
-      sed -i 's///g' msigdb.txt
-      qsub -V -sync y ${PW_location}/PASCAL/msigdb.sh
+      sed -i 's|GENESETFILE|'"$c2"'|' settings.txt
+   elif [ $msigdb -eq 1 ]; then
+      sed -i 's|GENESETFILE|'"$MSigDB"'|' settings.txt
    else
-      sed -i 's///g' depict.txt
-      qsub -V -sync y ${PW_location}/PASCAL/depict.sh
+      sed -i 's|GENESETFILE|'"$depict2"'|' settings.txt
    fi
+   qsub -V -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < $PW_location}/PASCAL/collect.R > collect.log
    cd -
 fi
