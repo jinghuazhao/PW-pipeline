@@ -110,16 +110,16 @@ if [ $pascal -eq 1 ]; then
    cd PASCAL
    R -q --no-save < ${PW_location}/PASCAL/data.R
    cp $PW_location/PASCAL/* .
-   sed -i 's/OUTPUTDIRECTORY/./g' settings.txt
-   sed -i 's|PASCAL_location|'"$PASCAL"'|' settings.txt
+   sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g' settings.txt
+   sed -i 's|PASCAL_location|'"$PASCAL"'|g' settings.txt
    if [ $magenta_db -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$MAGENTA_db"'|' settings.txt
+      sed -i 's|GENESETFILE|'"$MAGENTA_db"'|g' settings.txt
    elif [ $msigdb_c2 -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$c2"'|' settings.txt
+      sed -i 's|GENESETFILE|'"$c2"'|g' settings.txt
    elif [ $msigdb -eq 1 ]; then
-      sed -i 's|GENESETFILE|'"$MSigDB"'|' settings.txt
+      sed -i 's|GENESETFILE|'"$MSigDB"'|g' settings.txt
    else
-      sed -i 's|GENESETFILE|'"$depict2"'|' settings.txt
+      sed -i 's|GENESETFILE|'"$depict2"'|g' settings.txt
    fi
    qsub -V -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < $PW_location}/PASCAL/collect.R > collect.log
@@ -134,13 +134,13 @@ if [ $depict -eq 1 ]; then
    cd DEPICT
    R -q --no-save < ${PW_location}/DEPICT/data.R
    cp $PW_location/DEPICT/* .
+   sed -i 's|ANALYSIS_PATH|'"$PWD"'|g' depict.cfg
    if [ $depict_db -eq 1 ]; then
-      sed -i 's///g' depict.cfg
-      qsub -V -sync y ${PW_location}/DEPICT/depict.sh
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    elif [ $depict_db2 -eq 1 ]; then
-      sed -i 's///g' depict2.cfg
-      qsub -V -sync y ${PW_location}/DEPICT/depict2.sh
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
    fi
+   qsub -V -sync y ${PW_location}/DEPICT/depict.sh
    cd -
 fi
 
