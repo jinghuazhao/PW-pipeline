@@ -14,7 +14,7 @@ summary statistics, computing speed, with and without tissue enrichment.
 ## INSTALLATION
 
 The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil their requirements, e.g., Matlab for 
-MAGENTA.
+MAGENTA, PLINK.
 
 The pipeline itself can be installed from GitHub in the usual way. Optionally, the chromosomal positions for the current build can be downloaded from the UCSC 
 website, which should be helpful for GWAS summary statistics either using chromosomal positions from different build or without these at all.
