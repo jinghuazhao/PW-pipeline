@@ -94,7 +94,7 @@ if [ $magma -eq 1 ]; then
    else
       export db=${depict_db}
    fi
-   qsub -cwd -V -sync y ${PW_location}/MAGMA/magma.sh
+   qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
    R -q --no-save < collect.R > collect.log
    cd -
 fi
@@ -136,7 +136,7 @@ if [ $depict -eq 1 ]; then
    else
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    fi
-   qsub -cwd -V -sync y ${PW_location}/DEPICT/depict.sh
+   qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    cd -
 fi
 
