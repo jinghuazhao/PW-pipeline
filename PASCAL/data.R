@@ -11,5 +11,4 @@ d <- within(d, {
 })[c("SNP","P","Marker")]
 snp.is.dot <- with(d,SNP==".")
 d[snp.is.dot,'SNP'] <- d[snp.is.dot,'Marker']
-names(d) <- c("SNP","P","Marker")
 write.table(d[c("SNP","P")],file='vegas2v2',quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")
