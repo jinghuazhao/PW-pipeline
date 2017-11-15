@@ -65,8 +65,8 @@ if [ $magenta -eq 1 ]; then
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    qsub -cwd -V -sync y ${PW_location}/MAGENTA/magenta.sh
-   export suffix=MAGENTA.db_10000perm_$(date +'%b%d_%y')
-   awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > MAGENTA/header.dat
+   export suffix=magenta.db_10000perm_$(date +'%b%d_%y')
+   awk '(NR==1){gsub(/\#/,"",$0);print}' $suffix/MAGENTA_pval_GeneSetEnrichAnalysis_${db}.db_110kb_upstr_40kb_downstr_${suffix}.results > header.dat
    R -q --no-save < collect.R > collect.log
    cd -
 fi
@@ -115,7 +115,7 @@ if [ $pascal -eq 1 ]; then
    else
       sed -i 's|GENESETFILE|'"${depict_db}"'|g' settings.txt
    fi
-   qsub -cwd -V -sync y ${PW_location}/PASCAL/pascal.sh
+   qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > collect.log
    cd -
 fi
