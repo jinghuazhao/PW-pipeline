@@ -27,7 +27,8 @@ export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
 ## indidivual analyses according to request
 
-export sumstats=$1
+sed 's/\t/ /g' $1 > $1.sumstats
+export sumstats=$1.sumstats
 R -q --no-save <${PW_location}/files/sumstats.R
 export sumstats_rda=${PWD}/sumstats.rda
 
