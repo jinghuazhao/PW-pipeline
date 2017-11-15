@@ -1,6 +1,6 @@
 # 15-11-2017 MRC-Epid JHZ
 
-sumstats <- Sys.getenv("sumstats")
+sumstats <- Sys.getenv("sumstats_rda")
 load(sumstats)
 colnames(d) <- c("SNP", "A1", "A2", "AF1", "b", "se", "P", "NOBS", "CHR", "BP")
 d <- d[c("SNP","CHR","BP","P","NOBS")]
