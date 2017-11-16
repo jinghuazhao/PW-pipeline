@@ -40,7 +40,7 @@ if [ $_db == "magenta" ]; then
    cd MAGENTA
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
-   awk '{$1="magenta";gsub(/ /,"\_",$2)};1' FS="\t" OFS="\t" > magenta.db
+   awk '{$1="magenta";gsub(/ /,"_",$2)};1' FS="\t" OFS="\t" > magenta.db
    export magenta_db=${PWD}/magenta.db
    cd -
 fi
