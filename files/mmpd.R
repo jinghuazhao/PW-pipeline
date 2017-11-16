@@ -1,4 +1,4 @@
-# 14-12-2017 MRC-Epid JHZ
+# 16-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -17,7 +17,7 @@ for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", 
   sep <- ifelse(tbl==".clumped","", "\t")
   assign(file,read.table(paste0("DEPICT/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
 }
-mm4 <- merge(MAGENTA,set3,by.x=c("GS"),by.y=c("FULL_NAME"))
+mm4 <- merge(MAGENTA,set,by.x=c("GS"),by.y=c("FULL_NAME"))
 mmp4 <- merge(mm4,ps,by.x=c("GS"),by.y=c("Name"))
 mmpd <- merge(mmp4,depict_genesetenrichment.txt,by.x=c("GS"),by.y=c("Original.gene.set.ID"))
 n <- nrow(mmpd)
