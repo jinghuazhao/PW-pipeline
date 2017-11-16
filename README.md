@@ -218,7 +218,8 @@ wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_
 gunzip -c SNP_gwas_mc_merge_nogc.tbl.uniq.gz |
 awk 'NR>1' | \
 sort -k1,1 | \
-join -11 -23 - snp150.txt > bmi.txt
+join -11 -23 - snp150.txt | \
+awk '($9!="X" || $9!="Un")' > bmi.txt
 ```
 where file containing the GWAS summary statistics is downloaded, its header dropped, sorted and positional information added leading to a file named `bmi.txt`.
 
