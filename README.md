@@ -158,7 +158,7 @@ The protein molecular pathways were deribed from 169,810 high-confidence experim
 the phenotypic gene sets were from from 211,882 gene-phenotype pairs from the mouse genetics initiative and 5,083 gene 
 ontology terms.
 
-An additional note relates to the common database: while it is appropriate for comparison, many 
+An additional note relates to the DEPICT database: while it is appropriate for comparison, many 
 entries are named after the ENSEMBL GENEID, e.g., ENSG00000000419, linking a reconstituted geneset 
 containing C20orf11 (3.2), TOMM22 (3.1), CSDA (2.3), C5orf47 (2.2), EIF4EBP1 (2.2), NCK1 (2.2), 
 ZNF337 (2.2), GORASP2 (2.1), KDELR3 (2.1), SNX17 (2.1), FAM208B (2.0), ENSG00000243155 (1.9), 
@@ -178,6 +178,18 @@ write.table(chrall_table,file="GS.txt",quote=FALSE,row.names=FALSE,col.names=FAL
 ```
 So ENSG00000000419 corresponds to DPM1, ENSG00000243155 to RP11-46A10.5 but ENSG00000228389 does not 
 correspond to any symbol. In general, a gene symbol may be mapped to more than one GENEID.
+
+As for Gene Ontology and Mammalian Phenotype Ontology this could be done similarly,
+```
+library(GO.db)
+x <- as.list(GOTERM)
+golist <- c("GO:0000002","GO:0000018")
+x[golist]
+
+library(rols)
+mplist <- c("MP:0000003","MP:0000005")
+for(i in mplist) print(term("MP",i))
+```
 
 ## USAGE
 
