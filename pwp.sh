@@ -40,7 +40,7 @@ if [ $_db == "magenta" ]; then
    cd MAGENTA
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
-   awk '{$1="magenta"};1' FS="\t" OFS="\t" > magenta.db
+   awk '{$1="magenta";gsub(/ /,"\_",$2)};1' FS="\t" OFS="\t" > magenta.db
    export magenta_db=${PWD}/magenta.db
    cd -
 fi
@@ -144,6 +144,9 @@ fi
 
 if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict" ]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
-elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ]; then
+elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
     R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
+    if [ $depict -eq 1 ]; then
+       echo add code to DEPICT
+    fi
 fi
