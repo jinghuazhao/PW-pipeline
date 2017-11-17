@@ -1,4 +1,4 @@
-# 15-11-2017 MRC-Epid JHZ
+# 17-11-2017 MRC-Epid JHZ
 
 # R CMD BATCH --no-save --no-restore '--args depict_tissueenrichment.txt' tissue_plot.R depict.out
 
@@ -18,13 +18,11 @@ do
    fi
 done
 
-exit
-
 # conversion via ImageMagick:
 
-export prefix=tissue_plot_depict_genenetwork_
-for type in cells multiplot system tissues
-do
-   echo Converting ${prefix}{type} ...
-   convert -units PixelsPerInch ${prefix}${type}.pdf -density 300 ${prefix}${type}.png
-done
+#export prefix=tissue_plot_depict_genenetwork_
+#for type in cells multiplot system tissues
+#do
+#   echo Converting ${prefix}{type} ...
+#   convert -units PixelsPerInch ${prefix}${type}.pdf -density 300 ${prefix}${type}.png
+#done
