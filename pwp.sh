@@ -1,5 +1,5 @@
 #!/bin/bash
-# 16-11-2017 MRC-Epid JHZ
+# 17-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -40,7 +40,7 @@ if [ $_db == "magenta" ]; then
    cd MAGENTA
    for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
    cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
-   awk '{$1="magenta";gsub(/ /,"_",$2)};1' FS="\t" OFS="\t" > magenta.db
+   awk '{$1="magenta";gsub(/ /,"_",$2);$2=NR ":" $2};1' FS="\t" OFS="\t" > magenta.db
    export magenta_db=${PWD}/magenta.db
    cd -
 fi
@@ -63,12 +63,13 @@ if [ $magenta -eq 1 ]; then
       awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb_db} > msigdb.db
    else
       export db=depict.db
-      awk '{FS=OFS="\t";$2=$1;$1="depict";print}' ${depict_db} > depict.db
+      awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_db} > depict.db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
    export suffix=_10000perm_$(date +'%b%d_%y')
    awk '(NR==1){gsub(/\#/,"",$0);print}' magenta.db${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > header.dat
+#  sed -i 's/[[:digiti:]]\+\://g' magenta.db${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
    R -q --no-save < collect.R > collect.log
    cd -
 fi
@@ -85,7 +86,7 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $_db == "magenta" ]; then
-      awk -vFS="\t" '{$1=$2;$2=""};1' ${magenta_db} | awk '{$2=$2};1'> magenta.db
+      awk '{$1=$2;$2=""};1' FS="\t" OFS="\t" ${magenta_db} | awk '{$2=$2};1'> magenta.db
       export db=magenta.db
    elif [ $_db == "c2" ]; then
       export db=${c2_db}
