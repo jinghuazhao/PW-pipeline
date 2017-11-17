@@ -228,7 +228,10 @@ join -11 -23 - snp150.txt | \
 awk '($9!="X" && $9!="Un")' > bmi.txt
 ```
 where file containing the GWAS summary statistics is downloaded, its header dropped, sorted and positional information added leading to a file named `bmi.txt`.
-We also filter out nonautosomal SNPs.
+We also filter out nonautosomal SNPs. Now the call is made with
+```
+pwp.sh bmi.txt
+```
 
 ## ACKNOWLEDGEMENTS
 
