@@ -135,7 +135,7 @@ for(i in mplist) print(term("MP",i))
 
 ## FEATURES OF SOFTWARE
 
-Their features are briefly described as follows.
+These are briefly described as follows.
 
 1. **MAGENTA**. Segre, et al. (2010) describes how it works: ``First, DNA variants, e.g. 
 single-nucleotide polymorphisms (SNPs), are mapped onto genes. Second, each gene is assigned a gene 
