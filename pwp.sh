@@ -147,6 +147,7 @@ fi
 
 if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict" ]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
+    R -q --no-save < ${PW_location}/files/summary.R > summary.log
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
     R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
 fi
