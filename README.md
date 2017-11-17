@@ -210,7 +210,9 @@ Column | Name | Description
 8 | N | sample size
 9*  | chr | chromosome
 10* | pos | position
- 
+
+\* these two columns can be obtained from UCSC as shown above.
+
 ### Output
 
 The output will be Excel workbook containing results from various software.
@@ -235,7 +237,7 @@ pwp.sh bmi.txt
 
 ## ACKNOWLEDGEMENTS
 
-The work drives from comparison of their performance using our own GWAS data. The practicality of a 
+The work drives from comparison of software performances using our own GWAS data. The practicality of a 
 common DEPICT database to all software here was due to PASCAL developer(s).
 
 ## SOFTWARE AND REFERENCES
