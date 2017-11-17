@@ -1,6 +1,6 @@
 #17-11-2017 MRC-Epid JHZ
 
-mmpd <- read.csv("mmpd.csv",as.is=TRUE)
+load("mmpd.rda")
 
 GO <- function(prefix)
 {
