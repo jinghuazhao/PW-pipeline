@@ -1,4 +1,4 @@
-#!/usr/bash
+#!/bin/bash
 
 #$ -S /bin/bash
 #$ -o $HOME/magma.out
