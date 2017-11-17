@@ -1,4 +1,4 @@
-# 16-11-2017 MRC-Epid JHZ
+# 17-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -49,6 +49,7 @@ with(mmpd,{
 })
 addWorksheet(wb, "depict_discretized_cutoff3.2")
 writeDataTable(wb, "depict_discretized_cutoff3.2", mmpd)
+write.csv(mmpd,file="mmpd.csv",quote=FALSE,row.names=FALSE)
 
 h <- c("GS","p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT","r_MAGENTA","r_MAGMA","r_PASCAL","r_DEPICT")
 mmpd <- mmpd[with(mmpd,order(p_MAGENTA)),c(h,setdiff(names(mmpd),h))]
