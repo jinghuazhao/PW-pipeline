@@ -86,7 +86,7 @@ if [ $magma -eq 1 ]; then
    # Gene analysis - SNP p-values
    magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
    if [ $_db == "magenta" ]; then
-      awk '{$1=$2;$2=""};1' FS="\t" OFS="\t" ${magenta_db} | awk '{$2=$2};1'> magenta.db
+      awk '{$1=$2;$2=""};1' FS="\t" ${magenta_db} | awk '{$2=$2};1'> magenta.db
       export db=magenta.db
    elif [ $_db == "c2" ]; then
       export db=${c2_db}
