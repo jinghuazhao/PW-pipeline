@@ -211,7 +211,7 @@ Column | Name | Description
 9*  | chr | chromosome
 10* | pos | position
 
-\* these two columns can be obtained from UCSC as shown above.
+\* These two columns can be obtained from UCSC as shown above.
 
 ### Output
 
