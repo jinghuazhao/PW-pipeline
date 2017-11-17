@@ -13,7 +13,7 @@ summary statistics, computing speed, with and without tissue enrichment.
 
 ## INSTALLATION
 
-This pipeline inovles several software for pathway analysis using GWAS summary statistics, as shown below,
+This pipeline involves several software for pathway analysis using GWAS summary statistics, as shown below,
 
 Full name | Abbreviation | Reference
 ----------|--------------|----------
