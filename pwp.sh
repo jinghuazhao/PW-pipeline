@@ -148,6 +148,7 @@ if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
     R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
     if [ $depict -eq 1 ]; then
+       bash tissue_plot.sh
        R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.out
     fi
 fi
