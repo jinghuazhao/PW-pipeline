@@ -15,14 +15,14 @@ GO <- function(prefix)
     s <- s[o,]
     z <- s[c("Original.gene.set.description",paste0(prefix,"_",SOFTWARE))]
     write.table(z,file=paste0(software,".txt"),quote=FALSE,row.names=FALSE,sep="\t")
-    cat(software, "(", prefix,"), n=",nrow(z))
+    cat(software, ": n (", prefix,") = ",nrow(z), sep="")
     if (prefix=="fdr" & software %in% c("MAGENTA","DEPICT"))
        {
          v <- ifelse(software=="MAGENTA", "FDR_95PERC_CUTOFF", "False.discovery.rate")
          s <- subset(mmpd,!is.na(mmpd[v]) & mmpd[v]<0.05)
          o <- with(s, order(s[v]))
          s <- s[o,]
-         cat(" [provided FDR < 0.05:",nrow(s),"]",sep="")
+         cat(" vs", nrow(s), "[provided FDR < 0.05]",sep=" ")
        }
     cat("\n")
   }
