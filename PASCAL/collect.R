@@ -1,6 +1,6 @@
-# 16-11-2017 MRC-Epid JHZ
+# 17-11-2017 MRC-Epid JHZ
 
-gsps <- function(f,db="MAGENTA_10",method="sum")
+gsps <- function(f,db="MAGENTA",method="sum")
 {
   gs <- read.table(paste0(f,".",method,".genescores.txt"),as.is=TRUE,header=TRUE,sep="\t")
   ord <- with(gs,order(pvalue))
