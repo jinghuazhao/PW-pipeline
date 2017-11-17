@@ -138,6 +138,8 @@ if [ $depict -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
    fi
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
+   bash tissue_plot.sh
+   R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.out
    cd -
 fi
 
@@ -147,8 +149,4 @@ if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 
     R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
     R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
-    if [ $depict -eq 1 ]; then
-       bash tissue_plot.sh
-       R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.out
-    fi
 fi
