@@ -43,9 +43,9 @@ mmpd <- within(mmpd,
 with(mmpd,{
    cat("Number of pathways reaching Bonferroni threshold (",0.05/n,"):",
       "MAGENTA=", length(p_MAGENTA[p_MAGENTA<0.05/n]), "MAGMA=",length(p_MAGMA[p_MAGMA<0.05/n]),
-      "PASCAL=", length(p_PASCAL[p_PASCAL<0.05/n]), "DEPICT=",length(p_DEPICT[p_DEPICT<=0.05/n]), "\n")
-  cat("FDR <= 0.05:", "MAGENTA=", length(fdr_MAGENTA[fdr_MAGENTA<=0.05]), "MAGMA=", length(fdr_MAGMA[fdr_MAGMA<=0.05]),
-     "PASCAL=",length(fdr_PASCAL[fdr_PASCAL<=0.05]),"DEPICT=",length(fdr_DEPICT[fdr_DEPICT<=0.05]), "\n")
+      "PASCAL=", length(p_PASCAL[p_PASCAL<0.05/n]), "DEPICT=",length(p_DEPICT[p_DEPICT<0.05/n]), "\n")
+  cat("FDR < 0.05:", "MAGENTA=", length(fdr_MAGENTA[fdr_MAGENTA<0.05]), "MAGMA=", length(fdr_MAGMA[fdr_MAGMA<0.05]),
+     "PASCAL=",length(fdr_PASCAL[fdr_PASCAL<0.05]),"DEPICT=",length(fdr_DEPICT[fdr_DEPICT<0.05]), "\n")
 })
 addWorksheet(wb, "depict_discretized_cutoff3.2")
 writeDataTable(wb, "depict_discretized_cutoff3.2", mmpd)
