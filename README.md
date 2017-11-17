@@ -13,10 +13,11 @@ summary statistics, computing speed, with and without tissue enrichment.
 
 ## INSTALLATION
 
-The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil their requirements, e.g., Matlab for 
-MAGENTA, PLINK. It is useful to install [xpdf](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By default 
-[Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but this can be any other mechanism such as [GNU 
-parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, [R](https://www.r-project.org/) is required.
+The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil their requirements, e.g., 
+[Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. It is useful to install [xpdf](https://www.xpdfreader.com/) or 
+[ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By default [Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but 
+this can be any other mechanism such as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, 
+[R](https://www.r-project.org/) is required.
 
 The pipeline itself can be installed from GitHub in the usual way. Optionally, the chromosomal positions for the current build can be downloaded from the UCSC 
 website, which should be helpful for GWAS summary statistics either using chromosomal positions from different build or without these at all.
