@@ -7,4 +7,4 @@
 #$ -q all.q
 #$ -t 1
 
-$PASCAL/Pascal --set=c2.txt --pval=vegas2v2 --runpathway=on --mafcutoff=0.05
+$PASCAL/Pascal --set=settings.txt --pval=vegas2v2 --runpathway=on --mafcutoff=0.05
