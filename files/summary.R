@@ -14,7 +14,7 @@ GO <- function(prefix)
     o <- with(s, order(s[v]))
     s <- s[o,]
     z <- s[c("Original.gene.set.description",paste0(prefix,"_",SOFTWARE))]
-    write.csv(z,file=paste0(software,".csv"),quote=FALSE)
+    write.table(z,file=paste0(software,".txt"),quote=FALSE,row.names=FALSE,sep="\t")
     cat(software, "(", prefix,"), n=",nrow(z))
     if (prefix=="fdr" & software %in% c("MAGENTA","DEPICT"))
        {
