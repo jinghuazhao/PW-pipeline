@@ -40,7 +40,10 @@ where it first obtains build 37 positions, sorts them by RSid into the file `snp
 
 ## FEATURES OF SOFTWARE
 
-These are briefly described as follows.
+The pipeline puts together analyses involving several software using a unified input file, collecting results from them and 
+adding features such as FDRs and graphics; this also allows for possible additions of other results.
+
+The individual software are briefly described as follows.
 
 1. **MAGENTA**. Segre, et al. (2010) describes how it works: ``First, DNA variants, e.g. 
 single-nucleotide polymorphisms (SNPs), are mapped onto genes. Second, each gene is assigned a gene 
