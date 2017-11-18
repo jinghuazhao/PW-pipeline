@@ -1,4 +1,4 @@
-# 17-11-2017 MRC-Epid JHZ
+# 18-11-2017 MRC-Epid JHZ
 
 gsps <- function(f,db="MAGENTA",method="sum")
 {
@@ -13,5 +13,7 @@ gsps <- function(f,db="MAGENTA",method="sum")
   ps <- ps[ord,]
   save(gs,fg,ps,file="PASCAL.rda")
 }
-gsps("vegas2v2")
+
+db <- Sys.getenv("db")
+gsps("vegas2v2",db=db)
 
