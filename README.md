@@ -6,9 +6,10 @@ PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepli
 
 ## INTRODUCTION
 
-Pathway analysis becomes an important element in GWAS. Broadly, it involves SNP annotation, such as Variant Effect Predictor (VEP), gene analysis such as VEGAS2, and 
-gene set analysis. Visualisation of a particular region has been facilitated with LocusZoom, while network(s) from pathway analysis via gephi or Cytoscape, which 
-accepts a collection of edges, directed or undirected to build a network. Aspects to consider include part or all databases, individual level genotype data vs GWAS 
+Pathway analysis becomes an important element in GWAS. Broadly, it involves SNP annotation, such as Variant Effect Predictor 
+(VEP), gene analysis such as VEGAS2, and gene set analysis. Visualisation of a particular region has been facilitated with 
+LocusZoom, while network(s) from pathway analysis via gephi or Cytoscape, which accepts a collection of edges, directed or 
+undirected to build a network. Aspects to consider include part or all databases, individual level genotype data vs GWAS 
 summary statistics, computing speed, with and without tissue enrichment.
 
 ## INSTALLATION
@@ -22,14 +23,16 @@ Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
 Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
-The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil their requirements, e.g., 
-[Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. It is useful to install [xpdf](https://www.xpdfreader.com/) or 
-[ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By default [Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but 
-this can be any other mechanism such as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, 
+The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil 
+their requirements, e.g., [Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. It is useful to 
+install [xpdf](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
+default [Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but this can be any other mechanism such 
+as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, 
 [R](https://www.r-project.org/) is required.
 
-The pipeline itself can be installed from GitHub in the usual way. Optionally, the chromosomal positions for the current build can be downloaded from the UCSC 
-website, which should be helpful for GWAS summary statistics either using chromosomal positions from different build or without these at all.
+The pipeline itself can be installed from GitHub in the usual way. Optionally, the chromosomal positions for the current 
+build can be downloaded from the UCSC website, which should be helpful for GWAS summary statistics either using chromosomal 
+positions from different build or without these at all.
 ```
 wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/snp150.txt.gz
 gunzip -c snp150.txt.gz | \
@@ -48,28 +51,31 @@ other interactive sessions. The pipeline enables them run on noniteractive clust
 
 The individual software are briefly described as follows.
 
-1. **MAGENTA**. Segre, et al. (2010) describes how it works: ``First, DNA variants, e.g. 
-single-nucleotide polymorphisms (SNPs), are mapped onto genes. Second, each gene is assigned a gene 
-association score that is a function of its regional SNP association p-values. Third, confounding 
-effects on gene association scores are identified and corrected for, without requiring genotype data 
-(enabling use of meta-analyses or other types of GWA studies where only variant association 
-statistics are available). Fourth, a Gene Set Enrichment Analysis (GSEA)-like statistical test is 
-applied to predefined biologically relevant gene sets to determine whether any of the gene sets are 
-enriched for highly ranked gene association scores compared to randomly sampled gene sets of 
-identical size from the genome.`` It maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream 
-of each gene as extended boundaries to include regulatory regions. Each gene is then assigned a 
-genetic set (GS) score, which is the P-value of the most significant SNP within the gene’s extended 
-boundaries, corrected for potential confounding factors of physical and genetic properties of genes 
-through a step-wise multiple linear regression.
+1. **MAGENTA**. Segre, et al. (2010) describes how it works: 
+
+* First, DNA variants, e.g. single-nucleotide polymorphisms (SNPs), are mapped onto genes. 
+
+* Second, each gene is assigned a gene association score that is a function of its regional SNP association p-values. 
+
+* Third, confounding effects on gene association scores are identified and corrected for, without requiring genotype data 
+(enabling use of meta-analyses or other types of GWA studies where only variant association statistics are available).
+
+* Fourth, a Gene Set Enrichment Analysis (GSEA)-like statistical test is applied to predefined biologically relevant gene 
+sets to determine whether any of the gene sets are enriched for highly ranked gene association scores compared to randomly 
+sampled gene sets of identical size from the genome.``
+
+It maps SNPs to genes taking 110 Kb upstream and 40 Kb downstream of each gene as extended boundaries to include regulatory 
+regions. Each gene is then assigned a genetic set (GS) score, which is the P-value of the most significant SNP within the 
+gene’s extended boundaries, corrected for potential confounding factors of physical and genetic properties of genes through a 
+step-wise multiple linear regression.
 
 2. **MAGMA**. The gene-set analysis is divided into two parts. 
 
-   * a gene analysis is performed to quantify the degree of association each gene has with the 
-phenotype. In addition the correlations between genes are estimated. These correlations reflect the 
-LD between genes, and are needed in order to compensate for the dependencies between genes during the 
-gene-set analysis.
+* a gene analysis is performed to quantify the degree of association each gene has with the phenotype. In addition the 
+correlations between genes are estimated. These correlations reflect the LD between genes, and are needed in order to 
+compensate for the dependencies between genes during the gene-set analysis.
 
-   * the gene p-values and gene correlation matrix are then used to perform the actual gene-set analysis.
+* the gene p-values and gene correlation matrix are then used to perform the actual gene-set analysis.
 
 3. **PASCAL**. Gene scores are obtained by aggregating SNP p-values from a GWAS meta-analysis while 
 correcting for LD using a reference population via the max and sum of chi-squared statistics based on 
@@ -113,10 +119,12 @@ DEPICT*  |   x     |   x   |  x     |   x
 \* The common database to all software is derived from [a database from DEPICT 
 website](https://data.broadinstitute.org/mpg/depict/depict_download/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz).
 
-Except DEPICT, MAGENTA database, all or part (c2) of pathways in Molecular Signatures Database (MSigDB) can also be used. An entry in MAGENTA database contains a 
-database ID, a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an additional column after the pathway ID indicating URLs of the pathway, it 
-would be ignored by MAGMA for instance since these URLs do not match any Entrez gene IDs thus has no effect on the results. This feature facilitates use of software 
-considerably. Comparative as well as individual results including figures are kept in Excel workbooks called mmp.xlsx, depict.xlsx and xlsx.xlsx, respectively.
+Except DEPICT, MAGENTA database, all or part (c2) of pathways in Molecular Signatures Database (MSigDB) can also be used. An 
+entry in MAGENTA database contains a database ID, a pathway ID, followed by a list of Entrez gene IDs. Although MSigDB has an 
+additional column after the pathway ID indicating URLs of the pathway, it would be ignored by MAGMA for instance since these 
+URLs do not match any Entrez gene IDs thus has no effect on the results. This feature facilitates use of software 
+considerably. Comparative as well as individual results including figures are kept in Excel workbooks called mmp.xlsx, 
+depict.xlsx and xlsx.xlsx, respectively.
 
 Additional details about these databases are described here.
 
