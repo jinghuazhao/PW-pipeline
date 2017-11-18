@@ -41,7 +41,7 @@ sort -k3,3 > snp150.txt
 ```
 where it first obtains build 37 positions, sorts them by RSid into the file `snp150.txt`.
 
-## FEATURES OF SOFTWARE
+## FEATURES
 
 The pipeline puts together analyses involving several software using a unified input format and customises databases across 
 software, with the ability to collect results from them and add features such as FDRs and graphics with possibility for 
