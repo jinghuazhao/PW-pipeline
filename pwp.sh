@@ -110,7 +110,9 @@ if [ $pascal -eq 1 ]; then
    R -q --no-save < data.R > data.log
    sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
    if [ $_db == "magenta" ]; then
-      sed -i 's|GENESETFILE|'"${magenta_db}"'|g' settings.txt
+      awk '{$1=$2;$2="."};1' FS="\t" ${magenta_db} > magenta.db
+      export db=${PWD}/magenta.db
+      sed -i 's|GENESETFILE|'"${db}"'|g' settings.txt
    elif [ $_db == "c2" ]; then
       sed -i 's|GENESETFILE|'"${c2_db}"'|g' settings.txt
    elif [ $_db == "msigdb" ]; then
