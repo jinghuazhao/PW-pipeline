@@ -97,7 +97,7 @@ The pipeline puts together analyses involving several software using a unified i
 software, with the ability to collect results from them and add features such as FDRs and graphics with possibility for 
 additional analyses. The other aspect is that software such as MAGENTA and PASCAL could take long time while MAGENTA would 
 normally require a copy for a particular user and run interactively which would vie for resources with other interactive 
-sessions. The pipeline enables them run on noniteractive clusters.
+sessions. The pipeline enables them run on noninteractive clusters.
 
 The individual software are briefly described as follows.
 
