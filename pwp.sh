@@ -68,8 +68,8 @@ if [ $magenta -eq 1 ]; then
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    export suffix=_10000perm_$(date +'%b%d_%y')
    qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
-   awk '(NR==1){gsub(/\#/,"",$0);print}' magenta.db${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > header.dat
-#  sed -i 's/[[:digiti:]]\+\://g' magenta.db${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
+   awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > header.dat
+#  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
    R -q --no-save < collect.R > collect.log
    cd -
 fi
