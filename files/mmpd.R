@@ -1,4 +1,4 @@
-# 17-11-2017 MRC-Epid JHZ
+# 23-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -13,7 +13,7 @@ load("MAGMA/MAGMA.rda")
 load("PASCAL/PASCAL.rda")
 for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", "_tissueenrichment.txt",".clumped", "_depict.tab"))
 {
-  file <- paste0("depict",tbl)
+  file <- paste0("depict_discretized_cutoff3.2",tbl)
   sep <- ifelse(tbl==".clumped","", "\t")
   assign(file,read.table(paste0("DEPICT/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
 }
