@@ -1,5 +1,5 @@
 #!/bin/bash
-# 20-11-2017 MRC-Epid JHZ
+# 23-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -114,10 +114,13 @@ if [ $pascal -eq 1 ]; then
       export db=${PWD}/magenta.db
       sed -i 's|GENESETFILE|'"${db}"'|g' settings.txt
    elif [ $_db == "c2" ]; then
+      export db=$(basename $c2_db .gmt)
       sed -i 's|GENESETFILE|'"${c2_db}"'|g' settings.txt
    elif [ $_db == "msigdb" ]; then
+      export db=$(basename $msigdb_db .gmt)
       sed -i 's|GENESETFILE|'"${msigdb_db}"'|g' settings.txt
    else
+      export db=$(basename $depict_db .gmt)
       sed -i 's|GENESETFILE|'"${depict_db}"'|g' settings.txt
    fi
    qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
@@ -135,12 +138,16 @@ if [ $depict -eq 1 ]; then
    R -q --no-save < data.R > data.log
    sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $_db == "depict" ]; then
+      export db=depict
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
+      sed -i 's|LABEL_FOR)OUTPUT_FILES|depict|g' depict.cfg
    else
+      export db=$(basename $depict_db .gmt)
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
+      sed -i 's|LABEL_FOR)OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
    fi
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
-   bash tissue_plot.sh
+   bash tissue_plot.sh $db
    R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.out
    cd -
 fi
