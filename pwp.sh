@@ -96,6 +96,7 @@ if [ $magma -eq 1 ]; then
       export db=${depict_db}
    fi
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
+   export db=$(basename $db)
    R -q --no-save < ${PW_location}/MAGMA/sets.R > sets.log
    cd -
 fi
