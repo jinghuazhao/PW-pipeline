@@ -1,14 +1,15 @@
-# 16-11-2017 MRC-Epid JHZ
+# 23-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
 xlsx <- "depict.xlsx"
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
+db <- Sys.getenv("db")
 
 for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", "_tissueenrichment.txt",".clumped", "_depict.tab"))
 {
-  file <- paste0("depict",tbl)
+  file <- paste0(db,tbl)
   sep <- ifelse(tbl==".clumped","", "\t")
   assign(file,read.table(file,as.is=TRUE,header=TRUE,sep=sep,quote=""))
   addWorksheet(wb, paste0("DEPICT",tbl))

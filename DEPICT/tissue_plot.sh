@@ -1,14 +1,14 @@
-# 17-11-2017 MRC-Epid JHZ
+# 23-11-2017 MRC-Epid JHZ
 
-# R CMD BATCH --no-save --no-restore '--args depict_tissueenrichment.txt' tissue_plot.R depict.out
+# R CMD BATCH --no-save --no-restore '--args ${1}_tissueenrichment.txt' tissue_plot.R ${1}.out
 
-Rscript tissue_plot.R depict_tissueenrichment.txt depict
+Rscript tissue_plot.R ${1}_tissueenrichment.txt $1
 
 # pdf --> png conversion via xpdf to facilitate generation of Excel workbook
 
 for p in cells multiplot system tissues
 do
-   r=tissue_plot_depict_genenetwork_${p}
+   r=tissue_plot_${1}_genenetwork_${p}
    if [ -f ${r}.png ]; then
       rm ${r}.png
    fi
@@ -20,7 +20,7 @@ done
 
 # conversion via ImageMagick:
 
-#export prefix=tissue_plot_depict_genenetwork_
+#export prefix=tissue_plot_${1}_genenetwork_
 #for type in cells multiplot system tissues
 #do
 #   echo Converting ${prefix}{type} ...
