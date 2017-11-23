@@ -7,4 +7,4 @@
 #$ -q all.q
 #$ -t 1
 
-magma --gene-results magma.genes.raw --set-annot $db self-contained --out $db
+magma --gene-results magma.genes.raw --set-annot $db self-contained --out $(basename $db)
