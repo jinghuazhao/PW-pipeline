@@ -119,7 +119,9 @@ regions. Each gene is then assigned a genetic set (GS) score, which is the P-val
 gene’s extended boundaries, corrected for potential confounding factors of physical and genetic properties of genes through a 
 step-wise multiple linear regression.
 
-2. **MAGMA**. The gene-set analysis is divided into two parts. 
+2. **MAGMA**. It consists of three steps: annotation, gene analysis-SNP p values, and gene-set analysis.
+
+The gene-set analysis is divided into two parts. 
 
 * a gene analysis is performed to quantify the degree of association each gene has with the phenotype. In addition the 
 correlations between genes are estimated. These correlations reflect the LD between genes, and are needed in order to 
