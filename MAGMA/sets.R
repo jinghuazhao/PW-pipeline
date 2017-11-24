@@ -1,14 +1,14 @@
 # 24-11-2017 MRC-Epid JHZ
 
 options(width=250)
-sets <- function(id)
+sets <- function(db)
 {
-  sets.out <- read.table(paste0(id,".sets.out"), as.is=TRUE, skip=3, header=TRUE)
+  sets.out <- read.table(paste0(db,".sets.out"), as.is=TRUE, skip=3, header=TRUE)
   ordered <- with(sets.out, order(P))
   require(gap)
   with(sets.out,{
     summary(P)
-    pdf(paste0(id,".sets.pdf"))
+    pdf(paste0(db,".sets.pdf"))
     qqunif(P)
     dev.off()
   })

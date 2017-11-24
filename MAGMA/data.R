@@ -1,4 +1,4 @@
-# 16-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 sumstats <- Sys.getenv("sumstats_rda")
 load(sumstats)
@@ -8,5 +8,7 @@ d <- within(d, {
    NOBS <- as.integer(N)
 })
 d <- subset(d, SNP!=".")
-write.table(d[c("SNP","CHR","BP")],file="magma.snploc",quote=FALSE,row.name=FALSE,col.names=FALSE,sep="\t")
-write.table(d[c("SNP","P","NOBS")],file="magma.pval",quote=FALSE,row.name=FALSE,sep="\t")
+
+db <- Sys.getenv("_db")
+write.table(d[c("SNP","CHR","BP")],file=paste0(db,".snploc"),quote=FALSE,row.name=FALSE,col.names=FALSE,sep="\t")
+write.table(d[c("SNP","P","NOBS")],file=paste0(db,".pval"),quote=FALSE,row.name=FALSE,sep="\t")
