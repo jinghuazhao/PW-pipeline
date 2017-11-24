@@ -1,19 +1,20 @@
-# 23-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
-xlsx <- "mmpd.xlsx"
+db <- Sys.getenv("db")
+xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
 
 # depict_discretized_cutoff3.2 results
-t <- -log10(0.05/14463)
-load("MAGENTA/MAGENTA.rda")
-load("MAGMA/MAGMA.rda")
-load("PASCAL/PASCAL.rda")
+t <- -log10(0.05/14462)
+load(paste0("MAGENTA/",db,".rda"))
+load(paste0("MAGMA/",db,".rda"))
+load(paste0("PASCAL/",db,".rda"))
 for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", "_tissueenrichment.txt",".clumped", "_depict.tab"))
 {
-  file <- paste0("depict_discretized_cutoff3.2",tbl)
+  file <- paste0(db,tbl)
   sep <- ifelse(tbl==".clumped","", "\t")
   assign(file,read.table(paste0("DEPICT/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
 }

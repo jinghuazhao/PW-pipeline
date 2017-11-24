@@ -1,15 +1,15 @@
-# 15-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
-xlsx <- "mmp.xlsx"
+xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
 
 # MAGENTA.db results
-load("MAGENTA/MAGENTA.rda")
-load("MAGMA/MAGMA.rda")
-load("PASCAL/PASCAL.rda")
+load(paste0("MAGENTA/",db,".rda"))
+load(paste0("MAGMA/",db,".rda"))
+load(paste0("PASCAL/",db,".rda"))
 
 mm <- merge(MAGENTA,set,by.x=c("DB","GS"),by.y=c("FULL_NAME","pathway"))
 mm <- within(mm,
