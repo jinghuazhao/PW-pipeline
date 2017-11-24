@@ -1,6 +1,7 @@
-#17-11-2017 MRC-Epid JHZ
+#24-11-2017 MRC-Epid JHZ
 
-load("mmpd.rda")
+db <- Sys.getenv("db")
+load(paste0(db,".rda"))
 
 GO <- function(prefix)
 {

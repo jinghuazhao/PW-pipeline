@@ -2,6 +2,7 @@
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
+db <- Sys.getenv("db")
 xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
@@ -46,7 +47,7 @@ cor(mmp[c("log10p_MAGENTA","log10p_MAGMA","log10p_PASCAL")],method="pearson",use
 addWorksheet(wb, "MAGENTA.db")
 writeDataTable(wb, "MAGENTA.db", mmp)
 
-png("mmp.png",res=300,height=11,width=8,units="in")
+png(paste0(db,".png"),res=300,height=11,width=8,units="in")
 par(mfrow=c(2,2),cex=0.6,pch=20)
 # MAGENTA-MAGMA
 with(mmp,plot(log10p_MAGENTA,log10p_MAGMA,xlab="MAGENTA",ylab="MAGMA",main="MAGENTA-MAGMA comparison"))
@@ -62,4 +63,4 @@ addWorksheet(wb, "MAGENTA.plot")
 insertImage(wb, "MAGENTA.plot", paste0("mmp.png"),width=15,height=18)
 
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
-unlink("mmp.png")
+unlink(paste0(db,".png"))

@@ -50,7 +50,7 @@ with(mmpd,{
 })
 addWorksheet(wb, "depict_discretized_cutoff3.2")
 writeDataTable(wb, "depict_discretized_cutoff3.2", mmpd)
-save(mmpd,file="mmpd.rda")
+save(mmpd,file=paste0(db,".rda"))
 
 h <- c("GS","p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT","r_MAGENTA","r_MAGMA","r_PASCAL","r_DEPICT")
 mmpd <- mmpd[with(mmpd,order(p_MAGENTA)),c(h,setdiff(names(mmpd),h))]
@@ -59,7 +59,7 @@ head(mmpd[h],20)
 cor(mmpd[c("p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT")],method="pearson",use="complete.obs")
 kruskal.test(mmpd[c("p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT")])
 cor(mmpd[c("log10p_MAGENTA","log10p_MAGMA","log10p_PASCAL","log10p_DEPICT")],method="pearson",use="complete.obs")
-png("mmpd.png",res=300,height=11,width=8,units="in")
+png(paste0(db,".png"),res=300,height=11,width=8,units="in")
 par(mfrow=c(2,3),oma=c(0,0,2,0))
 with(mmpd, {
 # MAGENTA-MAGMA
@@ -88,4 +88,4 @@ insertImage(wb, "depict_discretized.plot", paste0("mmpd.png"),width=16,height=10
 
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
-unlink("mmpd.png")
+unlink(paste0(db,".png"))
