@@ -26,6 +26,15 @@ export depict=1
 
 export _db=depict_discretized
 
+if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
+    echo "Usage: pwp.sh <input>"
+    echo "where <input> is in sumstats format:"
+    echo "SNP A1 A2 freqA1 beta se P N chr pos"
+    echo "where SNP is RSid, A1 is effect allele"
+    echo "and the outputs will be in MAGENTA/MAGMA/PASCAL/DEPICT directory"
+    exit
+fi
+
 ## indidivual analyses according to request
 
 sed 's/\t/ /g' $1 > $1.sumstats
