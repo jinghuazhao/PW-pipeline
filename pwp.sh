@@ -1,5 +1,5 @@
 #!/bin/bash
-# 23-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -13,7 +13,7 @@ export PW_location=/genetics/bin/PW-pipeline
 export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
-export depict_db=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
+export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
 ### software flags
 
@@ -63,7 +63,7 @@ if [ $magenta -eq 1 ]; then
       awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb_db} > msigdb.db
    else
       export db=depict.db
-      awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_db} > depict.db
+      awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > depict.db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    export suffix=_10000perm_$(date +'%b%d_%y')
@@ -93,7 +93,7 @@ if [ $magma -eq 1 ]; then
    elif [ $_db == "msigdb" ]; then
       export db=${msigdb_db}
    else
-      export db=${depict_db}
+      export db=${depict_discretized}
    fi
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
    export db=$(basename $db)
@@ -121,8 +121,8 @@ if [ $pascal -eq 1 ]; then
       export db=$(basename $msigdb_db .gmt)
       sed -i 's|GENESETFILE|'"${msigdb_db}"'|g' settings.txt
    else
-      export db=$(basename $depict_db .gmt)
-      sed -i 's|GENESETFILE|'"${depict_db}"'|g' settings.txt
+      export db=$(basename $depict_discretized .gmt)
+      sed -i 's|GENESETFILE|'"${depict_discretized}"'|g' settings.txt
    fi
    qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > collect.log
@@ -143,7 +143,7 @@ if [ $depict -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
       sed -i 's|LABEL_FOR)OUTPUT_FILES|depict|g' depict.cfg
    else
-      export db=$(basename $depict_db .gmt)
+      export db=$(basename $depict_discretized .gmt)
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
       sed -i 's|LABEL_FOR)OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
    fi
