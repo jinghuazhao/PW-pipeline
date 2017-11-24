@@ -1,4 +1,4 @@
-# 15-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 options(width=250)
 sets <- function(id)
@@ -20,4 +20,4 @@ db <- Sys.getenv("db")
 magma <- sets(db)
 ord <- with(magma,order(P))
 set <- magma[ord,]
-save(set,file="MAGMA.rda")
+save(set,file=paste0(db,".rda"))

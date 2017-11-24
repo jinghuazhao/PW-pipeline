@@ -1,4 +1,4 @@
-# 18-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 gsps <- function(f,db="MAGENTA",method="sum")
 {
@@ -8,7 +8,7 @@ gsps <- function(f,db="MAGENTA",method="sum")
   ps <- read.table(paste0(f,".PathwaySet--",db,"--",method,".txt"),as.is=TRUE,header=TRUE,sep="\t")
   ord <- with(ps,order(chi2Pvalue))
   ps <- ps[ord,]
-  save(gs,ps,file="PASCAL.rda")
+  save(gs,ps,file=paste0(db,".rda"))
 }
 
 db <- Sys.getenv("db")

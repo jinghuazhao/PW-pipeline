@@ -1,4 +1,4 @@
-# 15-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 suffix <- Sys.getenv("suffix")
@@ -17,5 +17,5 @@ names(r) <- names(header)[1:ncol(r)]
 dim(r)
 ord <- with(r,order(NOMINAL_GSEA_PVAL_95PERC_CUTOFF))
 MAGENTA <- r[ord,]
-write.table(MAGENTA,"MAGENTA.dat",sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
-save(MAGENTA,file="MAGENTA.rda")
+write.table(MAGENTA,paste0(db,".dat"),sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
+save(MAGENTA,file=paste0(db".rda"))

@@ -1,11 +1,11 @@
-# 23-11-2017 MRC-Epid JHZ
+# 24-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
-xlsx <- "depict.xlsx"
+db <- Sys.getenv("db")
+xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
-db <- Sys.getenv("db")
 
 for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", "_tissueenrichment.txt",".clumped", "_depict.tab"))
 {
@@ -25,5 +25,3 @@ for(s in c("cells","multiplot","system", "tissues"))
 }
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
-
-
