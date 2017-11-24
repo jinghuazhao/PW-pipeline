@@ -24,7 +24,7 @@ export depict=1
 
 ### database flag (magenta, c2, msigdb, depict)
 
-export _db=magenta
+export _db=depict_discretized
 
 ## indidivual analyses according to request
 
