@@ -120,7 +120,7 @@ gene’s extended boundaries, corrected for potential confounding factors of phy
 step-wise multiple linear regression.
 
 2. **MAGMA**. It consists of three steps: annotation (`--annotate`), gene analysis-SNP p values (`--pval --gene-annot`), and
-gene-set analysis (`--gene-results`).
+gene-set analysis (`--gene-results --set-annot`).
 
 The gene-set analysis is divided into two parts. 
 
