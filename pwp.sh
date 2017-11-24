@@ -82,9 +82,9 @@ if [ $magma -eq 1 ]; then
    cd MAGMA
    R -q --no-save < ${PW_location}/MAGMA/data.R > data.log
    # Annotation
-   magma --annotate window=50,50 --snp-loc magma.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out magma
+   magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
    # Gene analysis - SNP p-values
-   magma --bfile $MAGMA/g1000_eur --pval magma.pval ncol=NOBS --gene-annot magma.genes.annot --out magma
+   magma --bfile $MAGMA/g1000_eur --pval ${_db}.pval ncol=NOBS --gene-annot ${_db}.genes.annot --out ${_db}
    if [ $_db == "magenta" ]; then
       awk '{$1=$2;$2=""};1' FS="\t" ${magenta_db} | awk '{$2=$2};1'> magenta.db
       export db=magenta.db
