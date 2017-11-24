@@ -252,8 +252,9 @@ for(i in mplist) print(term("MP",i))
 
 ## ACKNOWLEDGEMENTS
 
-The work drives from comparison of software performances using our own GWAS data. The practicality of a 
-common DEPICT database to all software here was due to PASCAL developer(s).
+The work drives from comparison of software performances using our own GWAS data. The practicality of a common DEPICT database to all software 
+here was due to PASCAL developer(s). At the end of our it came to our attention that similar effort has been made, e.g., 
+[DEPICT-pipeline](https://github.com/RebeccaFine/DEPICT-pipeline) and other adaptations.
 
 ## SOFTWARE AND REFERENCES
 
