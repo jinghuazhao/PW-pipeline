@@ -79,7 +79,7 @@ if [ $magenta -eq 1 ]; then
    qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
    awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > header.dat
 #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
-   R -q --no-save < collect.R > collect.log
+   R -q --no-save < collect.R > ${_db}.collect.log
    cd -
 fi
 
@@ -104,9 +104,10 @@ if [ $magma -eq 1 ]; then
    else
       export db=${depict_discretized}
    fi
+   # Gene-set analysis
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
    export db=$(basename $db)
-   R -q --no-save < ${PW_location}/MAGMA/sets.R > sets.log
+   R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
    cd -
 fi
 
@@ -134,7 +135,7 @@ if [ $pascal -eq 1 ]; then
       sed -i 's|GENESETFILE|'"${depict_discretized}"'|g' settings.txt
    fi
    qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
-   R -q --no-save < collect.R > collect.log
+   R -q --no-save < collect.R > ${_db}.collect.log
    cd -
 fi
 
@@ -158,15 +159,15 @@ if [ $depict -eq 1 ]; then
    fi
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
-   R -q --no-save < ${PW_location}/DEPICT/collect.R > collect.out
+   R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.out
    cd -
 fi
 
 ## collection into Excel workbook(s)
 
 if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict" ]; then
-    R -q --no-save < ${PW_location}/files/mmpd.R > mmpd.log
-    R -q --no-save < ${PW_location}/files/summary.R > summary.log
+    R -q --no-save < ${PW_location}/files/mmpd.R > ${_db}.mmpd.log
+    R -q --no-save < ${PW_location}/files/summary.R > ${_db}.summary.log
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
-    R -q --no-save < ${PW_location}/files/mmp.R > mmp.log
+    R -q --no-save < ${PW_location}/files/mmp.R > ${_db}.mmp.log
 fi
