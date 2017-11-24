@@ -119,8 +119,8 @@ regions. Each gene is then assigned a genetic set (GS) score, which is the P-val
 gene’s extended boundaries, corrected for potential confounding factors of physical and genetic properties of genes through a 
 step-wise multiple linear regression.
 
-2. **MAGMA**. It consists of three steps: annotation (--annotate), gene analysis-SNP p values (--pval --gene-annot), and
-gene-set analysis (--gene-results).
+2. **MAGMA**. It consists of three steps: annotation (`--annotate`), gene analysis-SNP p values (`--pval --gene-annot`), and
+gene-set analysis (`--gene-results`).
 
 The gene-set analysis is divided into two parts. 
 
