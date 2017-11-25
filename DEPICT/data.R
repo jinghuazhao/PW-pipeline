@@ -1,4 +1,4 @@
-# 26-11-2017 MRC-Epid JHZ
+# 25-11-2017 MRC-Epid JHZ
 
 sumstats <- Sys.getenv("sumstats_rda")
 load(sumstats)
