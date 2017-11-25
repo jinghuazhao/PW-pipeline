@@ -1,5 +1,5 @@
 #!/bin/bash
-# 24-11-2017 MRC-Epid JHZ
+# 25-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -61,7 +61,7 @@ if [ $magenta -eq 1 ]; then
    cd MAGENTA
    for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
    for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
-   R -q --no-save < data.R > data.log
+   R -q --no-save < data.R > ${_db}.data.log
    if [ $_db == "magenta" ]; then
       export db=magenta.db
    elif [ $_db == "c2" ]; then
@@ -89,7 +89,7 @@ if [ $magma -eq 1 ]; then
       mkdir MAGMA
    fi
    cd MAGMA
-   R -q --no-save < ${PW_location}/MAGMA/data.R > data.log
+   R -q --no-save < ${PW_location}/MAGMA/data.R > ${_db}.data.log
    # Annotation
    magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
    # Gene analysis - SNP p-values
@@ -118,7 +118,7 @@ if [ $pascal -eq 1 ]; then
    fi
    cd PASCAL
    cp $PW_location/PASCAL/* .
-   R -q --no-save < data.R > data.log
+   R -q --no-save < data.R > ${_db}.data.log
    sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
    if [ $_db == "magenta" ]; then
       awk '{$1=$2;$2="."};1' FS="\t" ${magenta_db} > magenta.db
@@ -146,7 +146,7 @@ if [ $depict -eq 1 ]; then
    fi
    cd DEPICT
    cp $PW_location/DEPICT/* .
-   R -q --no-save < data.R > data.log
+   R -q --no-save < data.R > ${_db}.data.log
    sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $_db == "depict" ]; then
       export db=depict
