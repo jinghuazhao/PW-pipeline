@@ -3,6 +3,9 @@
 
 ## SETTINGS
 
+# multiple precision flag; setting to 1 if needed
+export mp=0
+
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
 export PASCAL=/genetics/bin/PASCAL
