@@ -25,6 +25,10 @@ export magma=1
 export pascal=1
 export depict=1
 
+### P value threshold
+
+export p_threshold=0.00000005
+
 ### database flag (magenta, c2, msigdb, depict)
 
 export _db=depict_discretized
