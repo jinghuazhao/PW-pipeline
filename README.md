@@ -99,6 +99,10 @@ additional analyses. The other aspect is that software such as MAGENTA and PASCA
 normally require a copy for a particular user and run interactively which would vie for resources with other interactive 
 sessions. The pipeline enables them run on noninteractive clusters.
 
+Additionally, there is an `mp` flag; if setting to 1 it will regenerate P values and 
+-log10(P) using multiple precision from z, which is necessary when the |z| is very 
+large.
+
 The individual software are briefly described as follows.
 
 1. **MAGENTA**. Segre, et al. (2010) describes how it works: 
