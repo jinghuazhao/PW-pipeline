@@ -18,4 +18,4 @@ dim(r)
 ord <- with(r,order(NOMINAL_GSEA_PVAL_95PERC_CUTOFF))
 MAGENTA <- r[ord,]
 write.table(MAGENTA,paste0(db,".dat"),sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
-save(MAGENTA,file=paste0(db".rda"))
+save(MAGENTA,file=paste0(db,".rda"))
