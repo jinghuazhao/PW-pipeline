@@ -12,7 +12,7 @@ get.results <- function(db,date=suffix)
 }
 r <- get.results(db)
 
-header <- read.table("header.dat",sep="\t",as.is=TRUE,header=TRUE)
+header <- read.table(paste0(db,".dat"),sep="\t",as.is=TRUE,header=TRUE)
 names(r) <- names(header)[1:ncol(r)]
 dim(r)
 ord <- with(r,order(NOMINAL_GSEA_PVAL_95PERC_CUTOFF))
