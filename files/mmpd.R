@@ -6,9 +6,7 @@ db <- Sys.getenv("db")
 xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
-
-# depict_discretized_cutoff3.2 results
-t <- -log10(0.05/14462)
+library(plyr)
 load(paste0("MAGENTA/",db,".rda"))
 load(paste0("MAGMA/",db,".rda"))
 load(paste0("PASCAL/",db,".rda"))
@@ -18,9 +16,10 @@ for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", 
   sep <- ifelse(tbl==".clumped","", "\t")
   assign(file,read.table(paste0("DEPICT/",file),as.is=TRUE,header=TRUE,sep=sep,quote=""))
 }
-mm4 <- merge(MAGENTA,set,by.x=c("GS"),by.y=c("FULL_NAME"))
-mmp4 <- merge(mm4,ps,by.x=c("GS"),by.y=c("Name"))
-mmpd <- merge(mmp4,get(paste0(db,"_genesetenrichment.txt")),by.x=c("GS"),by.y=c("Original.gene.set.ID"))
+set <- rename(set,c("FULL_NAME"="GS"))
+ps <- rename(ps,c("Name"="GS"))
+depict <- rename(get(paste0(db,"_genesetenrichment.txt")),c("Original.gene.set.ID"="GS"))
+mmpd <- join_all(list(MAGENTA,set,ps,depict),"GS")
 n <- nrow(mmpd)
 mmpd <- within(mmpd,
 {
@@ -41,22 +40,9 @@ mmpd <- within(mmpd,
    r_PASCAL <- rank(p_PASCAL)
    r_DEPICT <- rank(p_DEPICT)
 })
-with(mmpd,{
-   cat("Number of pathways reaching Bonferroni threshold (",0.05/n,"):",
-      "MAGENTA=", length(p_MAGENTA[p_MAGENTA<0.05/n]), "MAGMA=",length(p_MAGMA[p_MAGMA<0.05/n]),
-      "PASCAL=", length(p_PASCAL[p_PASCAL<0.05/n]), "DEPICT=",length(p_DEPICT[p_DEPICT<0.05/n]), "\n")
-  cat("FDR < 0.05:", "MAGENTA=", length(fdr_MAGENTA[fdr_MAGENTA<0.05]), "MAGMA=", length(fdr_MAGMA[fdr_MAGMA<0.05]),
-     "PASCAL=",length(fdr_PASCAL[fdr_PASCAL<0.05]),"DEPICT=",length(fdr_DEPICT[fdr_DEPICT<0.05]), "\n")
-})
-addWorksheet(wb, "depict_discretized_cutoff3.2")
-writeDataTable(wb, "depict_discretized_cutoff3.2", mmpd)
+addWorksheet(wb, db)
+writeDataTable(wb, db, mmpd)
 save(mmpd,file=paste0(db,".rda"))
-
-h <- c("GS","p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT","r_MAGENTA","r_MAGMA","r_PASCAL","r_DEPICT")
-mmpd <- mmpd[with(mmpd,order(p_MAGENTA)),c(h,setdiff(names(mmpd),h))]
-dim(mmpd)
-head(mmpd[h],20)
-cor(mmpd[c("p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT")],method="pearson",use="complete.obs")
 kruskal.test(mmpd[c("p_MAGENTA","p_MAGMA","p_PASCAL","p_DEPICT")])
 cor(mmpd[c("log10p_MAGENTA","log10p_MAGMA","log10p_PASCAL","log10p_DEPICT")],method="pearson",use="complete.obs")
 png(paste0(db,".png"),res=300,height=11,width=8,units="in")
@@ -85,6 +71,28 @@ with(mmpd, {
 dev.off()
 addWorksheet(wb, "depict_discretized.plot")
 insertImage(wb, "depict_discretized.plot", paste0(db,".png"),width=16,height=10)
+ID <- get(paste0(db,"_genesetenrichment.txt"))["Original.gene.set.ID"]
+MAGENTA <- subset(MAGENTA,FDR_95PERC_CUTOFF<0.05)
+MAGENTA <- merge(ID,MAGENTA,by.x="Original.gene.set.ID",by.y="GS",all.y=TRUE)
+ord <- with(MAGENTA,order(FDR_95PERC_CUTOFF))
+addWorksheet(wb, "MAGENTA")
+writeDataTable(wb, "MAGENTA", MAGENTA[ord,])
+set <- subset(set,P<0.05)
+set <- merge(ID,set,by.x="Original.gene.set.ID",by.y="GS",all.y=TRUE)
+ord <- with(set,order(P))
+addWorksheet(wb, "MAGMA")
+writeDataTable(wb, "MAGMA", set[ord,])
+ps <- subset(ps,chi2Pvalue<0.05)
+ps <- merge(ID,ps,by.x="Original.gene.set.ID",by.y="GS",all.y=TRUE)
+ord <- with(ps,order(chi2Pvalue))
+addWorksheet(wb, "PASCAL")
+writeDataTable(wb, "PASCAL", ps[ord,])
+depict <- subset(depict,False.discovery.rate<0.05)
+ord <- with(depict,order(False.discovery.rate))
+addWorksheet(wb, "DEPICT")
+writeDataTable(wb, "DEPICT", depict[ord,])
+addWorksheet(wb, "FDR_all")
+writeDataTable(wb, "FDR_all", subset(mmpd,fdr_MAGENTA<0.05&fdr_PASCAL<0.05&fdr_DEPICT<0.05)[c("GS",paste0("fdr_",c("MAGENTA","PASCAL","DEPICT")))])
 
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)

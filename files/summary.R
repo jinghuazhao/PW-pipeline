@@ -1,4 +1,4 @@
-#24-11-2017 MRC-Epid JHZ
+#27-11-2017 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 load(paste0(db,".rda"))
@@ -6,17 +6,19 @@ load(paste0(db,".rda"))
 GO <- function(prefix)
 {
   n <- nrow(mmpd)
+  cat("cutoff=",0.05/n, "\n")
   SOFTWARE <- c("MAGENTA","MAGMA","PASCAL","DEPICT")
   for (software in SOFTWARE)
   {
     v <- paste0(prefix,"_",software)
     t <- ifelse(prefix=="p",0.05/n,0.05)
+    cat(software,"n (p<0.05)=",nrow(subset(mmpd,mmpd[paste0("p","_",software)]<0.05)))
     s <- subset(mmpd, !is.na(mmpd[v]) & mmpd[v]<t)
     o <- with(s, order(s[v]))
     s <- s[o,]
     z <- s[c("Original.gene.set.description",paste0(prefix,"_",SOFTWARE))]
     write.table(z,file=paste0(software,".txt"),quote=FALSE,row.names=FALSE,sep="\t")
-    cat(software, ": n (", prefix,") = ",nrow(z), sep="")
+    cat(": n (", prefix,") = ",nrow(z), sep="")
     if (prefix=="fdr" & software %in% c("MAGENTA","DEPICT"))
        {
          v <- ifelse(software=="MAGENTA", "FDR_95PERC_CUTOFF", "False.discovery.rate")
@@ -30,3 +32,4 @@ GO <- function(prefix)
 }
 
 GO("fdr")
+GO("p")
