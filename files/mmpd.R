@@ -1,4 +1,4 @@
-# 24-11-2017 MRC-Epid JHZ
+# 27-11-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -20,7 +20,7 @@ for (tbl in c("_genesetenrichment.txt", "_geneprioritization.txt", "_loci.txt", 
 }
 mm4 <- merge(MAGENTA,set,by.x=c("GS"),by.y=c("FULL_NAME"))
 mmp4 <- merge(mm4,ps,by.x=c("GS"),by.y=c("Name"))
-mmpd <- merge(mmp4,depict_genesetenrichment.txt,by.x=c("GS"),by.y=c("Original.gene.set.ID"))
+mmpd <- merge(mmp4,get(paste0(db,"_genesetenrichment.txt")),by.x=c("GS"),by.y=c("Original.gene.set.ID"))
 n <- nrow(mmpd)
 mmpd <- within(mmpd,
 {
@@ -84,7 +84,7 @@ with(mmpd, {
 })
 dev.off()
 addWorksheet(wb, "depict_discretized.plot")
-insertImage(wb, "depict_discretized.plot", paste0("mmpd.png"),width=16,height=10)
+insertImage(wb, "depict_discretized.plot", paste0(db,".png"),width=16,height=10)
 
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
