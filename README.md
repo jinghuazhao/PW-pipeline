@@ -196,7 +196,7 @@ PANTHER_BioProc | 241
 PANTHER_MolFunc | 252
 PANTHER_pathways | 141
 
-Only 2,529 contain 10 or more genes were used by MAGENTA by default, leading to Bonferroni threshold 0.05/2529=1.977066e-05.
+Only 2,529 contain 10 or more genes were used by MAGENTA by default, leading to Bonferroni threshold 0.05/2529=1.977066e-05 when only this subset is used.
 
 2. **MSigDB** (http://software.broadinstitute.org/gsea/msigdb/collections.jsp). The MSigDB v6.0 is 
 divided into 8 major collections and several sub-collections on 17,779 gene sets, c2 containing 4,731 
