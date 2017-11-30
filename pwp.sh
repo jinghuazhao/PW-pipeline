@@ -1,5 +1,5 @@
 #!/bin/bash
-# 27-11-2017 MRC-Epid JHZ
+# 30-11-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -25,7 +25,11 @@ export magma=1
 export pascal=1
 export depict=1
 
-### P value threshold
+### min_gs_size for MAGENTA in line with other software
+
+export min_gs_size=5
+
+### P value threshold for DEPICT
 
 export p_threshold=0.00000005
 
