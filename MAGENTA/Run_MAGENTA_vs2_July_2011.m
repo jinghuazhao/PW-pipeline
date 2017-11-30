@@ -146,7 +146,7 @@ GSEA_method = 1;
 top_percen_cutoffs = [5 25];  % default: 95 percentile and 75 percentile
 
 % limit of gene set size
-min_gs_size = 10; % minimum number of genes in gene set (default>=10 genes)
+min_gs_size = getenv('min_gs_size'); % minimum number of genes in gene set (default>=10 genes)
 max_gs_size = 2000; % maximum number of genes in a gene set (default=no limit)
 
 choose_unique_genes = 1; % 1 = correct for physcial proximity of genes in each given gene set, by removing all but one gene of a subset of genes
