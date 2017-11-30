@@ -105,7 +105,7 @@ Several flags are notable:
 very large and P=0, -log10(P)=infinity. 
 * `min_gs_size` By default, the mininum number of genes contained in a pathway is five rather than 10 in order to be consistent with other software and 
 this can be changed to 10 via `min_gs_size` in the script if you intend to use the same threshold as MAGENTA.
-* `p_threshold`. This is to compromise the suggest that DEPICT is run twice, for P<=5 x 10^(-8) and P<= 5 x 10^-5, respectively.
+* `p_threshold`. This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10^(-8) and P<= 5 x 10^-5, respectively.
 
 The individual software are briefly described as follows.
 
