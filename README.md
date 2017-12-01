@@ -260,6 +260,7 @@ library(rols)
 mplist <- c("MP:0000003","MP:0000005")
 for(i in mplist) print(term("MP",i))
 ```
+A pre-prepared table is also available as [id_descrip.txt.gz](files/id_descrip.txt.gz) which will be complementary to these.
 
 ## ACKNOWLEDGEMENTS
 
