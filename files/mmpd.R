@@ -1,4 +1,4 @@
-# 27-11-2017 MRC-Epid JHZ
+# 1-12-2017 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -71,7 +71,7 @@ with(mmpd, {
 dev.off()
 addWorksheet(wb, "depict_discretized.plot")
 insertImage(wb, "depict_discretized.plot", paste0(db,".png"),width=16,height=10)
-ID <- get(paste0(db,"_genesetenrichment.txt"))["Original.gene.set.ID"]
+ID <- get(paste0(db,"_genesetenrichment.txt"))[c("Original.gene.set.ID","Original.gene.set.description")]
 MAGENTA <- subset(MAGENTA,FDR_95PERC_CUTOFF<0.05)
 MAGENTA <- merge(ID,MAGENTA,by.x="Original.gene.set.ID",by.y="GS",all.y=TRUE)
 ord <- with(MAGENTA,order(FDR_95PERC_CUTOFF))
