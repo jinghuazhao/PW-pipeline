@@ -25,6 +25,8 @@ R --no-save <<END
 # plot(cluster.bootstrap)
 # pvrect(cluster.bootstrap)
   cl <- kmeans(dissimilarity, 5, nstart = 25)
+  require(factoextra)
+  fviz_dist(as.dist(dissimilarity), gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 END
 zgrep -n -T -f depict_discretized_cutoff3.2.colnames ${columns} | cut -f1 > depict_discretized_cutoff3.2.colid
 
