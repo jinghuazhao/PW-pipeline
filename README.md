@@ -107,6 +107,9 @@ very large and P=0, -log10(P)=infinity.
 this can be changed to 10 via `min_gs_size` in the script if you intend to use the same threshold as MAGENTA.
 * `p_threshold`. This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10^(-8) and P<= 5 x 10^-5, respectively.
 
+Moreover, potential downstream analysis such as clustering significant pathways and network of pathways is illustrated with 
+[network.sh](files/network.sh).
+
 The individual software are briefly described as follows.
 
 1. **MAGENTA**. Segre, et al. (2010) describes how it works: 
