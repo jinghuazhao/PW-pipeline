@@ -7,21 +7,23 @@ export rows=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_I
 
 gunzip -c ${BP} | \
 awk -vFS="\t" -vOFS="\t" -f xpose.awk | \
-grep -f depict_discretized_cutoff3.2.colnames | \
-awk -f xpose.awk > depict_discretized_cutoff3.2.network
+grep -f ${_db}.colnames | \
+awk -f xpose.awk > ${_db}.network
 
 R --no-save <<END
-  nw <- read.table("depict_discretized_cutoff3.2.network",as.is=TRUE,header=TRUE)
+  db <- Sys.getenv("_db")
+  nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   corRaw <- cor(Raw)
   dissimilarity <- 1-abs(cor(corRaw))
   distance <- as.dist(dissimilarity)
   require(factoextra)
+  pdf("network.pdf")
   fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
   tRaw <- t(Raw)
   set.seed(31415625)
-  fviz_nbclust(tRaw, kmeans, method = "gap_stat")
-  gap_stat <- clusGap(tRaw, FUN = kmeans, nstart = 25, K.max = 10, B = 50)
+  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=50)
+  gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=50)
   fviz_gap_stat(gap_stat)
   cl <- kmeans(distance, 4, nstart = 20)
   fviz_cluster(cl,data=dissimilarity)
@@ -37,7 +39,8 @@ R --no-save <<END
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
   require(NbClust)
-nb <- NbClust(tRaw, distance = "euclidean", min.nc = 2, max.nc = 10, method = "complete", index ="all")
+  nb <- NbClust(tRaw, distance = "euclidean", min.nc = 2, max.nc = 10, method = "complete", index ="all")
+  dev.off()
 END
 zgrep -n -T -f depict_discretized_cutoff3.2.colnames ${columns} | cut -f1 > depict_discretized_cutoff3.2.colid
 
