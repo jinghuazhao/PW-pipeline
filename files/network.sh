@@ -13,31 +13,31 @@ zgrep -n -T -f ${_db}.colnames ${columns} | \
 cut -f1 > ${_db}.colid
 
 R --no-save <<END
-  pdf("network.pdf")
+  require(cluster)
+  require(network)
+  require(factoextra)
+  require(NbClust)
   set.seed(31415625)
   db <- Sys.getenv("_db")
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   corRaw <- cor(Raw)
   distance <- as.dist(1-abs(corRaw))
-  require(cluster)
-  plot(pam(distance,9))
-  require(network)
   m <- (abs(corRaw)>0.7)+0
   diag(m) <- 0
   g <- network(m, directed=FALSE)
-  summary(g)
+  pdf("network.pdf")
+  plot(pam(distance,9))
   plot(g)
-  require(factoextra)
   fviz_dist(distance,gradient=list(low="#00AFBB",mid="white",high="#FC4E07"))
   cl <- kmeans(distance,9,nstart=20)
   fviz_cluster(cl,data=distance)
   tRaw <- t(Raw)
-  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
   gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=5)
   fviz_gap_stat(gap_stat)
-  require(NbClust)
+  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
   nb <- NbClust(tRaw,distance="euclidean",min.nc=2,max.nc=10,method="kmeans",index="all")
+  dev.off()
 # uninformative
 # require(spatstat)
 # plot(im(corRaw[nrow(corRaw):1,]),main="Correlation Matrix Map")
@@ -46,7 +46,6 @@ R --no-save <<END
 # cl.bootstrap <- pvclust(Raw,nboot=1000,method.dist="correlation")
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
-  dev.off()
 END
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
