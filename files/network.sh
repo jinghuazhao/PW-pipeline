@@ -11,41 +11,39 @@ grep -f ${_db}.colnames | \
 awk -f xpose.awk > ${_db}.network
 
 R --no-save <<END
+  pdf("network.pdf")
   db <- Sys.getenv("_db")
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   corRaw <- cor(Raw)
+  distance <- as.dist(1-abs(corRaw))
+  require(cluster)
+  plot(pam(distance,9))
   require(network)
-  m <- (abs(corRaw)>0.4)+0
+  m <- (abs(corRaw)>0.7)+0
   diag(m) <- 0
   g <- network(m, directed=FALSE)
   summary(g)
-  pdf("network.pdf")
   plot(g)
-  dissimilarity <- 1-abs(cor(corRaw))
-  distance <- as.dist(dissimilarity)
   require(factoextra)
   fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
+  cl <- kmeans(distance, 9, nstart = 20)
+  fviz_cluster(cl,data=distance)
   tRaw <- t(Raw)
   set.seed(31415625)
-  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=50)
-  gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=50)
+  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
+  gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=5)
   fviz_gap_stat(gap_stat)
-  cl <- kmeans(distance, 4, nstart = 20)
-  fviz_cluster(cl,data=dissimilarity)
-# missing basics?
-  require(cluster)
-  plot(pam(distance,4))
-# not very informative
+  require(NbClust)
+  nb <- NbClust(tRaw, distance="euclidean", min.nc=2, max.nc=10, method="kmeans", index="all")
+# uninformative
 # require(spatstat)
 # plot(im(corRaw[nrow(corRaw):1,]), main="Correlation Matrix Map")
-# too slow p-value?
+# too slow
 # require(pvclust)
 # cl.bootstrap <- pvclust(Raw, nboot=1000,method.dist="correlation")
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
-  require(NbClust)
-  nb <- NbClust(tRaw, distance = "euclidean", min.nc = 2, max.nc = 10, method = "complete", index ="all")
   dev.off()
 END
 zgrep -n -T -f depict_discretized_cutoff3.2.colnames ${columns} | cut -f1 > depict_discretized_cutoff3.2.colid
