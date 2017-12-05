@@ -15,10 +15,16 @@ R --no-save <<END
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   corRaw <- cor(Raw)
+  require(network)
+  m <- (abs(corRaw)>0.4)+0
+  diag(m) <- 0
+  g <- network(m, directed=FALSE)
+  summary(g)
+  pdf("network.pdf")
+  plot(g)
   dissimilarity <- 1-abs(cor(corRaw))
   distance <- as.dist(dissimilarity)
   require(factoextra)
-  pdf("network.pdf")
   fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
   tRaw <- t(Raw)
   set.seed(31415625)
