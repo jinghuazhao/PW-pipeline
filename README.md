@@ -2,7 +2,7 @@
 
 PathWay pipeline using GWAS summary statistics, named in analogy with FM-pipepline I have implemented.
 
-![diagram from Cytoscape](files/galFiltered.sif.png)
+![diagram from R/network](files/network.png)
 
 ## INTRODUCTION
 
