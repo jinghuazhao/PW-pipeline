@@ -1,4 +1,4 @@
-# 5-12-2017 MRC-Epid JHZ
+# 6-12-2017 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -17,6 +17,8 @@ R --no-save <<END
   require(network)
   require(factoextra)
   require(NbClust)
+  require(graph)
+  require(RCytoscape)
   set.seed(31415625)
   db <- Sys.getenv("_db")
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
@@ -37,6 +39,8 @@ R --no-save <<END
   fviz_gap_stat(gap_stat)
   fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
   nb <- NbClust(tRaw,distance="euclidean",min.nc=2,max.nc=10,method="kmeans",index="all")
+  graphmat <- new("graphAM", adjMat=m, edgemode='directed')
+  graphlist <- as(graphmat, 'graphNEL')
   dev.off()
 # uninformative
 # require(spatstat)
