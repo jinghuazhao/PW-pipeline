@@ -24,6 +24,7 @@ R --no-save <<END
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   corRaw <- cor(Raw)
+  colnames(corRaw) <- rownames(corRaw) <- names(Raw)
   distance <- as.dist(1-abs(corRaw))
   m <- (abs(corRaw)>0.7)+0
   diag(m) <- 0
