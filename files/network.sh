@@ -18,6 +18,7 @@ R --no-save <<END
   require(factoextra)
   require(NbClust)
   require(graph)
+  require(igraph)
   require(RCytoscape)
   set.seed(31415625)
   db <- Sys.getenv("_db")
@@ -28,6 +29,9 @@ R --no-save <<END
   distance <- as.dist(1-abs(corRaw))
   m <- (abs(corRaw)>0.7)+0
   diag(m) <- 0
+  g <- graph.adjacency(m)
+  get.edgelist(g)
+  write_graph(g,"network.el","edgelist")
   g <- network(m, directed=FALSE)
   pdf("network.pdf")
   plot(pam(distance,9))
