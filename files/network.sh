@@ -1,4 +1,4 @@
-# 6-12-2017 MRC-Epid JHZ
+# 7-12-2017 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -40,8 +40,9 @@ R --no-save <<END
   fviz_gap_stat(gap_stat)
   fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
   nb <- NbClust(tRaw,distance="euclidean",min.nc=2,max.nc=10,method="kmeans",index="all")
-  graphmat <- new("graphAM", adjMat=m, edgemode='directed')
-  graphlist <- as(graphmat, 'graphNEL')
+  gmat <- new("graphAM", adjMat=m, edgemode='directed')
+  glist <- as(gmat, 'graphNEL')
+  plot(glist)
   dev.off()
 # uninformative
 # require(spatstat)
