@@ -39,7 +39,7 @@ R --no-save <<END
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   z <- gzfile("id_descrip.txt.gz")
-  id_descrip <- read.table(z,sep="\t",header=TRUE)
+  id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
   apres <- apcluster(corSimMat,t(Raw),details=TRUE)
   show(apres)
   pdf("network.pdf")
