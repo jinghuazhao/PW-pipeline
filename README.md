@@ -71,7 +71,8 @@ Column | Name | Description
 
 ### Output
 
-The output will be Excel workbook containing results from various software.
+The output will be available from individual directories named after the software you choose, and in case all software are used the output will also be an Excel 
+workbook containing results from them.
 
 ## EXAMPLE
 
