@@ -7,14 +7,25 @@ export rows=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_I
 
 # An DEPICT example, where 1418 pathways have FDR<0.05
 export _db=depict
-zgrep -n -T -w -f ${_db}.colnames ${columns} | \
-cut -f1 > ${_db}.colid
 awk 'NR>1{print $1}' ${_db}_genesetenrichment.txt | \
 head -1418 > ${_db}.colnames
+# v efficient
+zgrep -n -T -x -f ${_db}.colnames ${columns} | \
+cut -f1 > ${_db}.colid
+fn=$(cat ${_db}.colid)
+echo $fn > ${_db}.cat
+fields=$(sed 's/ /,/g' ${_db}.cat)
 gunzip -c ${BP} | \
-awk -vFS="\t" -vOFS="\t" -f xpose.awk | \
-grep -w -f ${_db}.colnames | \
-awk -f xpose.awk > ${_db}.network
+cut -f1 > ${_db}.rownames
+gunzip -c ${BP} | \
+cut -f1 --complement | \
+cut -f$fields | \
+paste ${_db}.rownames - > ${_db}.network
+## v slow!
+#gunzip -c ${BP} | \
+#awk -vFS="\t" -vOFS="\t" -f xpose.awk | \
+#grep -w -f ${_db}.colnames | \
+#awk -f xpose.awk > ${_db}.network
 
 R --no-save <<END
   require(apcluster)
