@@ -21,6 +21,9 @@ cut -f1 --complement | \
 cut -f$fields | \
 paste ${_db}.rownames - > ${_db}.network
 
+## v slow!
+gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
+
 R --no-save <<END
   require(apcluster)
   require(cluster)
@@ -74,9 +77,6 @@ R --no-save <<END
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
 END
-
-## v slow!
-gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
 # http://www.sthda.com/english/wiki/print.php?id=239
