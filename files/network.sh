@@ -41,7 +41,7 @@ R --no-save <<END
   z <- gzfile("id_descrip.txt.gz")
   id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
   close(z)
-  names(Raw) <- id_descrip[id_descrip,Original.gene.set.ID)%in%names(Raw),"Original.gene.set.description"]
+  names(Raw) <- id_descrip[with(id_descrip,Original.gene.set.ID)%in%names(Raw),"Original.gene.set.description"]
   apres <- apcluster(corSimMat,t(Raw),details=TRUE)
   show(apres)
   pdf("network.pdf")
