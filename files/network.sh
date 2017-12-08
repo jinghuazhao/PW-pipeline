@@ -5,11 +5,10 @@ export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_
 export columns=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary.columns.txt
 export rows=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary.rows.txt
 
-# An DEPICT example, where 1418 pathways have FDR<0.05
+# DEPICT result with FDR<0.05 for 1418 pathways
 export _db=depict
 awk 'NR>1{print $1}' ${_db}_genesetenrichment.txt | \
 head -1418 > ${_db}.colnames
-# v efficient
 zgrep -n -T -x -f ${_db}.colnames ${columns} | \
 cut -f1 > ${_db}.colid
 fn=$(cat ${_db}.colid)
@@ -21,11 +20,6 @@ gunzip -c ${BP} | \
 cut -f1 --complement | \
 cut -f$fields | \
 paste ${_db}.rownames - > ${_db}.network
-## v slow!
-#gunzip -c ${BP} | \
-#awk -vFS="\t" -vOFS="\t" -f xpose.awk | \
-#grep -w -f ${_db}.colnames | \
-#awk -f xpose.awk > ${_db}.network
 
 R --no-save <<END
   require(apcluster)
@@ -80,6 +74,9 @@ R --no-save <<END
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
 END
+
+## v slow!
+gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
 # http://www.sthda.com/english/wiki/print.php?id=239
