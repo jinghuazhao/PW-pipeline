@@ -40,13 +40,14 @@ R --no-save <<END
   Raw <- nw[,-1]
   z <- gzfile("id_descrip.txt.gz")
   id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
+  descrip <- id_descrip[id_descrip,Original.gene.set.ID)%in%names(Raw),"Original.gene.set.description"]
   apres <- apcluster(corSimMat,t(Raw),details=TRUE)
   show(apres)
   pdf("network.pdf")
   plot(apres,Raw)
   heatmap(apres)
   corRaw <- cor(Raw)
-  colnames(corRaw) <- rownames(corRaw) <- names(Raw)
+  colnames(corRaw) <- rownames(corRaw) <- descrip
   r <- melt(corRaw)
   el <- cbind(r[1],r[3],r[2])
   write.table(el,file="network.sif",as.is=TRUE,quote=FALSE,rownames=FALSE)
