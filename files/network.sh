@@ -39,6 +39,16 @@ R --no-save <<END
   nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
   Raw <- nw[,-1]
   tRaw <- t(Raw)
+  corRaw <- cor(Raw)
+  colnames(corRaw) <- rownames(corRaw) <- names(Raw)
+  r <- melt(corRaw)
+  e <- cbind(r[1],r[3],r[2])
+  write.table(e,file="network.sif",col.names=FALSE,row.names=FALSE,quote=FALSE)
+  m <- (abs(corRaw)>0.7)+0
+  diag(m) <- 0
+  g <- graph.adjacency(m)
+  get.edgelist(g)
+  write_graph(g,"network.el","edgelist")
   z <- gzfile("id_descrip.txt.gz")
   id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
   close(z)
@@ -49,18 +59,8 @@ R --no-save <<END
   pdf("network.pdf")
   plot(apres,tRaw)
   heatmap(apres)
-  corRaw <- cor(Raw)
-  colnames(corRaw) <- rownames(corRaw) <- names(Raw)
-  r <- melt(corRaw)
-  el <- cbind(r[1],r[3],r[2])
-  write.table(el,file="network.sif",col.names=FALSE,row.names=FALSE,quote=FALSE)
   distance <- as.dist(1-abs(corRaw))
   fviz_dist(distance,gradient=list(low="#00AFBB",mid="white",high="#FC4E07"))
-  m <- (abs(corRaw)>0.7)+0
-  diag(m) <- 0
-  g <- graph.adjacency(m)
-  get.edgelist(g)
-  write_graph(g,"network.el","edgelist")
   g <- network(m, directed=FALSE)
   plot(pam(distance,9))
   plot(g)
