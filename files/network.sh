@@ -53,7 +53,7 @@ R --no-save <<END
   colnames(corRaw) <- rownames(corRaw) <- names(Raw)
   r <- melt(corRaw)
   el <- cbind(r[1],r[3],r[2])
-  write.table(el,file="network.sif",quote=FALSE,row.names=FALSE)
+  write.table(el,file="network.sif",col.names=FALSE,row.names=FALSE,quote=FALSE)
   distance <- as.dist(1-abs(corRaw))
   fviz_dist(distance,gradient=list(low="#00AFBB",mid="white",high="#FC4E07"))
   m <- (abs(corRaw)>0.7)+0
