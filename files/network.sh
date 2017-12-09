@@ -47,11 +47,9 @@ R --no-save <<END
   m <- (abs(corRaw)>0.7)+0
   diag(m) <- 0
   g <- graph.adjacency(m)
-  get.edgelist(g)
   write_graph(g,"network.el","edgelist")
   z <- gzfile("id_descrip.txt.gz")
   id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
-  close(z)
   descrip <- id_descrip[names(Raw)%in%with(id_descrip,Original.gene.set.ID),"Original.gene.set.description"]
   names(Raw) <- descrip
   apres <- apcluster(corSimMat,tRaw,details=TRUE)
@@ -84,6 +82,7 @@ R --no-save <<END
 # cl.bootstrap <- pvclust(Raw,nboot=1000,method.dist="correlation")
 # plot(cl.bootstrap)
 # pvrect(cl.bootstrap)
+  close(z)
 END
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
