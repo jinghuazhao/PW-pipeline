@@ -20,6 +20,11 @@ gunzip -c ${BP} | \
 cut -f1 --complement | \
 cut -f$fields | \
 paste ${_db}.rownames - > ${_db}.network
+gunzip -c id_descrip.txt.gz  | \
+cut -f2 > descrip
+fd=$(cat descrip)
+echo $fd | \
+cut -d' ' -f$fields --output-delimiter=$'\t' > ${_db}.descrip
 
 ## v slow!
 gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
