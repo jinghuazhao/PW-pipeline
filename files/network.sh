@@ -36,7 +36,7 @@ R --no-save <<END
   require(NbClust)
   set.seed(31415625)
   db <- Sys.getenv("_db")
-  nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE)
+  nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
   Raw <- nw[,-1]
   tRaw <- t(Raw)
   corRaw <- cor(Raw)
@@ -49,7 +49,7 @@ R --no-save <<END
   g <- graph.adjacency(m)
   write_graph(g,"network.el","edgelist")
   z <- gzfile("id_descrip.txt.gz")
-  id_descrip <- read.table(z,sep="\t",header=TRUE,quote="")
+  id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
   descrip <- id_descrip[names(Raw)%in%with(id_descrip,Original.gene.set.ID),"Original.gene.set.description"]
   names(Raw) <- descrip
   apres <- apcluster(corSimMat,tRaw,details=TRUE)
