@@ -27,7 +27,7 @@ paste ${_db}.rownames - > ${_db}.network
 ## vv slow!
 gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
 
-R --no-save -q < nework.R > network.log
+R --no-save -q < network.R > network.log
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
 # http://www.sthda.com/english/wiki/print.php?id=239
