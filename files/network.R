@@ -6,7 +6,6 @@ set.seed(31415625)
 
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
-tRaw <- t(Raw)
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
@@ -20,6 +19,7 @@ z <- gzfile("id_descrip.txt.gz")
 id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
 descrip <- id_descrip[with(id_descrip,gsub(":",".",Original.gene.set.ID))%in%names(Raw),"Original.gene.set.description"]
 names(Raw) <- gsub(" ",".",descrip)
+tRaw <- t(Raw)
 
 pdf("network.pdf")
 require(igraph)
@@ -27,7 +27,12 @@ g <- graph.adjacency(m)
 plot(g)
 write_graph(g,"network.el","edgelist")
 require(cluster)
-cl <- kmeans(distance,5,nstart=20)
+cl <- kmeans(tRaw,5,nstart=20)
+plot(tRaw,col=cl$cluster)
+points(cl$centers,col=1:5,pch=21)
+clid <- data.frame(cluster=cl$cluster,id=rownames(tRaw))
+rownames(clid) <- NULL
+clid[with(clid,order(cluster)),]
 require(factoextra)
 fviz_cluster(cl,data=distance)
 plot(pam(distance,5))
