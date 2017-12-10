@@ -17,7 +17,6 @@ m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
 z <- gzfile("id_descrip.txt.gz")
 id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
-close(z)
 descrip <- id_descrip[with(id_descrip,gsub(":",".",Original.gene.set.ID))%in%names(Raw),"Original.gene.set.description"]
 names(Raw) <- gsub(" ",".",descrip)
 
