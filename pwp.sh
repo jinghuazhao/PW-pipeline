@@ -1,5 +1,5 @@
 #!/bin/bash
-# 1-12-2017 MRC-Epid JHZ
+# 12-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -91,6 +91,7 @@ if [ $magenta -eq 1 ]; then
    awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${_db}.dat
 #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
    R -q --no-save < collect.R > ${_db}.collect.log
+   $PW_location/files/network.sh magenta
    cd -
 fi
 
@@ -168,9 +169,12 @@ if [ $depict -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
    fi
+   export path=/genetics/bin/anaconda2/bin:$PATH
+   export PYTHONPATH=/genetics/data/software/lib/python2.7/site-packages
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
    R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.out
+   $FM_location/files/network.sh depict
    cd -
 fi
 
