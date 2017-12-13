@@ -23,7 +23,7 @@ magma)
 pascal)
   echo PASCAL network analysis
   export N=$(awk 'NR==1||$2<0.05' vegas2v2.PathwaySet--${_db}--sum.txt|awk 'END{print NR}')
-  awk 'NR>1{print $2}' vegas2v2.PathwaySet--${_db}--sum.txt | \
+  awk 'NR>1{print $1}' vegas2v2.PathwaySet--${_db}--sum.txt | \
   head -$N > ${_db}.colnames
   ;;
 depict)
