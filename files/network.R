@@ -1,6 +1,8 @@
-# 10-12-2017 MRC-Epid JHZ
+# 13-12-2017 MRC-Epid JHZ
 
 db <- Sys.getenv("_db")
+software <- Sys.getenv("software")
+PW_location <- Sys.getenv("PW_location")
 options(width=200)
 set.seed(31415625)
 
@@ -12,16 +14,16 @@ colnames(corRaw) <- rownames(corRaw) <- names(Raw)
 require(reshape)
 r <- melt(corRaw)
 e <- cbind(r[1],r[3],r[2])
-write.table(e,file="network.sif",col.names=FALSE,row.names=FALSE,quote=FALSE)
+write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
-z <- gzfile("id_descrip.txt.gz")
+z <- gzfile(paste0(PW_location,"files/id_descrip.txt.gz"))
 id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
 descrip <- id_descrip[with(id_descrip,gsub(":",".",Original.gene.set.ID))%in%names(Raw),"Original.gene.set.description"]
 names(Raw) <- gsub(" ",".",descrip)
 tRaw <- t(Raw)
 
-pdf("network.pdf")
+pdf(paste0(software,".pdf"))
 require(apcluster)
 apres <- apcluster(corSimMat,tRaw,details=TRUE)
 show(apres)
@@ -39,7 +41,7 @@ clid[with(clid,order(cluster)),]
 require(igraph)
 g <- graph.adjacency(m)
 plot(g)
-write_graph(g,"network.el","edgelist")
+write_graph(g,paste0(software,".el"),"edgelist")
 require(network)
 n <- network(m, directed=FALSE)
 plot(n)

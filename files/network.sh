@@ -1,17 +1,24 @@
-# 12-12-2017 MRC-Epid JHZ
+# 13-12-2017 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
 export columns=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary.columns.txt
 export rows=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary.rows.txt
 
+export software=$1
 ## fast cut!
 case $1 in
 magenta)
-  echo magenta network analysis
+  echo MAGENTA network analysis
   export N=$(awk '(NR==1||$11<0.05)' ${_db}.dat|awk 'END{print NR}')
   awk 'NR>1{print $2}' ${_db}.dat | \
   head -$N > ${_db}.colnames
+  ;;
+magma)
+  echo MAGMA network analysis
+  ;;
+pascal)
+  echo PASCAL network analysis
   ;;
 depict)
   echo depict network analysis
