@@ -1,5 +1,5 @@
 #!/bin/bash
-# 12-12-2017 MRC-Epid JHZ
+# 13-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -120,6 +120,7 @@ if [ $magma -eq 1 ]; then
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
    export db=$(basename $db)
    R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
+   $PW_location/files/network.sh magma
    cd -
 fi
 
@@ -148,6 +149,7 @@ if [ $pascal -eq 1 ]; then
    fi
    qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > ${_db}.collect.log
+   $PW_location/files/network.sh pascal
    cd -
 fi
 
