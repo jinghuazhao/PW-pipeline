@@ -16,11 +16,13 @@ magenta)
   ;;
 magma)
   echo MAGMA network analysis
-  export N=$(awk 'NR<8||$6<0.05') ${_db}.sets.out|awk ''}'
+  export N=$(awk 'NR<8||$6<0.05' ${_db}.sets.out|awk 'END{print NR}')
+  awk 'NR>1{print $6}' ${_db}.sets.out | \
+  head -$N > ${_db}.colnames
   ;;
 pascal)
   echo PASCAL network analysis
-  export N=$(awk 'NR==1||$2<0.05'' vegas2v2.PathwaySet--${_db}--sum.txt|awk 'END{print NR}')
+  export N=$(awk 'NR==1||$2<0.05' vegas2v2.PathwaySet--${_db}--sum.txt|awk 'END{print NR}')
   awk 'NR>1{print $6}' vegas2v2.PathwaySet--${_db}--sum.txt | \
   head -$N > ${_db}.colnames
   ;;
