@@ -49,7 +49,7 @@ cut -f$fields | \
 paste ${_db}.rownames - > ${_db}.network
 
 ## vv slow!
-gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
+# gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${_db}.colnames | awk -f xpose.awk > ${_db}.network
 
 R --no-save -q < $PW_location/files/network.R > network.log
 
