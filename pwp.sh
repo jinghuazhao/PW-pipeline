@@ -1,5 +1,5 @@
 #!/bin/bash
-# 13-12-2017 MRC-Epid JHZ
+# 14-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -82,8 +82,8 @@ if [ $magenta -eq 1 ]; then
       export db=msigdb.db
       awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb_db} > msigdb.db
    else
-      export db=depict.db
-      awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > depict.db
+      export db=$(basename $depict_discretized .gmt)
+      awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > $db
    fi
    sed -i 's|magenta.db|'"$db"'|g' magenta.m
    export suffix=_10000perm_$(date +'%b%d_%y')
@@ -114,7 +114,8 @@ if [ $magma -eq 1 ]; then
    elif [ $_db == "msigdb" ]; then
       export db=${msigdb_db}
    else
-      export db=${depict_discretized}
+      export db=$(basename $depict_discretized .gmt)
+      ln -sf ${depict_discretized} $db
    fi
    # Gene-set analysis
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
