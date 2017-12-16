@@ -7,7 +7,7 @@
 export mp=0
 export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
 export path=/genetics/bin/anaconda2/bin:$PATH
-export PYTHONPATH=/genetics/data/software/lib/python2.7/site-packages
+export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages
 
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
