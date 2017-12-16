@@ -1,10 +1,13 @@
 #!/bin/bash
-# 14-12-2017 MRC-Epid JHZ
+# 16-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
 # multiple precision flag; setting to 1 if needed
 export mp=0
+export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
+export path=/genetics/bin/anaconda2/bin:$PATH
+export PYTHONPATH=/genetics/data/software/lib/python2.7/site-packages
 
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
@@ -172,8 +175,6 @@ if [ $depict -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
    fi
-   export path=/genetics/bin/anaconda2/bin:$PATH
-   export PYTHONPATH=/genetics/data/software/lib/python2.7/site-packages
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
    R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.out
