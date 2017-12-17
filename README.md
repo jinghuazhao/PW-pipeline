@@ -112,7 +112,7 @@ Moreover, potential downstream analysis such as clustering significant pathways 
 [network.sh](files/network.sh), which performs affinity propagation and k-means clustering as well as generates SIF and EL formats to be used by
 software such as Cytoscape.
 
-The individual software are briefly described as follows.
+Individual software are briefly described as follows.
 
 1. **MAGENTA**. Segre, et al. (2010) describes how it works: 
 
