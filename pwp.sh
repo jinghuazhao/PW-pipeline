@@ -17,7 +17,7 @@ export DEPICT=/genetics/bin/DEPICT/src/python
 export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
 export PW_location=/genetics/bin/PW-pipeline
 
-export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs/
+export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
