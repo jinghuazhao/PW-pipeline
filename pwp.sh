@@ -1,11 +1,12 @@
 #!/bin/bash
-# 16-12-2017 MRC-Epid JHZ
+# 19-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
 # multiple precision flag; setting to 1 if needed
 export mp=0
 export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/genetics/data/software/lib
 export PATH=/genetics/bin/anaconda2/bin:$PATH
 export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages
 
