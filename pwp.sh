@@ -1,5 +1,5 @@
 #!/bin/bash
-# 19-12-2017 MRC-Epid JHZ
+# 22-12-2017 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -185,7 +185,7 @@ fi
 
 ## collection into Excel workbook(s)
 
-if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict" ]; then
+if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict_discretized" ]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > ${_db}.mmpd.log
     R -q --no-save < ${PW_location}/files/summary.R > ${_db}.summary.log
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
