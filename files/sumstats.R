@@ -1,4 +1,4 @@
-# 28-11-2017 MRC-Epid JHZ
+# 31-12-2017 MRC-Epid JHZ
 
 options(digits = 3, scipen=20)
 
@@ -16,7 +16,7 @@ if (!file.exists("sumstats.rda")) {
       logP <- as.numeric(-log10(mpfr(P,100)))
     } else {
       P <- p
-      logP <- log10(P)
+      logP <- -log10(P)
     }
   })
   save(d,file="sumstats.rda")
