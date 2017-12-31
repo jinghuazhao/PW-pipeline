@@ -179,7 +179,7 @@ if [ $depict -eq 1 ]; then
    fi
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
-   R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.out
+   R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
    $FM_location/files/network.sh depict
    cd -
 fi
