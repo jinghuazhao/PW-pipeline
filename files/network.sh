@@ -1,4 +1,4 @@
-# 13-12-2017 MRC-Epid JHZ
+# 31-12-2017 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -16,8 +16,8 @@ magenta)
   ;;
 magma)
   echo MAGMA network analysis
-  export N=$(awk 'NR<8||$6<0.05' ${_db}.sets.out|awk 'END{print NR}')
-  awk 'NR>1{print $6}' ${_db}.sets.out | \
+  export N=$(awk 'NR>7&&$6<0.05' ${_db}.sets.out|awk 'END{print NR}')
+  awk 'NR>7{print $6}' ${_db}.sets.out | \
   head -$N > ${_db}.colnames
   ;;
 pascal)
