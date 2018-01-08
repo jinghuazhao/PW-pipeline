@@ -20,7 +20,7 @@
 %
 %
 
-function Run_MAGENTA_vs2_July_2011(GWAS_SNP_score_file_name,GeneSet_db_file_name,Flag_gene_set_file_name,GWAS_OR_filename,SNP_rs_num_file_name,exp_label,Flag_gs,Remove_gs,num_gs_simul,Gene_boundr_upstr,Gene_boundr_downstr,GSEA_method,top_percen_cutoffs,min_gs_size,max_gs_size,choose_unique_genes,print_trait_gene_names_in_gs,print_gene_scores,print_rs_num,print_best_SNP_OR)
+% function Run_MAGENTA_vs2_July_2011(GWAS_SNP_score_file_name,GeneSet_db_file_name,Flag_gene_set_file_name,GWAS_OR_filename,SNP_rs_num_file_name,exp_label,Flag_gs,Remove_gs,num_gs_simul,Gene_boundr_upstr,Gene_boundr_downstr,GSEA_method,top_percen_cutoffs,min_gs_size,max_gs_size,choose_unique_genes,print_trait_gene_names_in_gs,print_gene_scores,print_rs_num,print_best_SNP_OR)
 
 % Sample run: function Run_MAGENTA_vs1_May10_2010('SNPChrNumPosZscorePval_LDL_MetaAnaly_20k_010810','PANTHER_lipid_only_BiolProcesses_GSEA_format_120609','LDL_GeneIDs_Meta20k_010810','LDL_Lipid_Pathways',1,0,10000,110000,40000,1,[5 25],10,50000,1,1,0,0,0);
 
@@ -41,7 +41,7 @@ function Run_MAGENTA_vs2_July_2011(GWAS_SNP_score_file_name,GeneSet_db_file_name
 % Each row refers to a single SNP (do not add header)
 % columns: (1) SNP chr number, (2) SNP chr position, bp, (3) GWAS z-scores (if available), (4) GWAS p-value (required)
 
-%# GWAS_SNP_score_file_name ='DIAGRAMv3_061909_ChrNumPosZPval_hg19';
+GWAS_SNP_score_file_name ='GWAS_SNP_SCORE_FILE_NAME';
 
 % Input file #2:
 
@@ -50,7 +50,7 @@ function Run_MAGENTA_vs2_July_2011(GWAS_SNP_score_file_name,GeneSet_db_file_name
 % Columns: (1) database name [name sould not be separated by spaces], (2) gene set name [name should not be separated by spaces or underscores],
 % (columns 3 through n): Entrez IDs of all genes in gene set separated by tabs.
 
-%# GeneSet_db_file_name ='PANTHER_lipid_only_BiolProcesses_GSEA_format_120609'; %'GO_PANTBP_PANTMF_PANT_ING_KEGG2010';
+GeneSet_db_file_name ='GENESET_DB_FILE_NAME'; %'GO_PANTBP_PANTMF_PANT_ING_KEGG2010';
 % contains gene sets from several databases: Gene ontology, PANTHER (biological processes, 
 % molecular functions, metabolic and signaling pathways), KEGG, Ingenuity pathways
 % It takes about 15-20 hours to run MAGENTA on all four databases inputed together; for faster running time each database can be run separately (See README for file names)
@@ -111,7 +111,7 @@ SNP_rs_num_file_name='';
 %%%%%%%%%	ENTER INPUT PARAMTERS HERE:     %%%%%%%%%
 
 % Enter here name of experiment (e.g. disease/trait name and gene set database)
-exp_label = GeneSet_db_file_name;
+exp_label = 'GENESET_DB_FILE_NAME';
 code_name = 'Run_MAGENTA_vs2_March_2011.m';
 
 % Please specify the genome build of the SNP positions of your inputed GWAS or meta-analysis SNP association p-values
@@ -146,8 +146,8 @@ GSEA_method = 1;
 top_percen_cutoffs = [5 25];  % default: 95 percentile and 75 percentile
 
 % limit of gene set size
-min_gs_size = getenv('min_gs_size'); % minimum number of genes in gene set (default>=10 genes)
-max_gs_size = 2000; % maximum number of genes in a gene set (default=no limit)
+min_gs_size = MIN_GS_SIZE; % minimum number of genes in gene set (default>=10 genes)
+max_gs_size = MAX_GS_SIZE; % maximum number of genes in a gene set (default=no limit)
 
 choose_unique_genes = 1; % 1 = correct for physcial proximity of genes in each given gene set, by removing all but one gene of a subset of genes
 % that were assigned the same best SNP; choose gene with most significant corrected score from each such subset of genes.
