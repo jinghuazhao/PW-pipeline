@@ -1,5 +1,5 @@
 #!/bin/bash
-# 31-12-2017 MRC-Epid JHZ
+# 8-1-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -32,6 +32,7 @@ export depict=1
 ### min_gs_size for MAGENTA in line with other software
 
 export min_gs_size=5
+export max_gs_size=2000
 
 ### P value threshold for DEPICT
 
@@ -81,16 +82,18 @@ if [ $magenta -eq 1 ]; then
       export db=magenta.db
    elif [ $_db == "c2" ]; then
       export db=c2.db
-      awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" ${c2_db} > c2.db
+      awk '{$2=$1; $1="c2"};1' FS="\t" OFS="\t" ${c2_db} > $db
    elif [ $_db == "msigdb" ]; then
       export db=msigdb.db
-      awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb_db} > msigdb.db
+      awk '{$2=$1; $1="msigdb"};1' FS="\t" OFS="\t" ${msigdb_db} > $db
    else
       export db=$(basename $depict_discretized .gmt)
       awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > $db
    fi
-   sed -i 's|magenta.db|'"$db"'|g' magenta.m
-   sed -i 's|min_gs_size|'"$min_gs_size"'|g' magenta.m
+   sed -i 's|GWAS_SNP_SCORE_FILE_NAME|magenta|g' Run_MAGENTA_vs2_July_2011.m
+   sed -i 's|GENESET_DB_FILE_NAME|'"$db"'|g' Run_MAGENTA_vs2_July_2011.m
+   sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
+   sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
    export suffix=_10000perm_$(date +'%b%d_%y')
    qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
    awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${_db}.dat
