@@ -12,41 +12,41 @@ magenta)
   echo MAGENTA network analysis
   export N=$(awk '(NR==1||$11<0.05)' ${db}.dat|awk 'END{print NR}')
   awk 'NR>1{print $2}' ${db}.dat | \
-  head -$N > ${db}.colnames
+  head -$N > ${_db}.colnames
   ;;
 magma)
   echo MAGMA network analysis
   export N=$(awk 'NR>7&&$6<0.05' ${db}.sets.out|awk 'END{print NR}')
   awk 'NR>7{print $6}' ${db}.sets.out | \
-  head -$N > ${db}.colnames
+  head -$N > ${_db}.colnames
   ;;
 pascal)
   echo PASCAL network analysis
   export N=$(awk 'NR==1||$2<0.05' vegas2v2.PathwaySet--${db}--sum.txt|awk 'END{print NR}')
   awk 'NR>1{print $1}' vegas2v2.PathwaySet--${db}--sum.txt | \
-  head -$N > ${db}.colnames
+  head -$N > ${_db}.colnames
   ;;
 depict)
   echo depict network analysis
   export N=$(awk -vFS="\t" '($4<0.05||$4=="<0.01"||$4=="<0.05")' ${db}_genesetenrichment.txt|awk 'END{print NR}')
   awk 'NR>1{print $1}' ${db}_genesetenrichment.txt | \
-  head -$N > ${db}.colnames
+  head -$N > ${_db}.colnames
   ;;
 *)
   echo not implemented
 esac
 
-zgrep -n -T -x -f ${db}.colnames ${columns} | \
-cut -f1 > ${db}.colid
-fn=$(cat ${db}.colid)
-echo $fn > ${db}.cat
-fields=$(sed 's/ /,/g' ${db}.cat)
+zgrep -n -T -x -f ${_db}.colnames ${columns} | \
+cut -f1 > ${_db}.colid
+fn=$(cat ${_db}.colid)
+echo $fn > ${_db}.cat
+fields=$(sed 's/ /,/g' $_{db}.cat)
 gunzip -c ${BP} | \
-cut -f1 > ${db}.rownames
+cut -f1 > ${_db}.rownames
 gunzip -c ${BP} | \
 cut -f1 --complement | \
 cut -f$fields | \
-paste ${db}.rownames - > ${db}.network
+paste ${_db}.rownames - > ${db}.network
 
 ## vv slow!
 # gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${db}.colnames | awk -f xpose.awk > ${db}.network
