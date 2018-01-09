@@ -20,7 +20,7 @@ write.table(subset(e, value>=0.4 & value<0.7),file=paste0(software,"-2.sif"),col
 write.table(subset(e, value<0.4),file=paste0(software,"-3.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
-z <- gzfile(paste0(PW_location,"files/id_descrip.txt.gz"))
+z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
 descrip <- id_descrip[with(id_descrip,gsub(":",".",Original.gene.set.ID))%in%names(Raw),"Original.gene.set.description"]
 names(Raw) <- gsub(" ",".",descrip)
