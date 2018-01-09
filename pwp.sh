@@ -1,5 +1,5 @@
 #!/bin/bash
-# 8-1-2018 MRC-Epid JHZ
+# 9-1-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -96,7 +96,7 @@ if [ $magenta -eq 1 ]; then
    sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
    export suffix=_10000perm_$(date +'%b%d_%y')
    qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
-   awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${_db}.dat
+   awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
 #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
    R -q --no-save < collect.R > ${_db}.collect.log
    $PW_location/files/network.sh magenta
