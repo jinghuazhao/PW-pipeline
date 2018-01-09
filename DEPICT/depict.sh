@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #$ -S /bin/bash
-#$ -o $PWD/depict.out
-#$ -e $PWD/depict.err
+#$ -o depict.out
+#$ -e depict.err
 #$ -pe make -5
 #$ -q all.q
 #$ -t 1

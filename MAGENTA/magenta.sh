@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #$ -S /bin/bash
-#$ -o $PWD/magenta.out
-#$ -e $PWD/magenta.err
+#$ -o magenta.out
+#$ -e magenta.err
 #$ -pe make -5
 #$ -q all.q
 #$ -t 1

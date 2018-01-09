@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #$ -S /bin/bash
-#$ -o $PWD/pascal.out
-#$ -e $PWD/pascal.err
+#$ -o pascal.out
+#$ -e pascal.err
 #$ -pe make -5
 #$ -q all.q
 #$ -t 1

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #$ -S /bin/bash
-#$ -o $PWD/magma.out
-#$ -e $PWD/magma.err
+#$ -o magma.out
+#$ -e magma.err
 #$ -pe make -5
 #$ -q all.q
 #$ -t 1
