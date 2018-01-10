@@ -40,7 +40,7 @@ zgrep -n -T -x -f ${_db}.colnames ${columns} | \
 cut -f1 > ${_db}.colid
 fn=$(cat ${_db}.colid)
 echo $fn > ${_db}.cat
-fields=$(sed 's/ /,/g' $_{db}.cat)
+fields=$(sed 's/ /,/g' ${_db}.cat)
 gunzip -c ${BP} | \
 cut -f1 > ${_db}.rownames
 gunzip -c ${BP} | \
