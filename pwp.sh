@@ -1,5 +1,5 @@
 #!/bin/bash
-# 9-1-2018 MRC-Epid JHZ
+# 10-1-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -183,7 +183,7 @@ if [ $depict -eq 1 ]; then
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
    R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
-   $FM_location/files/network.sh depict
+   $PW_location/files/network.sh depict
    cd -
 fi
 
