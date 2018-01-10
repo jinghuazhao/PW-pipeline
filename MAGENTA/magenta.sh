@@ -7,5 +7,5 @@
 #$ -q all.q
 #$ -t 1
 
-matlab -nodisplay -nodesktop -nosplash -nojvm -r "Run_MAGENTA_vs2_June_2011, exit"
+matlab -nodisplay -nodesktop -nosplash -nojvm -r "Run_MAGENTA_vs2_July_2011, exit"
 
