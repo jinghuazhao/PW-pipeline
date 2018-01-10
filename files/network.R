@@ -1,6 +1,6 @@
 # 10-1-2018 MRC-Epid JHZ
 
-db <- Sys.getenv("_db")
+db <- Sys.getenv("db")
 software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
 options(width=200)
