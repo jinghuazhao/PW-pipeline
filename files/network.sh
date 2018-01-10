@@ -1,4 +1,4 @@
-# 9-1-2018 MRC-Epid JHZ
+# 10-1-2018 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
