@@ -91,8 +91,9 @@ depict <- subset(depict,False.discovery.rate<0.05)
 ord <- with(depict,order(False.discovery.rate))
 addWorksheet(wb, "DEPICT")
 writeDataTable(wb, "DEPICT", depict[ord,])
+FDR_all <- subset(mmpd,fdr_MAGENTA<0.05&fdr_PASCAL<0.05&fdr_DEPICT<0.05)[c("GS",paste0("fdr_",c("MAGENTA","PASCAL","DEPICT")))]
 addWorksheet(wb, "FDR_all")
-writeDataTable(wb, "FDR_all", subset(mmpd,fdr_MAGENTA<0.05&fdr_PASCAL<0.05&fdr_DEPICT<0.05)[c("GS",paste0("fdr_",c("MAGENTA","PASCAL","DEPICT")))])
+writeDataTable(wb, "FDR_all", merge(FDR_all,ID,by.x="GS",by.y="Original.gene.set.ID"))
 
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
