@@ -1,8 +1,8 @@
-# 24-11-2017 MRC-Epid JHZ
+# 18-1-2018 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
-db <- Sys.getenv("db")
+db <- Sys.getenv("_db")
 xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
