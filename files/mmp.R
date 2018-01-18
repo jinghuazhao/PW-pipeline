@@ -2,7 +2,7 @@
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
-db <- Sys.getenv("_db")
+db <- Sys.getenv("db")
 xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
