@@ -1,4 +1,4 @@
-# 24-11-2017 MRC-Epid JHZ
+# 19-1-2018 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -21,7 +21,7 @@ for(s in c("cells","multiplot","system", "tissues"))
 {
   i <- paste0("DEPICT_",s)
   addWorksheet(wb, i)
-  insertImage(wb, i, paste0("tissue_plot_depict_genenetwork_",s,".png"), width=12, height=6)
+  insertImage(wb, i, paste0("tissue_plot_",db,"_genenetwork_",s,".png"), width=12, height=6)
 }
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
