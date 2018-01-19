@@ -1,5 +1,5 @@
 #!/bin/bash
-# 10-1-2018 MRC-Epid JHZ
+# 19-1-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -173,11 +173,11 @@ if [ $depict -eq 1 ]; then
    sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    if [ $_db == "depict_discretized" ]; then
       export db=$(basename $depict_discretized .gmt)
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
    else
       export db=depict
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
    fi
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
