@@ -19,7 +19,7 @@ This pipeline involves several software for pathway analysis using GWAS summary 
 Full name | Abbreviation | Reference
 ----------|--------------|----------
 Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre, et al. (2010)
-Generalized Gene-Set Analysis of GWAS Data | MAGMA | de Leeuw, et al. (2015)
+Multi-marker Analysis of GenoMic Annotation | MAGMA | de Leeuw, et al. (2015)
 Pathway scoring algorithm | PASCAL | Lamparter, et al. (2016)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
