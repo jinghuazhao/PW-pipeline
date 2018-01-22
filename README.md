@@ -20,7 +20,7 @@ Full name | Abbreviation | Reference
 ----------|--------------|----------
 Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre, et al. (2010)
 Multi-marker Analysis of GenoMic Annotation | MAGMA | de Leeuw, et al. (2015)
-PAthway Scoring ALgorithm | PASCAL | Lamparter, et al. (2016)
+PAthway SCoring ALgorithm | PASCAL | Lamparter, et al. (2016)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
 The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil 
