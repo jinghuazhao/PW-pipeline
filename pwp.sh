@@ -1,5 +1,5 @@
 #!/bin/bash
-# 30-1-2018 MRC-Epid JHZ
+# 1-2-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -69,7 +69,7 @@ if [ $_db == "magenta" ]; then
    export magenta_db=${PWD}/magenta.db
    cd -
 fi
-if [ $magenta -eq 1 ]; then
+if [ $magenta ]; then
    echo "MAGENTA"
    if [ ! -d "MAGENTA" ]; then
       mkdir MAGENTA
@@ -103,7 +103,7 @@ if [ $magenta -eq 1 ]; then
    cd -
 fi
 
-if [ $magma -eq 1 ]; then
+if [ $magma ]; then
    echo "MAGMA"
    if [ ! -d "MAGMA" ]; then
       mkdir MAGMA
@@ -133,7 +133,7 @@ if [ $magma -eq 1 ]; then
    cd -
 fi
 
-if [ $pascal -eq 1 ]; then
+if [ $pascal ]; then
    echo "PASCAL"
    if [ ! -d "PASCAL" ]; then
       mkdir PASCAL
@@ -162,7 +162,7 @@ if [ $pascal -eq 1 ]; then
    cd -
 fi
 
-if [ $depict -eq 1 ]; then
+if [ $depict ]; then
    echo "DEPICT"
    if [ ! -d "DEPICT" ]; then
       mkdir DEPICT
@@ -189,9 +189,9 @@ fi
 
 ## collection into Excel workbook(s)
 
-if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict_discretized" ]; then
+if [ $magenta ] && [ $magma ] && [ $pascal ] && [ $depict ] && [ $_db == "depict_discretized" ]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > ${_db}.mmpd.log
     R -q --no-save < ${PW_location}/files/summary.R > ${_db}.summary.log
-elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
+elif [ $magenta ] && [ $magma ] && [ $pascal ]; then
     R -q --no-save < ${PW_location}/files/mmp.R > ${_db}.mmp.log
 fi
