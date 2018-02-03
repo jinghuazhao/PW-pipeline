@@ -274,6 +274,14 @@ The work drives from comparison of software performances using our own GWAS data
 here was due to PASCAL developer(s). At the end of our implementation it came to our attention that similar effort has been made, e.g., 
 [DEPICT-pipeline](https://github.com/RebeccaFine/DEPICT-pipeline) and other adaptations.
 
+## RELATED LINKS
+
+* [CytoScape](http://www.cytoscape.org/): Network Data Integration, Analysis, and Visualization in a Box.
+* [Osprey](https://osprey.thebiogrid.org/): Network Visualization System.
+* [GeneMANIA](http://genemania.org/): Imports interaction networks from public databases from a list of genes with their annotations 
+and putative functions.
+* [VisANT](http://visant.bu.edu/): Visual analyses of metabolic networks in cells and ecosystems.
+
 ## SOFTWARE AND REFERENCES
 
 [DEPICT](https://data.broadinstitute.org/mpg/depict/) ([GitHub](https://github.com/perslab/depict))
