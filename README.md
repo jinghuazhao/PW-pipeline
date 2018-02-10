@@ -277,7 +277,7 @@ here was due to PASCAL developer(s). At the end of our implementation it came to
 ## RELATED LINKS
 
 * [BioGRID](https://thebiogrid.org/): an interaction repository with data compiled through comprehensive curation efforts.
-* [CytoScape](http://www.cytoscape.org/): Network Data Integration, Analysis, and Visualization in a Box.
+* [Cytoscape](http://www.cytoscape.org/): Network Data Integration, Analysis, and Visualization in a Box.
 * [Osprey](https://osprey.thebiogrid.org/): Network Visualization System.
 * [GeneMANIA](http://genemania.org/): Imports interaction networks from public databases from a list of genes with their annotations 
 and putative functions.
