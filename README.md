@@ -16,7 +16,7 @@ summary statistics, computing speed, with and without tissue enrichment.
 
 This pipeline involves several software for pathway analysis using GWAS summary statistics, as shown below,
 
-Full name | Abbreviation | Reference
+**Full name** | **Abbreviation** | **Reference**
 ----------------------------------------------------------|--------------|----------
 Meta-Analysis Gene-set Enrichment of variaNT Associations | MAGENTA | Segre, et al. (2010)
 Multi-marker Analysis of GenoMic Annotation | MAGMA | de Leeuw, et al. (2015)
