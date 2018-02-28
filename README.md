@@ -52,7 +52,7 @@ bash pwp.sh <input file>
 ```
 ### Input
 
-The input will be GWAS summary statistics with the following columns,
+The input will be GWAS summary statistics with the following columns **in that order without the header**,
 
 Column | Name | Description
 -------|------|------------
