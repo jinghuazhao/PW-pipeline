@@ -1,4 +1,4 @@
-# 10-1-2018 MRC-Epid JHZ
+# 1-3-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -21,9 +21,11 @@ write.table(subset(e, value<0.4),file=paste0(software,"-3.sif"),col.names=FALSE,
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
-id_descrip <- read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote="")
-descrip <- id_descrip[with(id_descrip,gsub(":",".",Original.gene.set.ID))%in%names(Raw),"Original.gene.set.description"]
-names(Raw) <- gsub(" ",".",descrip)
+id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), Original.gene.set.ID <- gsub(":",".",Original.gene.set.ID))
+namesRaw <- data.frame(Original.gene.set.ID=names(Raw),iid=1:ncol(Raw))
+descrip <- merge(namesRaw,id_descrip,by="Original.gene.set.ID")
+descrip <- descrip[with(descrip,order(iid)),]
+names(Raw) <- gsub(" ",".",descrip["Original.gene.set.description"])
 tRaw <- t(Raw)
 
 pdf(paste0(software,".pdf"))
