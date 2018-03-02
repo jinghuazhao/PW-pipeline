@@ -8,6 +8,7 @@ set.seed(31415625)
 
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
+rownames(Raw) <- nw[,1]
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
