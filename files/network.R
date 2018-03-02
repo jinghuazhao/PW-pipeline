@@ -21,6 +21,16 @@ write.table(subset(e, value>=0.4 & value<0.7),file=paste0(software,"-2.sif"),col
 write.table(subset(e, value<0.4),file=paste0(software,"-3.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
+z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
+id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
+{
+  Original.gene.set.ID <- gsub(":",".",Original.gene.set.ID)
+  Original.gene.set.description <- gsub(" ",".",Original.gene.set.description)
+})
+namesRaw <- data.frame(Original.gene.set.ID=names(Raw),iid=1:ncol(Raw))
+descrip <- merge(namesRaw,id_descrip,by="Original.gene.set.ID")
+descrip <- descrip[with(descrip,order(iid)),]
+names(Raw) <- with(descrip, Original.gene.set.description)
 tRaw <- t(Raw)
 pdf(paste0(software,".pdf"))
 require(apcluster)
@@ -65,11 +75,4 @@ if(0) {
   pvrect(cl.bootstrap)
 }
 dev.off()
-
-z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
-id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), Original.gene.set.ID <- gsub(":",".",Original.gene.set.ID))
-namesRaw <- data.frame(Original.gene.set.ID=names(Raw),iid=1:ncol(Raw))
-descrip <- merge(namesRaw,id_descrip,by="Original.gene.set.ID")
-descrip <- descrip[with(descrip,order(iid)),]
-names(Raw) <- gsub(" ",".",descrip["Original.gene.set.description"])
 
