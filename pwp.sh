@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2-3-2018 MRC-Epid JHZ
+# 3-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -99,7 +99,7 @@ if [ $magenta -eq 1 ]; then
    awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
 #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
    R -q --no-save < collect.R > ${_db}.collect.log
-   $PW_location/files/network.sh magenta
+   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
    cd -
 fi
 
@@ -129,7 +129,7 @@ if [ $magma -eq 1 ]; then
    qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
    export db=$(basename $db)
    R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
-   $PW_location/files/network.sh magma
+   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magma; fi
    cd -
 fi
 
@@ -158,7 +158,7 @@ if [ $pascal -eq 1 ]; then
    fi
    qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
    R -q --no-save < collect.R > ${_db}.collect.log
-   $PW_location/files/network.sh pascal
+   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh pascal; fi
    cd -
 fi
 
@@ -183,7 +183,7 @@ if [ $depict -eq 1 ]; then
    qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
    bash tissue_plot.sh $db
    R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
-   $PW_location/files/network.sh depict
+   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
    cd -
 fi
 
