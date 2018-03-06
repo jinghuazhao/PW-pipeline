@@ -13,7 +13,7 @@ Raw <- nw[,-1]
 rownames(Raw) <- nw[,1]
 tRaw <- t(Raw)
 gData <- new("ExpressionSet", exprs=tRaw)
-corrGraph = compCorrGraph(gData, tau=0.7)
+corrGraph = compCorrGraph(gData, tau=0.9)
 edgemode(corrGraph) <- "undirected"
 pdf("CorrGraph.pdf")
 plot(corrGraph)
