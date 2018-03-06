@@ -1,4 +1,4 @@
-# 2-3-2018 MRC-Epid JHZ
+# 6-3-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -6,9 +6,17 @@ PW_location <- Sys.getenv("PW_location")
 options(width=200)
 set.seed(31415625)
 
+library(GOstats)
+library(Rgraphviz)
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
 rownames(Raw) <- nw[,1]
+tRaw <- t(Raw)
+gData <- new("ExpressionSet", exprs=tRaw)
+corrG = compCorrGraph(gData)
+pdf("graphviz.pdf")
+plot(corrG)
+dev.off()
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
