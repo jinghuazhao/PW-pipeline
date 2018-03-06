@@ -13,10 +13,10 @@ Raw <- nw[,-1]
 rownames(Raw) <- nw[,1]
 tRaw <- t(Raw)
 gData <- new("ExpressionSet", exprs=tRaw)
-corrG = compCorrGraph(gData, tau=0.7)
-edgemode(corrG) <- "undirected"
-pdf("graphviz.pdf")
-plot(corrG)
+corrGraph = compCorrGraph(gData, tau=0.7)
+edgemode(corrGraph) <- "undirected"
+pdf("CorrGraph.pdf")
+plot(corrGraph)
 dev.off()
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
