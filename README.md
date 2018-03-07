@@ -2,7 +2,7 @@
 
 PathWay pipeline using GWAS summary statistics, named analogously after FM-pipepline I have implemented.
 
-![diagram from CytoScape/geneMANIA](files/GeneMANIA.png)
+![diagram from CytoScape/GeneMANIA](files/GeneMANIA.png)
 
 ## INTRODUCTION
 
