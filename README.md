@@ -102,7 +102,7 @@ sessions. The pipeline enables them run on noninteractive clusters.
 
 Several flags are notable: 
 
-* `collection_only.` The flag enforces use of all available software outputs to generate a final Excel file.
+* `collection_only.` If setting to 1, it enforces use of all available software outputs to generate a final Excel file.
 * `mp.` If setting to 1 it will regenerate multiple precision P and -log10(P) values from z, which is necessary when |z| is 
 very large and P=0, -log10(P)=infinity. 
 * `min_gs_size.` By default, the mininum number of genes contained in a pathway is five rather than 10 in order to be consistent with other software and 
