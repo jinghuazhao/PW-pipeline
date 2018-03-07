@@ -1,5 +1,5 @@
 #!/bin/bash
-# 3-3-2018 MRC-Epid JHZ
+# 7-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -22,6 +22,10 @@ export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
+### result collection only
+
+export collection_only=0
+
 ### software flags
 
 export magenta=1
@@ -42,21 +46,23 @@ export p_threshold=0.00000005
 
 export _db=depict_discretized
 
-if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
-    echo "Usage: pwp.sh <input>"
-    echo "where <input> is in sumstats format:"
-    echo "SNP A1 A2 freqA1 beta se P N chr pos"
-    echo "where SNP is RSid, A1 is effect allele"
-    echo "and the outputs will be in MAGENTA/MAGMA/PASCAL/DEPICT directory"
-    exit
+if [ $collection_only -eq 0 ]; then
+   if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
+       echo "Usage: pwp.sh <input>"
+       echo "where <input> is in sumstats format:"
+       echo "SNP A1 A2 freqA1 beta se P N chr pos"
+       echo "where SNP is RSid, A1 is effect allele"
+       echo "and the outputs will be in MAGENTA/MAGMA/PASCAL/DEPICT directory"
+       exit
+   fi
+
+   ## indidivual analyses according to request
+
+   sed 's/\t/ /g' $1 > $1.sumstats
+   export sumstats=$1.sumstats
+   R -q --no-save <${PW_location}/files/sumstats.R
+   export sumstats_rda=${PWD}/sumstats.rda
 fi
-
-## indidivual analyses according to request
-
-sed 's/\t/ /g' $1 > $1.sumstats
-export sumstats=$1.sumstats
-R -q --no-save <${PW_location}/files/sumstats.R
-export sumstats_rda=${PWD}/sumstats.rda
 
 if [ $_db == "magenta" ]; then
    if [ ! -d "MAGENTA" ]; then
@@ -75,9 +81,11 @@ if [ $magenta -eq 1 ]; then
       mkdir MAGENTA
    fi
    cd MAGENTA
-   for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
-   for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
-   R -q --no-save < data.R > ${_db}.data.log
+   if [ $collection_only -eq 0 ]; then
+      for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
+      for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
+      R -q --no-save < data.R > ${_db}.data.log
+   fi
    if [ $_db == "magenta" ]; then
       export db=magenta.db
    elif [ $_db == "c2" ]; then
@@ -90,16 +98,18 @@ if [ $magenta -eq 1 ]; then
       export db=$(basename $depict_discretized .gmt)
       awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > $db
    fi
-   sed -i 's|GWAS_SNP_SCORE_FILE_NAME|magenta|g' Run_MAGENTA_vs2_July_2011.m
-   sed -i 's|GENESET_DB_FILE_NAME|'"$db"'|g' Run_MAGENTA_vs2_July_2011.m
-   sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
-   sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
-   export suffix=_10000perm_$(date +'%b%d_%y')
-   qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
-   awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
-#  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
-   R -q --no-save < collect.R > ${_db}.collect.log
-   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
+   if [ $collection_only -eq 0 ]; then
+      sed -i 's|GWAS_SNP_SCORE_FILE_NAME|magenta|g' Run_MAGENTA_vs2_July_2011.m
+      sed -i 's|GENESET_DB_FILE_NAME|'"$db"'|g' Run_MAGENTA_vs2_July_2011.m
+      sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
+      sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
+      export suffix=_10000perm_$(date +'%b%d_%y')
+      qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
+      awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
+      #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
+      R -q --no-save < collect.R > ${_db}.collect.log
+      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
+   fi
    cd -
 fi
 
@@ -109,11 +119,13 @@ if [ $magma -eq 1 ]; then
       mkdir MAGMA
    fi
    cd MAGMA
-   R -q --no-save < ${PW_location}/MAGMA/data.R > ${_db}.data.log
-   # Annotation
-   magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
-   # Gene analysis - SNP p-values
-   magma --bfile $MAGMA/g1000_eur --pval ${_db}.pval ncol=NOBS --gene-annot ${_db}.genes.annot --out ${_db}
+   if [ $collection_only -eq 0 ]; then
+      R -q --no-save < ${PW_location}/MAGMA/data.R > ${_db}.data.log
+      # Annotation
+      magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
+      # Gene analysis - SNP p-values
+      magma --bfile $MAGMA/g1000_eur --pval ${_db}.pval ncol=NOBS --gene-annot ${_db}.genes.annot --out ${_db}
+   fi
    if [ $_db == "magenta" ]; then
       awk '{$1=$2;$2=""};1' FS="\t" ${magenta_db} | awk '{$2=$2};1'> magenta.db
       export db=magenta.db
@@ -126,10 +138,12 @@ if [ $magma -eq 1 ]; then
       ln -sf ${depict_discretized} $db
    fi
    # Gene-set analysis
-   qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
-   export db=$(basename $db)
-   R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
-   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magma; fi
+   if [ $collection_only -eq 0 ]; then
+      qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
+      export db=$(basename $db)
+      R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
+      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magma; fi
+   fi
    cd -
 fi
 
@@ -139,9 +153,11 @@ if [ $pascal -eq 1 ]; then
       mkdir PASCAL
    fi
    cd PASCAL
-   cp $PW_location/PASCAL/* .
-   R -q --no-save < data.R > ${_db}.data.log
-   sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
+   if [ $collection_only -eq 0 ]; then
+      cp $PW_location/PASCAL/* .
+      R -q --no-save < data.R > ${_db}.data.log
+      sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
+   fi
    if [ $_db == "magenta" ]; then
       awk '{$1=$2;$2="."};1' FS="\t" ${magenta_db} > magenta.db
       export db=${PWD}/magenta.db
@@ -156,9 +172,11 @@ if [ $pascal -eq 1 ]; then
       export db=$(basename $depict_discretized .gmt)
       sed -i 's|GENESETFILE|'"${depict_discretized}"'|g' settings.txt
    fi
-   qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
-   R -q --no-save < collect.R > ${_db}.collect.log
-   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh pascal; fi
+   if [ $collection_only -eq 0 ]; then
+      qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
+      R -q --no-save < collect.R > ${_db}.collect.log
+      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh pascal; fi
+   fi
    cd -
 fi
 
@@ -168,9 +186,11 @@ if [ $depict -eq 1 ]; then
       mkdir DEPICT
    fi
    cd DEPICT
-   cp $PW_location/DEPICT/* .
-   R -q --no-save < data.R > ${_db}.data.log
-   sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
+   if [ $collection_only -eq 0 ]; then
+      cp $PW_location/DEPICT/* .
+      R -q --no-save < data.R > ${_db}.data.log
+      sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
+   fi
    if [ $_db == "depict_discretized" ]; then
       export db=$(basename $depict_discretized .gmt)
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
@@ -180,10 +200,12 @@ if [ $depict -eq 1 ]; then
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
    fi
-   qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
-   bash tissue_plot.sh $db
-   R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
-   if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
+   if [ $collection_only -eq 0 ]; then
+      qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
+      bash tissue_plot.sh $db
+      R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
+      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
+   fi
    cd -
 fi
 
