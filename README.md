@@ -10,7 +10,7 @@ LocusZoom, while network(s) from pathway analysis via gephi or Cytoscape, which 
 undirected to build a network. Aspects to consider include part or all databases, individual level genotype data vs GWAS 
 summary statistics, computing speed, with and without tissue enrichment.
 
-![diagram from CytoScape/GeneMANIA](files/FTO-MC4R-AGRP-TMEM18-TCF7L2.png)
+![diagram from CytoScape/GeneMANIA](files/obesity.png)
 
 ## INSTALLATION
 
