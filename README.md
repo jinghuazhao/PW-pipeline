@@ -269,6 +269,45 @@ for(i in mplist) print(term("MP",i))
 ```
 A pre-prepared table is also available as [id_descrip.txt.gz](files/id_descrip.txt.gz) which will be complementary to these.
 
+## EXAMPLE
+
+We use data from Scott, et al. (2017),
+```
+R -q --no-save <<END
+
+library(openxlsx)
+library(dplyr)
+
+xlsx <- "http://diabetes.diabetesjournals.org/highwire/filestream/79037/field_highwire_adjunct_files/1/DB161253SupplementaryData2.xlsx"
+
+# Supplementary Table 3. Results for established, novel and additional distinct signals from the main analysis.
+ST3 <- read.xlsx(xlsx, sheet = 3, colNames=TRUE, skipEmptyRows = FALSE, cols = 1:20, rows = 2:130) %>% within(
+       {
+          beta=log(OR)
+          L <- as.numeric(substr(CI,1,4))
+          U <- as.numeric(substr(CI,6,9))
+          se=abs(log(L)-log(U))/3.92
+          P=2*(1-pnorm(abs(beta/se)))
+       }) %>% select(SNP=rsid, A1=EA, A2=NEA, freqA1=EAF, beta, se, P, N=Sample.size, chr=Chr, pos=Position_b37)
+write.table(ST3, file="ST3", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+# Supplementary Table 4. BMI-unadjusted association analysis model
+ST4 <- read.xlsx(xlsx, sheet = 4, colNames=TRUE, skipEmptyRows = FALSE, cols = 1:12, rows = 3:132) %>% rename(
+       "CI"="CI.95%", "P"="P-value") %>% within(
+       {
+          beta=log(OR)
+          L <- as.numeric(substr(CI,1,4))
+          U <- as.numeric(substr(CI,6,9))
+          se=abs(log(L)-log(U))/3.92
+          P=2*(1-pnorm(abs(beta/se)))
+       }) %>% select(SNP=rsid, A1=allele1, A2=allele2, freqA1=freq1, beta, se, P, N, chr, pos=position_b37)
+write.table(ST4, file="ST4", row.names=FALSE, col.names=FALSE, quote=FALSE)
+END
+
+pwp.sh ST4 &
+```
+
+
 ## ACKNOWLEDGEMENTS
 
 The work drives from comparison of software performances using our own GWAS data. The practicality of a common DEPICT database to all software 
