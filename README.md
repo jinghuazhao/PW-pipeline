@@ -288,7 +288,18 @@ ST3 <- read.xlsx(xlsx, sheet = 3, colNames=TRUE, skipEmptyRows = FALSE, cols = 1
           U <- as.numeric(substr(CI,6,9))
           se=abs(log(L)-log(U))/3.92
           P=2*(1-pnorm(abs(beta/se)))
-       }) %>% select(SNP=rsid, A1=EA, A2=NEA, freqA1=EAF, beta, se, P, N=Sample.size, chr=Chr, pos=Position_b37)
+       }) %>% select(
+          SNP=rsid,
+          A1=EA,
+          A2=NEA,
+          freqA1=EAF,
+          beta,
+          se,
+          P,
+          N=Sample.size,
+          chr=Chr,
+          pos=Position_b37
+       )
 write.table(ST3, file="ST3", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 # Supplementary Table 4. BMI-unadjusted association analysis model
@@ -300,8 +311,20 @@ ST4 <- read.xlsx(xlsx, sheet = 4, colNames=TRUE, skipEmptyRows = FALSE, cols = 1
           U <- as.numeric(substr(CI,6,9))
           se=abs(log(L)-log(U))/3.92
           P=2*(1-pnorm(abs(beta/se)))
-       }) %>% select(SNP=rsid, A1=allele1, A2=allele2, freqA1=freq1, beta, se, P, N, chr, pos=position_b37)
+       }) %>% select(
+          SNP=rsid,
+          A1=allele1, 
+          A2=allele2,
+          freqA1=freq1,
+          beta,
+          se,
+          P,
+          N,
+          chr,
+          pos=position_b37
+       )
 write.table(ST4, file="ST4", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
 END
 
 pwp.sh ST4 &
