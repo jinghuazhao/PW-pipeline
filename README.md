@@ -306,7 +306,7 @@ END
 
 pwp.sh ST4 &
 ```
-
+where we generate data based on the paper's supplementary tables ST3 and ST4, which is formatted as input.
 
 ## ACKNOWLEDGEMENTS
 
@@ -346,3 +346,7 @@ doi: 10.1371/journal.pcbi.1004714
 **GIANT paper**
 
 Locke AE, et al. (2015) Genetic studies of body mass index yield new insights for obesity biology. Nature 518(7538):197-206. doi: 10.1038/nature14177
+
+**DIAGRAM paper""
+
+Scott R, et al. (2017) An Expanded Genome-Wide Association Study of Type 2 Diabetes in Europeans. Diabetes 66:2888–2902.
