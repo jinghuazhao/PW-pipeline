@@ -71,8 +71,8 @@ Column | Name | Description
 
 ### Output
 
-The output will be available from individual directories named after the software you choose, and in case all software are used the output will also be an Excel 
-workbook containing results from them.
+The output will be available from individual directories named after the software you choose, and optionally in case all software are used the output can also be
+an Excel workbook containing combined results.
 
 ## EXAMPLE
 
@@ -304,7 +304,8 @@ write.table(ST3, file="ST3", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 # Supplementary Table 4. BMI-unadjusted association analysis model
 ST4 <- read.xlsx(xlsx, sheet = 4, colNames=TRUE, skipEmptyRows = FALSE, cols = 1:12, rows = 3:132) %>% rename(
-       "CI"="CI.95%", "P"="P-value") %>% within(
+       "CI"="CI.95%", 
+       "P"="P-value") %>% within(
        {
           beta=log(OR)
           L <- as.numeric(substr(CI,1,4))
@@ -329,7 +330,7 @@ END
 
 pwp.sh ST4 &
 ```
-where we generate data based on the paper's supplementary tables ST3 and ST4, which is formatted as input.
+where we extract data based on the paper's supplementary tables ST3 and ST4, the latter is used as input.
 
 ## ACKNOWLEDGEMENTS
 
