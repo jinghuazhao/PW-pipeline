@@ -150,7 +150,7 @@ END
 
 pwp.sh ST4 &
 ```
-where we generate data based on the paper's supplementary tables ST3 and ST4; the former is in line with the paper (by change `p_threshold'=0.00001,
+where we generate data based on the paper's supplementary tables ST3 and ST4; the former is in line with the paper (by change `p_threshold`=0.00001,
 see below) while the latter is used as input here.
 
 ## FEATURES
