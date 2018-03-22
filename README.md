@@ -168,8 +168,9 @@ Several flags are notable:
 very large and P=0, -log10(P)=infinity. 
 * `min_gs_size.` By default, the mininum number of genes contained in a pathway is five rather than 10 in order to be consistent with other software and 
 this can be changed to 10 via `min_gs_size` in the script if you intend to use the same threshold as MAGENTA.
-* `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 but this can be changed as above.
+* `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 in MAGENTA but this can be changed as above.
 * `p_threshold.` This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10^(-8) and P<= 5 x 10^-5, respectively.
+* `nr_repititions.` This sets the number of random sampling for calculated FDR used by DEPICT.
 
 Moreover, potential downstream analysis such as clustering significant pathways and network of pathways is illustrated with 
 [network.sh](files/network.sh), which performs affinity propagation and k-means clustering as well as generates .csv and .sif formats to be used by
