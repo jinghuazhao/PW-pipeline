@@ -101,13 +101,13 @@ library(dplyr)
 xlsx <- "http://diabetes.diabetesjournals.org/highwire/filestream/79037/field_highwire_adjunct_files/1/DB161253SupplementaryData2.xlsx"
 
 # Supplementary Table 3. Results for established, novel and additional distinct signals from the main analysis.
-ST3 <- read.xlsx(xlsx, sheet = 3, colNames=TRUE, skipEmptyRows = FALSE, cols = 1:20, rows = 2:130) %>% within(
+ST3 <- read.xlsx(xlsx, sheet = 3, colNames=TRUE, skipEmptyRows = FALSE, cols = 1:20, rows = 2:130) %>%
+       rename(P="p-value.in.stage.1") %>% within(
        {
           beta=log(OR)
           L <- as.numeric(substr(CI,1,4))
           U <- as.numeric(substr(CI,6,9))
           se=abs(log(L)-log(U))/3.92
-          P=2*(1-pnorm(abs(beta/se)))
        }) %>% select(
           SNP=rsid,
           A1=EA,
@@ -150,7 +150,8 @@ END
 
 pwp.sh ST4 &
 ```
-where we generate data based on the paper's supplementary tables ST3 and ST4; the latter is used as input.
+where we generate data based on the paper's supplementary tables ST3 and ST4; the former is in line with the paper (by change `p_threshold'=0.00001,
+see below) while the latter is used as input here.
 
 ## FEATURES
 
