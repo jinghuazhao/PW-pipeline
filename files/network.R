@@ -3,7 +3,7 @@
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
-options(width=200)
+options(width=200,digits=2)
 set.seed(31415625)
 
 library(GOstats)
