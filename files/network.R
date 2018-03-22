@@ -1,4 +1,4 @@
-# 6-3-2018 MRC-Epid JHZ
+# 22-3-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -21,6 +21,8 @@ dev.off()
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
+cat(";",file=paste0(software,".csv"))
+write.table(corRaw,file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- melt(corRaw)
 e <- cbind(r[1],r[3],r[2])
