@@ -38,9 +38,10 @@ export depict=1
 export min_gs_size=5
 export max_gs_size=2000
 
-### P value threshold for DEPICT
+### P value threshold for DEPICT and number of random sampling for FDR
 
 export p_threshold=0.00000005
+export nr_repititions=50
 
 ### database flag (magenta, c2, msigdb, depict_discretized)
 
@@ -197,10 +198,14 @@ if [ $depict -eq 1 ]; then
       export db=$(basename $depict_discretized .gmt)
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
+      sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
+      sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
    else
       export db=depict
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
+      sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
+      sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
    fi
    if [ $collection_only -eq 0 ]; then
       qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
