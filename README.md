@@ -150,7 +150,7 @@ END
 
 pwp.sh ST4 &
 ```
-where we generate data based on the paper's supplementary tables ST3 and ST4, which is formatted as input.
+where we generate data based on the paper's supplementary tables ST3 and ST4, the latter is used as input.
 
 ## FEATURES
 
