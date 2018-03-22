@@ -41,7 +41,7 @@ export max_gs_size=2000
 ### P value threshold for DEPICT and number of random sampling for FDR
 
 export p_threshold=0.00000005
-export nr_repititions=50
+export nr_repititions=200
 
 ### database flag (magenta, c2, msigdb, depict_discretized)
 
