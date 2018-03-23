@@ -125,7 +125,7 @@ def add_cluster_results_to_data_frame(df):
 	# Here we assign the lowest cluster ID/label to the cluster with the smallest "Cluster minimum P value"
 	tmp_current_clusterID = None
 	tmp_clusterID_rank = 0
-	df = df.sort(['Cluster minimum P value', 'Cluster ID']) # SORT!
+	df = df.sort_values(['Cluster minimum P value', 'Cluster ID']) # SORT!
 	for row_index, row in df.iterrows():
 		# NB: we could just loop over the index instead!
 		if tmp_current_clusterID is None:
@@ -309,7 +309,7 @@ def write_genesetenrichment_cluster_result_file(df):
 	# Cluster minimum P value
 	print "Writing geneset enrichment cluster result file..."
 	df_write["Cluster ID"] = df_write["Cluster ID"] + 1 # looks better in the output
-	df_write.sort(['Cluster ID','Nominal P value'], inplace=True)
+	df_write.sort_values(['Cluster ID','Nominal P value'], inplace=True)
 	df_write.to_csv(file_genesetenrichment_cluster_result, sep="\t", index=False)
 	print "Done"
 
@@ -356,7 +356,7 @@ def write_node_attribute_file(df):
 	# within_cluster_min_pval_discrete
 	print "Writing node attribute file..."
 	df_write["Cluster ID"] = df_write["Cluster ID"] + 1 # looks better in the output
-	df_write.sort(['Cluster ID','Nominal P value'], inplace=True)
+	df_write.sort_values(['Cluster ID','Nominal P value'], inplace=True)
 	df_write.to_csv(file_node_attribute, sep="\t", index=False)
 	print "Done"
 	
