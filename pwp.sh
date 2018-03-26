@@ -1,5 +1,5 @@
 #!/bin/bash
-# 22-3-2018 MRC-Epid JHZ
+# 26-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -211,8 +211,11 @@ if [ $depict -eq 1 ]; then
       qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
       bash tissue_plot.sh $db
       R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
-      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
+      if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
    fi
+   export file_genesetenrichment=${db}_genesetenrichment.txt
+   sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
+   ./network_plot.py network_plot.cfg
    cd -
 fi
 
