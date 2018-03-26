@@ -1,4 +1,4 @@
-# 22-3-2018 MRC-Epid JHZ
+# 26-3-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -25,7 +25,7 @@ cat(";",file=paste0(software,".csv"))
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
-e <- cbind(r[1],r[3],r[2])
+e <- cbind(r[1],"interact",r[2],r[3])
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 write.table(subset(e, value>=0.7),file=paste0(software,"-1.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 write.table(subset(e, value>=0.4 & value<0.7),file=paste0(software,"-2.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
