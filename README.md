@@ -173,6 +173,7 @@ this can be changed to 10 via `min_gs_size` in the script if you intend to use t
 * `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 in MAGENTA but this can be changed as above.
 * `p_threshold.` This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10<sup>-8</sup> and P<= 5 x 10<sup>-5</sup>, respectively.
 * `nr_repititions.` This sets the number of random sampling (200) for calculated FDR used by DEPICT.
+* `cutoff_type.` This takes value of `fdr` or `pvalue` for network plot.
 
 Moreover, potential downstream analysis such as clustering significant pathways and network of pathways is illustrated with 
 [network.sh](files/network.sh), which performs affinity propagation and k-means clustering as well as generates .csv and .sif formats to be used by
