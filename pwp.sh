@@ -1,5 +1,5 @@
 #!/bin/bash
-# 26-3-2018 MRC-Epid JHZ
+# 27-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -215,6 +215,7 @@ if [ $depict -eq 1 ]; then
    fi
    export file_genesetenrichment=${db}_genesetenrichment.txt
    sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
+   sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
    ./network_plot.py network_plot.cfg
    cd -
 fi
