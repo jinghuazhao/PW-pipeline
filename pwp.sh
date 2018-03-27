@@ -28,9 +28,9 @@ export collection_only=0
 
 ### software flags
 
-export magenta=1
-export magma=1
-export pascal=1
+export magenta=0
+export magma=0
+export pascal=0
 export depict=1
 
 ### min_gs_size for MAGENTA in line with other software
@@ -40,9 +40,9 @@ export max_gs_size=2000
 
 ### P value threshold for DEPICT and number of random sampling for FDR
 
-export p_threshold=0.00000005
-export nr_repititions=200
-export cutoff_type=fdr
+export p_threshold=0.00001
+export nr_repititions=50
+export cutoff_type=pvalue
 export pvalue_cutoff=0.00001
 
 ### database flag (magenta, c2, msigdb, depict_discretized)
