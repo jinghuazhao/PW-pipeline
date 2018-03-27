@@ -43,6 +43,7 @@ export max_gs_size=2000
 export p_threshold=0.00000005
 export nr_repititions=200
 export cutoff_type=fdr
+export pvalue_cutoff=0.00001
 
 ### database flag (magenta, c2, msigdb, depict_discretized)
 
@@ -218,6 +219,7 @@ if [ $depict -eq 1 ]; then
    sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
    sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
    sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
+   sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
    ./network_plot.py network_plot.cfg
    cd -
 fi
