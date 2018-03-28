@@ -46,9 +46,9 @@ export nr_repititions=200
 export cutoff_type=fdr
 export pvalue_cutoff=0.00001
 
-### database flag (magenta, c2, msigdb, depict_discretized)
+### database flag (magenta, c2, msigdb, depict_discretized, depict)
 
-export _db=depict_discretized
+export _db=depict
 
 if [ $collection_only -eq 0 ]; then
    if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
