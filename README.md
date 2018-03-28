@@ -43,7 +43,7 @@ where it first obtains build 37 positions, sorts them by RSid into the file `snp
 
 ## USAGE
 
-The pipeline requires users to specify software to be used as well as database to use. It is possible 
+The pipeline requires users to specify both software and database to be used. It is possible 
 that a given database can be used for several software when appropriate.
 
 The syntax is
@@ -78,7 +78,7 @@ In case of DEPICT, it is possible to call [netowrk_plot.py](DEPICT/network_plot.
 
 ## EXAMPLE
 
-We can take the GIANT summary statistics as example which requires build 37 positions than can be downloaded from the UCSC website.
+We take data reprted by Locke, et al. (2015) as example which requires build 37 positions than can be downloaded from the UCSC website described above.
 ```
 # GWAS summary statistics
 wget http://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
