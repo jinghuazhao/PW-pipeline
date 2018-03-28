@@ -1,5 +1,5 @@
 #!/bin/bash
-# 27-3-2018 MRC-Epid JHZ
+# 28-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -10,12 +10,12 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/so
 export PATH=/genetics/bin/anaconda2/bin:$PATH:/genetics/bin:/usr/local/bin:/genetics/data/software/bin
 export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages
 
+export PW_location=/genetics/bin/PW-pipeline
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
 export PASCAL=/genetics/bin/PASCAL
 export DEPICT=/genetics/bin/DEPICT/src/python
 export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
-export PW_location=/genetics/bin/PW-pipeline
 
 export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
@@ -38,8 +38,9 @@ export depict=1
 export min_gs_size=5
 export max_gs_size=2000
 
-### P value threshold for DEPICT and number of random sampling for FDR
+### options for DEPICT
 
+export number_of_threads=5
 export p_threshold=0.00000005
 export nr_repititions=200
 export cutoff_type=fdr
@@ -210,7 +211,9 @@ if [ $depict -eq 1 ]; then
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
    fi
    if [ $collection_only -eq 0 ]; then
-      qsub -cwd -N DEPICT -V -sync y ${PW_location}/DEPICT/depict.sh
+      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.cfg
+      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.sh
+      qsub -cwd -N DEPICT -V -sync y ./depict.sh
       bash tissue_plot.sh $db
       R -q --no-save < ${PW_location}/DEPICT/collect.R > ${_db}.collect.log
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
