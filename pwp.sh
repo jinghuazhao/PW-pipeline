@@ -14,7 +14,7 @@ export PW_location=/genetics/bin/PW-pipeline
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
 export PASCAL=/genetics/bin/PASCAL
-export DEPICT=/genetics/bin/DEPICT/src/python
+export DEPICT=/genetics/bin/depict/src/python
 export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
 
 export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
