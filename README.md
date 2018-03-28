@@ -172,7 +172,7 @@ Several flags are notable:
   * `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 but this can be changed as above.
 * DEPICT
   * `number_of_threads.` Number of threads used by the Java binary.
-  * `p_threshold.` This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10<sup>-8</sup> and P<= 5 x 10<sup>-5</sup>, respectively.
+  * `p_threshold.` This is to accommodate the suggestion that DEPICT is run twice, for P<=5 x 10<sup>-8</sup> and P<=10<sup>-5</sup>, respectively.
   * `nr_repititions.` This sets the number of random sampling (200) for calculated FDR.
   * `cutoff_type.` This takes value of `fdr` or `pvalue` for network plot.
   * `pvalue_cutoff.` This sets pvalue cutoff for `cutoff_type`=`pvalue` for network plot.
