@@ -166,16 +166,16 @@ sessions. The pipeline enables them run on noninteractive clusters.
 Several flags are notable: 
 
 * `collection_only.` If setting to 1, it only collects all available software outputs to form a final Excel file.
-* `mp.` If setting to 1 it will regenerate multiple precision P and -log10(P) values from z, which is necessary when |z| is 
-very large and P=0, -log10(P)=infinity. 
-* `min_gs_size.` By default, the mininum number of genes contained in a pathway is five rather than 10 in order to be consistent with other software and 
-this can be changed to 10 via `min_gs_size` in the script if you intend to use the same threshold as MAGENTA.
-* `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 in MAGENTA but this can be changed as above.
-* `number_of_threads.` Number of threads used by the DEPICT Java binary.
-* `p_threshold.` This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10<sup>-8</sup> and P<= 5 x 10<sup>-5</sup>, respectively.
-* `nr_repititions.` This sets the number of random sampling (200) for calculated FDR used by DEPICT.
-* `cutoff_type.` This takes value of `fdr` or `pvalue` for network plot.
-* `pvalue_cutoff.` This sets pvalue cutoff for `cutoff_type`=`pvalue` for network plot.
+* `mp.` If setting to 1 it will regenerate multiple precision P and -log10(P) values from z, which is necessary when |z| is very large and P=0, -log10(P)=infinity. 
+* MAGENTA
+  * `min_gs_size.` By default, the mininum number of genes contained in a pathway is five rather than 10 in order to be consistent with other software and  this can be changed to 10 via `min_gs_size` in the script if you intend to use the same threshold.
+  * `max_gs_size.` By default, the maximum number of genes contained in a pathway is 2000 but this can be changed as above.
+* DEPICT
+  * `number_of_threads.` Number of threads used by the Java binary.
+  * `p_threshold.` This is to compromise the suggestion that DEPICT is run twice, for P<=5 x 10<sup>-8</sup> and P<= 5 x 10<sup>-5</sup>, respectively.
+  * `nr_repititions.` This sets the number of random sampling (200) for calculated FDR.
+  * `cutoff_type.` This takes value of `fdr` or `pvalue` for network plot.
+  * `pvalue_cutoff.` This sets pvalue cutoff for `cutoff_type`=`pvalue` for network plot.
 
 Moreover, potential downstream analysis such as clustering significant pathways and network of pathways is illustrated with 
 [network.sh](files/network.sh), which performs affinity propagation and k-means clustering as well as generates .csv and .sif formats to be used by
