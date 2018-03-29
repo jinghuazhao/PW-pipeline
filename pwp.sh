@@ -1,5 +1,5 @@
 #!/bin/bash
-# 28-3-2018 MRC-Epid JHZ
+# 29-3-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -221,7 +221,10 @@ if [ $depict -eq 1 ]; then
    sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
    sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
    sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
-   ./network_plot.py network_plot.cfg
+#  ./network_plot.py network_plot.cfg # the GitHub version fails to generate network plot
+# the 2015 version has fdr_cutoff parameter and does not recognise flag_
+   sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
+   ./network_plot_2015.py network_plot_2015.cfg
    cd -
 fi
 
