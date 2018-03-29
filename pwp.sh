@@ -222,10 +222,9 @@ if [ $depict -eq 1 ]; then
    sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
    sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
    ./network_plot.py network_plot.cfg
-# the GitHub version fails to generate network plot
-# the 2015 version has fdr_cutoff parameter and does not recognise flag_
+# The GitHub version above fails to generate network plot, so the 2015 version is called fixing fdr_cutoff parameter and flag_
    sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
-   sed -i 's|output_label: ./OUTPUT_LABEL|output_label: network_plot_2015/'"$output_label"'|g' network_plot_2015.cfg
+   sed -i 's|output_label: ./OUTPUT_LABEL|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
    ./network_plot_2015.py network_plot_2015.cfg
    cd -
 fi
