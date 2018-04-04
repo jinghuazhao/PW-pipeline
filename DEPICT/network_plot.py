@@ -681,18 +681,18 @@ time_script_start = time.time() # *START TIME*
 
 ### *LEGACY from parsing arguments via argparse (command line arguments)* ### 
 ### The check is not needed when using configparser, because allow_no_value=False is used by Configparser.
-# if out is None:
-# 	out = os.path.join(os.getcwd(), 'network_plot', 'network_plot')
-# 	out = os.path.abspath(out) # convert to absolute path.
-# 	# e.g. /Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/network_plot/network_plot
-# elif out == "": # empty string
-# 	raise Exception("No output_label label given. Please correct the config file")
-# else:
-# 	out = os.path.abspath(out) # convert to absolute path. # E.g.:
-# 		# os.path.abspath(".") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src'
-# 		# os.path.abspath("./SOMEDIR") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/SOMEDIR'
-# 		# os.path.abspath("SOMEDIR/ANOTHERDIR") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/SOMEDIR/ANOTHERDIR'
-# 		# os.path.abspath("/Users/pascaltimshel/") --> '/Users/pascaltimshel'
+if out is None:
+ 	out = os.path.join(os.getcwd(), 'network_plot', 'network_plot')
+ 	out = os.path.abspath(out) # convert to absolute path.
+ 	# e.g. /Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/network_plot/network_plot
+elif out == "": # empty string
+	raise Exception("No output_label label given. Please correct the config file")
+else:
+ 	out = os.path.abspath(out) # convert to absolute path. # E.g.:
+ 		# os.path.abspath(".") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src'
+ 		# os.path.abspath("./SOMEDIR") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/SOMEDIR'
+ 		# os.path.abspath("SOMEDIR/ANOTHERDIR") --> '/Users/pascaltimshel/Dropbox/0_Projects/git/DEPICT/src/SOMEDIR/ANOTHERDIR'
+ 		# os.path.abspath("/Users/pascaltimshel/") --> '/Users/pascaltimshel'
 
 ### Create output directory
 out_dir = os.path.dirname(out)
