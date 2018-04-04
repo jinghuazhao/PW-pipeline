@@ -21,7 +21,7 @@ import ConfigParser
 ###################################### EXTRA LOADING ######################################
 
 ### To turn of "SettingWithCopyWarning" warnings:
-#pd.options.mode.chained_assignment = None  # default='warn'
+pd.options.mode.chained_assignment = None  # default='warn'
 
 ###################################### DEPENDENCIES ######################################
 
