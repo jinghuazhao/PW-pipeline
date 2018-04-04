@@ -220,10 +220,10 @@ if [ $depict -eq 1 ]; then
       sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
       sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
       ./network_plot.py network_plot.cfg
-# The old version requires addtional changes as follows,
-#     sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
-#     sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
-#     ./network_plot_2015.py network_plot_2015.cfg
+      # The old version requires addtional changes as follows,
+      # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
+      # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
+      # ./network_plot_2015.py network_plot_2015.cfg
       pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
       if [ -f ${db}_network_diagram-000001.png ]; then mv ${db}_network_diagram-000001.png ${r}.png; fi
       R -q --no-save < collect.R > ${_db}.collect.log
