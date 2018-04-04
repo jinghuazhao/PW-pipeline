@@ -213,7 +213,7 @@ if [ $depict -eq 1 ]; then
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
       qsub -cwd -N DEPICT -V -sync y ./depict.sh
       bash tissue_plot.sh $db
-      # minor changes are necessary to network_plot.py.
+      # minor changes to network_plot.py are necessary.
       export file_genesetenrichment=${db}_genesetenrichment.txt
       sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
       sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
