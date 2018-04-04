@@ -25,8 +25,8 @@ cat(";",file=paste0(software,".csv"))
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
-e <- cbind(r[1],r[2],r[3])
-e[,3] <- as.numeric(cut(r[3],breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+l <- as.numeric(cut(r[3],breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+e <- cbind(r[1],"interact",r[2],r[3],l)
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
