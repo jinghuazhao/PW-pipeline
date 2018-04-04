@@ -1,4 +1,4 @@
-# 26-3-2018 MRC-Epid JHZ
+# 4-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -25,11 +25,9 @@ cat(";",file=paste0(software,".csv"))
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
-e <- cbind(r[1],"interact",r[2],r[3])
+e <- cbind(r[1],r[2],r[3])
+e[,3] <- as.numeric(cut(r[3],breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
-write.table(subset(e, value>=0.7),file=paste0(software,"-1.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
-write.table(subset(e, value>=0.4 & value<0.7),file=paste0(software,"-2.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
-write.table(subset(e, value<0.4),file=paste0(software,"-3.sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 m <- (abs(corRaw)>0.7)+0
 diag(m) <- 0
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
