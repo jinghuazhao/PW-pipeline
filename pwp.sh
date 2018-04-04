@@ -197,14 +197,14 @@ if [ $depict -eq 1 ]; then
       R -q --no-save < data.R > ${_db}.data.log
       sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    fi
-   if [ $_db == "depict_discretized" ]; then
-      export db=$(basename $depict_discretized .gmt)
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
-      sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
-   elif [ $_db == "depict" ]; then
+   if [ $_db == "depict" ]; then
       export db=depict
       sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
+   elif [ $_db == "depict_discretized" ]; then
+      export db=$(basename $depict_discretized .gmt)
+      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
+      sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
    fi
    if [ $collection_only -eq 0 ]; then
       sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.sh
