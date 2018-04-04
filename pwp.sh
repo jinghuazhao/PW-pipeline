@@ -213,16 +213,19 @@ if [ $depict -eq 1 ]; then
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
       qsub -cwd -N DEPICT -V -sync y ./depict.sh
       bash tissue_plot.sh $db
-      # Both the GitHub and 2015 (without prefix flag_ for fdr_cutoff parameter) versions are called.
+      # minor changes are necessary to network_plot.py.
       export file_genesetenrichment=${db}_genesetenrichment.txt
       sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
       sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
       sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
       sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
       ./network_plot.py network_plot.cfg
-      sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
-      sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
-      ./network_plot_2015.py network_plot_2015.cfg
+# The old version requires addtional changes as follows,
+#     sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
+#     sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
+#     ./network_plot_2015.py network_plot_2015.cfg
+      pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
+      if [ -f ${db}_network_diagram-000001.png ]; then mv ${db}_network_diagram-000001.png ${r}.png; fi
       R -q --no-save < collect.R > ${_db}.collect.log
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
    fi
