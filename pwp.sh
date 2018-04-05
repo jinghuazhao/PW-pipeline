@@ -1,10 +1,8 @@
 #!/bin/bash
-# 4-4-2018 MRC-Epid JHZ
+# 5-4-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
-# multiple precision flag; setting to 1 if needed
-export mp=0
 export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/software/lib
 export PATH=/genetics/bin/anaconda2/bin:$PATH:/genetics/bin:/usr/local/bin:/genetics/data/software/bin
@@ -21,6 +19,10 @@ export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
+
+# multiple precision flag; setting to 1 if needed
+
+export mp=0
 
 ### result collection only
 
