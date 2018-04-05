@@ -21,7 +21,7 @@
 # - the file can be either in "GTEx" or "Gene Network" format.
 # output_prefix (optional):
 # - a prefix to the output filenames. 
-# - E.g. if output_prefix is 'ldl_teslovich', the output files would be tissue_plot_ldl_teslovich_PLOTSPECIFICSUFFIX.pdf
+# - E.g. if output_prefix is 'ldl_teslovich', the output files would be ldl_teslovich_PLOTSPECIFICSUFFIX.pdf
 
 ### === OUTPUT === ### 
 # The script writes .pdf file plots to the DIRECTORY FROM WHERE THE SCRIPT IS CALLED (working directory of terminal session).
@@ -267,8 +267,8 @@ function.plot.save <- function(p, filename.prefix="MISSING-FILENAME-PREFIX", fil
   ### OUTPUT
   # NONE
   # ======================== Save plot =============================== # 
-  #p.filename <- sprintf("tissue_plot_%s.pdf", filename.suffix)
-  p.filename <- sprintf("tissue_plot_%s_%s.pdf", filename.prefix, filename.suffix)
+  #p.filename <- sprintf("%s.pdf", filename.suffix)
+  p.filename <- sprintf("%s_%s.pdf", filename.prefix, filename.suffix)
   suppressWarnings(ggsave(file=p.filename, width=8, height=4, units="in", dpi=300))
   print(sprintf("Saved plot %s", p.filename))
 }
@@ -414,7 +414,7 @@ if ( as.logical(flag.genenetwork.plot_extended_mesh_categories) & (flag.input_ty
   
   # MULTIPLOT | System, Cells, Tissues
   m.plot.layout <- matrix(c(1,1,2,3), nrow=2, byrow=TRUE)
-  m.plot.filename <- sprintf("tissue_plot_%s_genenetwork_multiplot.pdf", filename.prefix)
+  m.plot.filename <- sprintf("%s_genenetwork_multiplot.pdf", filename.prefix)
   pdf(file=m.plot.filename, width=12, height=5)
   suppressWarnings(multiplot(p.system, p.cells, p.tissues, layout=m.plot.layout))
   print(sprintf("Saved multiplot %s", m.plot.filename))

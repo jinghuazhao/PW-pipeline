@@ -1,4 +1,4 @@
-# 4-4-2018 MRC-Epid JHZ
+# 5-4-2018 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -21,7 +21,7 @@ for(s in c("cells","multiplot","system", "tissues"))
 {
   i <- paste0("DEPICT_",s)
   addWorksheet(wb, i)
-  insertImage(wb, i, paste0("tissue_plot_",db,"_genenetwork_",s,".png"), width=12, height=6)
+  insertImage(wb, i, paste0(db,"_genenetwork_",s,".png"), width=12, height=6)
 }
 for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
 {
