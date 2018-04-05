@@ -1,4 +1,4 @@
-# 10-1-2018 MRC-Epid JHZ
+# 5-4-2018 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -51,7 +51,7 @@ paste ${_db}.rownames - > ${db}.network
 ## vv slow!
 # gunzip -c ${BP} | awk -vFS="\t" -vOFS="\t" -f xpose.awk | grep -x -f ${db}.colnames | awk -f xpose.awk > ${db}.network
 
-R --no-save -q < $PW_location/files/network.R > network.log
+R --no-save -q < $PW_location/files/network.R > ${db}_network.log
 
 # http://research.stowers.org/mcm/efg/R/Visualization/cor-cluster/index.htm
 # http://www.sthda.com/english/wiki/print.php?id=239
