@@ -20,6 +20,8 @@ export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
 
+## OPTIONS
+
 # multiple precision flag; setting to 1 if needed
 
 export mp=0
