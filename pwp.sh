@@ -115,7 +115,7 @@ if [ $magenta -eq 1 ]; then
       qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
-      R -q --no-save < collect.R > ${_db}.collect.log
+      R -q --no-save < collect.R > ${_db}_collect.log
       if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
    fi
    cd -
@@ -182,7 +182,7 @@ if [ $pascal -eq 1 ]; then
    fi
    if [ $collection_only -eq 0 ]; then
       qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
-      R -q --no-save < collect.R > ${_db}.collect.log
+      R -q --no-save < collect.R > ${_db}_collect.log
       if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh pascal; fi
    fi
    cd -
@@ -228,7 +228,7 @@ if [ $depict -eq 1 ]; then
     # ./network_plot_2015.py network_plot_2015.cfg
       pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
       if [ -f ${db}_network_diagram-000001.png ]; then mv ${db}_network_diagram-000001.png ${db}_network_diagram.png; fi
-      R -q --no-save < collect.R > ${_db}.collect.log
+      R -q --no-save < collect.R > ${_db}_collect.log
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
    fi
    cd -
