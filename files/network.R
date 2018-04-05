@@ -5,7 +5,7 @@ software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
 options(width=200,digits=2)
 set.seed(31415625)
-misc_run <- FALSE
+misc_runs <- FALSE
 
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
@@ -59,7 +59,7 @@ write_graph(g,paste0(software,".el"),"edgelist")
 require(network)
 n <- network(m, directed=FALSE)
 plot(n)
-if (misc_run)
+if (misc_runs)
 {
    require(GOstats)
    require(Rgraphviz)
