@@ -1,23 +1,15 @@
-# 4-4-2018 MRC-Epid JHZ
+# 5-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
 options(width=200,digits=2)
 set.seed(31415625)
+test_run <- FALSE
 
-library(GOstats)
-library(Rgraphviz)
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
 rownames(Raw) <- nw[,1]
-tRaw <- t(Raw)
-gData <- new("ExpressionSet", exprs=tRaw)
-corrGraph = compCorrGraph(gData, tau=0.7)
-edgemode(corrGraph) <- "undirected"
-pdf("CorrGraph.pdf")
-plot(corrGraph)
-dev.off()
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
@@ -25,11 +17,11 @@ cat(";",file=paste0(software,".csv"))
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
-l <- as.numeric(cut(r[3],breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+library(splitstackshape)
+l <- listCol_w(r, "value")[, lapply(.SD, as.numeric), by = .(X1, X2)]
+l <- as.numeric(cut(l$value_fl_1,breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 e <- cbind(r[1],"interact",r[2],r[3],l)
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
-m <- (abs(corRaw)>0.7)+0
-diag(m) <- 0
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
 {
@@ -57,30 +49,39 @@ clid <- data.frame(cluster=cl$cluster,id=rownames(tRaw))
 rownames(clid) <- NULL
 clid[with(clid,order(cluster)),]
 require(igraph)
+m <- abs(corRaw)+0
+diag(m) <- 0
 g <- graph.adjacency(m)
 plot(g)
 write_graph(g,paste0(software,".el"),"edgelist")
 require(network)
 n <- network(m, directed=FALSE)
 plot(n)
-## change as appropriate
-if(0) { 
-  require(graph)
-  gmat <- new("graphAM", adjMat=m, edgemode='undirected')
-  glist <- as(gmat, 'graphNEL')
-  plot(glist)
-  gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=5)
-  fviz_dist(distance,gradient=list(low="#00AFBB",mid="white",high="#FC4E07"))
-  fviz_gap_stat(gap_stat)
-  fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
-  require(NbClust)
-  nb <- NbClust(tRaw,distance="euclidean",min.nc=2,max.nc=10,method="kmeans",index="all")
-  require(RCytoscape)
-  require(spatstat)
-  plot(im(corRaw[nrow(corRaw):1,]),main="Correlation Matrix Map")
-  require(pvclust)
-  cl.bootstrap <- pvclust(Raw,nboot=1000,method.dist="correlation")
-  plot(cl.bootstrap)
-  pvrect(cl.bootstrap)
+if (test_run)
+{
+   require(GOstats)
+   require(Rgraphviz)
+ # gene.set.id (without duplicates) is used for corrGraph and it may also be slow to draw the diagram.
+   gData <- new("ExpressionSet", exprs=t(nw[,-1]))
+   corrGraph = compCorrGraph(gData, tau=0.7)
+   edgemode(corrGraph) <- "undirected"
+   plot(corrGraph)
+   require(graph)
+   gmat <- new("graphAM", adjMat=m, edgemode='undirected')
+   glist <- as(gmat, 'graphNEL')
+   plot(glist)
+   gap_stat <- clusGap(tRaw, FUN=kmeans, nstart=25, K.max=10, B=5)
+   fviz_dist(distance,gradient=list(low="#00AFBB",mid="white",high="#FC4E07"))
+   fviz_gap_stat(gap_stat)
+   fviz_nbclust(tRaw, kmeans, method="gap_stat", nboot=5)
+   require(NbClust)
+   nb <- NbClust(tRaw,distance="euclidean",min.nc=2,max.nc=10,method="kmeans",index="all")
+   require(RCytoscape)
+   require(spatstat)
+   plot(im(corRaw[nrow(corRaw):1,]),main="Correlation Matrix Map")
+   require(pvclust)
+   cl.bootstrap <- pvclust(Raw,nboot=1000,method.dist="correlation")
+   plot(cl.bootstrap)
+   pvrect(cl.bootstrap)
 }
 dev.off()
