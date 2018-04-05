@@ -26,23 +26,23 @@ export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.
 
 export mp=0
 
-### result collection only
+# result collection only
 
 export collection_only=0
 
-### software flags
+# software flags
 
 export magenta=0
 export magma=0
 export pascal=0
 export depict=1
 
-### min_gs_size for MAGENTA in line with other software
+# min_gs_size for MAGENTA in line with other software
 
 export min_gs_size=5
 export max_gs_size=2000
 
-### options for DEPICT
+# options for DEPICT
 
 export number_of_threads=5
 export p_threshold=0.00000005
@@ -50,9 +50,11 @@ export nr_repititions=200
 export cutoff_type=fdr
 export pvalue_cutoff=0.00001
 
-### database flag (magenta, c2, msigdb, depict_discretized, depict)
+# database flag (magenta, c2, msigdb, depict_discretized, depict)
 
 export _db=depict
+
+## ANALYSIS
 
 if [ $collection_only -eq 0 ]; then
    if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
@@ -85,6 +87,9 @@ if [ $_db == "magenta" ]; then
    export magenta_db=${PWD}/magenta.db
    cd -
 fi
+
+# Meta-Analysis Gene-set Enrichment of variaNT Associations (MAGENTA)
+
 if [ $magenta -eq 1 ]; then
    echo "MAGENTA"
    if [ ! -d "MAGENTA" ]; then
@@ -123,6 +128,8 @@ if [ $magenta -eq 1 ]; then
    cd -
 fi
 
+# Multi-marker Analysis of GenoMic Annotation (MAGMA)
+
 if [ $magma -eq 1 ]; then
    echo "MAGMA"
    if [ ! -d "MAGMA" ]; then
@@ -157,6 +164,8 @@ if [ $magma -eq 1 ]; then
    cd -
 fi
 
+# PAthway SCoring ALgorithm (PASCAL)
+
 if [ $pascal -eq 1 ]; then
    echo "PASCAL"
    if [ ! -d "PASCAL" ]; then
@@ -189,6 +198,8 @@ if [ $pascal -eq 1 ]; then
    fi
    cd -
 fi
+
+# Data-Driven Expression Prioritized Integration for Complex Traits (DEPICT)
 
 if [ $depict -eq 1 ]; then
    echo "DEPICT"
@@ -236,7 +247,7 @@ if [ $depict -eq 1 ]; then
    cd -
 fi
 
-## collection into Excel workbook(s)
+# collection into Excel workbook(s)
 
 if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict_discretized" ]; then
     R -q --no-save < ${PW_location}/files/mmpd.R > ${_db}.mmpd.log
