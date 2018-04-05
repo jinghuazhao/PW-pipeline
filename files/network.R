@@ -5,7 +5,7 @@ software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
 options(width=200,digits=2)
 set.seed(31415625)
-test_run <- FALSE
+misc_run <- FALSE
 
 nw <- read.table(paste0(db,".network"),as.is=TRUE,header=TRUE,quote="")
 Raw <- nw[,-1]
@@ -14,13 +14,15 @@ corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
 cat(";",file=paste0(software,".csv"))
+# gephi format
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
 library(splitstackshape)
 l <- listCol_w(r, "value")[, lapply(.SD, as.numeric), by = .(X1, X2)]
-l <- as.numeric(cut(l$value_fl_1,breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+l <- as.numeric(cut(with(l,value_fl_1),breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 e <- cbind(r[1],"interact",r[2],r[3],l)
+# Cytoscape sif
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
@@ -57,7 +59,7 @@ write_graph(g,paste0(software,".el"),"edgelist")
 require(network)
 n <- network(m, directed=FALSE)
 plot(n)
-if (test_run)
+if (misc_run)
 {
    require(GOstats)
    require(Rgraphviz)
