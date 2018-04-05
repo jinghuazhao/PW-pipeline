@@ -14,7 +14,7 @@ corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
 cat(";",file=paste0(software,".csv"))
-# gephi format
+# gephi csv
 write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- format(melt(corRaw),digits=getOption("digits"))
