@@ -26,8 +26,8 @@ write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
 {
-  Original.gene.set.ID <- gsub(":",".",Original.gene.set.ID)
-  Original.gene.set.description <- gsub(" ",".",Original.gene.set.description)
+   Original.gene.set.ID <- gsub(":",".",Original.gene.set.ID)
+   Original.gene.set.description <- gsub(" ",".",Original.gene.set.description)
 })
 namesRaw <- data.frame(Original.gene.set.ID=names(Raw),iid=1:ncol(Raw))
 descrip <- merge(namesRaw,id_descrip,by="Original.gene.set.ID")
@@ -40,10 +40,11 @@ apres <- apcluster(corSimMat,tRaw,details=TRUE)
 heatmap(apres,Rowv=FALSE,Colv=FALSE,cexRow=0.25,cexCol=0.25)
 aggres <- aggExCluster(x=apres)
 plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
+# visualisation
 # par(mfrow=c(2,2))
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
 cutres <- cutree(aggres,k=13)
-# apresK <- apclusterK(corSimMat, tRaw, K=13, verbose=TRUE)
+# apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
 cluster_info <- function(z, features=1:15. showClusters=TRUE)
 {
    if(showClusters)
