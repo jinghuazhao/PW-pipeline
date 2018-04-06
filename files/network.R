@@ -1,9 +1,9 @@
-# 5-4-2018 MRC-Epid JHZ
+# 6-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
-options(width=200,digits=2)
+options(width=200,stringsAsFactors=FALSE)
 set.seed(31415625)
 misc_runs <- FALSE
 
@@ -15,13 +15,12 @@ distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
 # gephi csv
 cat(";",file=paste0(software,".csv"))
-write.table(format(corRaw,digits=getOption("digits")),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
+write.table(signif(corRaw,4),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
-r <- format(melt(corRaw),digits=getOption("digits"))
-library(splitstackshape)
-l <- listCol_w(r, "value")[, lapply(.SD, as.numeric), by = .(X1, X2)]
-l <- as.numeric(cut(with(l,value_fl_1),breaks=c(0,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+r <- melt(corRaw)
+l <- as.numeric(cut(m$value,breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 e <- cbind(r[1],"interact",r[2],r[3],l)
+names(e) <- c("Source","interact","Target","Pearson_correlation", "Pearson_correlation_discrete")
 # Cytoscape sif
 write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
@@ -38,19 +37,30 @@ tRaw <- t(Raw)
 pdf(paste0(software,".pdf"))
 require(apcluster)
 apres <- apcluster(corSimMat,tRaw,details=TRUE)
-show(apres)
 heatmap(apres,Rowv=FALSE,Colv=FALSE,cexRow=0.25,cexCol=0.25)
 aggres <- aggExCluster(x=apres)
 plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
-cutres <- cutree(aggres,k=13)
-show(cutres)
-apresK <- apclusterK(corSimMat, tRaw, K=13, verbose=TRUE)
-show(apresK)
-# features <- 1:15
-# plot(cutres,tRaw[,features])
 # par(mfrow=c(2,2))
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
-# plot(apresK, tRaw[,features])
+cutres <- cutree(aggres,k=13)
+# apresK <- apclusterK(corSimMat, tRaw, K=13, verbose=TRUE)
+cluster_info <- function(z, features=1:15. showClusters=TRUE)
+{
+   if(showClusters)
+   {
+     labels(z)
+     show(z)
+   }
+   clusters <- z@clusters
+   adjmat <- sapply(lapply(clusters,"["),"[",1:length(clusters))
+   rownames(adjmat) <- NULL
+   d <- data.frame(labels(clusters),unlist(lapply(clusters,length)),t(adjmat))
+   names(d) <- c("label","size",paste0("node",1:length(clusters)))
+   d
+ # plot(z,tRaw[,features])
+}
+apres_info <- cluster_info(apres)
+cutres_info <- cluster_info(cutres)
 if (misc_runs)
 {
    require(cluster)
