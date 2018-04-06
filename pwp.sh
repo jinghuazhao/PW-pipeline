@@ -1,5 +1,5 @@
 #!/bin/bash
-# 5-4-2018 MRC-Epid JHZ
+# 6-4-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -37,7 +37,7 @@ export magma=0
 export pascal=0
 export depict=1
 
-# min_gs_size for MAGENTA in line with other software
+# options for MAGENTA with min_gs_size in line with other software
 
 export min_gs_size=5
 export max_gs_size=2000
@@ -66,7 +66,7 @@ if [ $collection_only -eq 0 ]; then
        exit
    fi
 
-   ## indidivual analyses according to request
+ # individual analyses according to request
 
    sed 's/\t/ /g' $1 > $1.sumstats
    export sumstats=$1.sumstats
