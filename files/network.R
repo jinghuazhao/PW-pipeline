@@ -45,19 +45,22 @@ plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
 cutres <- cutree(aggres,k=13)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
-cluster_info <- function(z, features=1:15. showClusters=TRUE)
+cluster_info <- function(z, features=1:15, showClusters=TRUE)
 {
    if(showClusters)
    {
      labels(z)
      show(z)
    }
+   exemplars <- z@exemplars
    clusters <- z@clusters
+   idx <- z@idx
    adjmat <- sapply(lapply(clusters,"["),"[",1:length(clusters))
    rownames(adjmat) <- NULL
-   d <- data.frame(labels(clusters),unlist(lapply(clusters,length)),t(adjmat))
-   names(d) <- c("label","size",paste0("node",1:length(clusters)))
-   d
+   i <- data.frame(labels=labels(z),member=unlist(clusters),idx)
+   d <- data.frame(labels(clusters),exemplars,unlist(lapply(clusters,length)),t(adjmat))
+   names(d) <- c("labels","exemplars","size",paste0("node",1:length(clusters)))
+   list(d=i,clust=d)
  # plot(z,tRaw[,features])
 }
 apres_info <- cluster_info(apres)
