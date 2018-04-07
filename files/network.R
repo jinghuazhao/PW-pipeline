@@ -1,4 +1,4 @@
-# 6-4-2018 MRC-Epid JHZ
+# 7-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -47,20 +47,17 @@ cutres <- cutree(aggres,k=13)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
 cluster_info <- function(z, features=1:15, showClusters=TRUE)
 {
-   if(showClusters)
-   {
-     labels(z)
-     show(z)
-   }
+   if(showClusters) show(z)
    exemplars <- z@exemplars
    clusters <- z@clusters
    idx <- z@idx
-   adjmat <- sapply(lapply(clusters,"["),"[",1:length(clusters))
-   rownames(adjmat) <- NULL
-   i <- data.frame(labels=labels(z),member=unlist(clusters),idx)
-   d <- data.frame(labels(clusters),exemplars,unlist(lapply(clusters,length)),t(adjmat))
-   names(d) <- c("labels","exemplars","size",paste0("node",1:length(clusters)))
-   list(d=i,clust=d)
+   m <- lapply(clusters,"[")
+   d <- data.frame(labels(clusters),exemplars,unlist(lapply(clusters,length)),I(m))
+   names(d) <- c("labels","exemplars","size","nodes")
+   names(clusters) <- labels(clusters)
+   i <- data.frame(idx,stack(clusters))
+   names(i) <- c("labels","member","cluster")
+   list(cluster=d,info=i)
  # plot(z,tRaw[,features])
 }
 apres_info <- cluster_info(apres)
