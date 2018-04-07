@@ -52,14 +52,13 @@ cluster_info <- function(z, features=1:15, showClusters=TRUE)
    idx <- z@idx
    clusters <- z@clusters
    sizes <- unlist(lapply(clusters,length),use.names=FALSE)
-   members <- paste0("node",1:max(sizes))
    m <- lapply(clusters,"[")
    d <- data.frame(labels(clusters),exemplars,sizes,I(m))
    names(d) <- c("label","exemplar","size","nodes")
  # _fl_ in the name is undesirable
  # require(splitstackshape)
  # listCol_w(d,"nodes")
-   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,members))
+   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("node",1:max(sizes))))
    M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["nodes"]],use.names=FALSE)
    names(clusters) <- labels(clusters)
    i <- data.frame(idx,stack(clusters))
