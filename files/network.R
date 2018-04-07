@@ -41,12 +41,12 @@ heatmap(apres,Rowv=FALSE,Colv=FALSE,cexRow=0.25,cexCol=0.25)
 aggres <- aggExCluster(x=apres)
 plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
 # visualisation
-# par(mfrow=c(2,2))
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
 cutres <- cutree(aggres,k=13)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
 cluster_info <- function(z, features=1:15, showClusters=TRUE)
 {
+ # plot(z,tRaw[,features])
    if(showClusters) show(z)
    exemplars <- z@exemplars
    clusters <- z@clusters
@@ -58,7 +58,6 @@ cluster_info <- function(z, features=1:15, showClusters=TRUE)
    i <- data.frame(idx,stack(clusters))
    names(i) <- c("labels","member","cluster")
    list(cluster=d,info=i)
- # plot(z,tRaw[,features])
 }
 apres_info <- cluster_info(apres)
 cutres_info <- cluster_info(cutres)
