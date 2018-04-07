@@ -46,18 +46,25 @@ cutres <- cutree(aggres,k=13)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
 cluster_info <- function(z, features=1:15, showClusters=TRUE)
 {
- # plot(z,tRaw[,features])
    if(showClusters) show(z)
+ # plot(z,tRaw[,features])
    exemplars <- z@exemplars
-   clusters <- z@clusters
    idx <- z@idx
+   clusters <- z@clusters
+   sizes <- unlist(lapply(clusters,length),use.names=FALSE)
+   members <- paste0("node",1:max(sizes))
    m <- lapply(clusters,"[")
-   d <- data.frame(labels(clusters),exemplars,unlist(lapply(clusters,length)),I(m))
-   names(d) <- c("labels","exemplars","size","nodes")
+   d <- data.frame(labels(clusters),exemplars,sizes,I(m))
+   names(d) <- c("label","exemplar","size","nodes")
+ # _fl_ in the name is undesirable
+ # require(splitstackshape)
+ # listCol_w(d,"nodes")
+   M <- matrix(NA, nrow = nrow(d), ncol = max(sizes), dimnames = list(NULL,members))
+   M[cbind(rep(sequence(nrow(d)), sizes), sequence(sizes))] <- unlist(d[["nodes"]], use.names=FALSE)
    names(clusters) <- labels(clusters)
    i <- data.frame(idx,stack(clusters))
-   names(i) <- c("labels","member","cluster")
-   list(cluster=d,info=i)
+   names(i) <- c("label","member","cluster")
+   list(cluster=d,M=M,info=i)
 }
 apres_info <- cluster_info(apres)
 cutres_info <- cluster_info(cutres)
