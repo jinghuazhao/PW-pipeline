@@ -1,5 +1,33 @@
 # 8-4-2018 MRC-Epid JHZ
 
+cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
+{
+   if(showClusters) show(z)
+ # plot(z,tRaw[,features])
+   exemplars <- z@exemplars
+   idx <- z@idx
+   clusters <- z@clusters
+   sizes <- unlist(lapply(clusters,length),use.names=FALSE)
+   m <- lapply(clusters,"[")
+   d <- data.frame(labels(clusters),exemplars,sizes,I(m))
+   names(d) <- c("label","exemplar","size","nodes")
+   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("node",1:max(sizes))))
+   M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["nodes"]],use.names=FALSE)
+   names(clusters) <- labels(clusters)
+   i <- data.frame(idx,stack(clusters))
+   names(i) <- c("label","member","cluster")
+   if (output)
+   {
+    # note that nodes is dropped below and _fl_ in the name is undesirable
+      require(splitstackshape)
+      dM <- listCol_w(d,"nodes")
+      names(dM)[4:(3+max(sizes))] <- paste0("node",1:max(sizes))
+      write.table(dM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE)
+      write.table(i,file=paste0(db,"_",tag,"_info.txt"),quote=FALSE,row.names=FALSE)
+   }
+   list(info=i,cluster=d,M=M)
+}
+
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
 PW_location <- Sys.getenv("PW_location")
@@ -44,33 +72,6 @@ plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
 cutres <- cutree(aggres,k=13)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
-cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
-{
-   if(showClusters) show(z)
- # plot(z,tRaw[,features])
-   exemplars <- z@exemplars
-   idx <- z@idx
-   clusters <- z@clusters
-   sizes <- unlist(lapply(clusters,length),use.names=FALSE)
-   m <- lapply(clusters,"[")
-   d <- data.frame(labels(clusters),exemplars,sizes,I(m))
-   names(d) <- c("label","exemplar","size","nodes")
-   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("node",1:max(sizes))))
-   M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["nodes"]],use.names=FALSE)
-   names(clusters) <- labels(clusters)
-   i <- data.frame(idx,stack(clusters))
-   names(i) <- c("label","member","cluster")
-   if (output)
-   {
-    # note that nodes is dropped below and _fl_ in the name is undesirable
-      require(splitstackshape)
-      dM <- listCol_w(d,"nodes")
-      names(dM)[4:(3+max(sizes))] <- paste0("node",1:max(sizes))
-      write.table(dM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE)
-      write.table(i,file=paste0(db,"_",tag,"_info.txt"),quote=FALSE,row.names=FALSE)
-   }
-   list(info=i,cluster=d,M=M)
-}
 apres_info <- cluster_info(apres)
 cutres_info <- cluster_info(cutres,tag="cutree")
 if (misc_runs)
