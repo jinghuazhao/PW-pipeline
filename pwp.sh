@@ -1,5 +1,5 @@
 #!/bin/bash
-# 6-4-2018 MRC-Epid JHZ
+# 8-4-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -239,8 +239,10 @@ if [ $depict -eq 1 ]; then
     # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
     # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
     # ./network_plot_2015.py network_plot_2015.cfg
-      pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
-      if [ -f ${db}_network_diagram-000001.png ]; then mv ${db}_network_diagram-000001.png ${db}_network_diagram.png; fi
+      if [ -f ${db}_network_diagram.pdf ]; then
+         pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
+         mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
+      fi
       R -q --no-save < collect.R > ${_db}_collect.log
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
    fi
