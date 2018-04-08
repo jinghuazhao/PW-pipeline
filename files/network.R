@@ -1,4 +1,4 @@
-# 7-4-2018 MRC-Epid JHZ
+# 8-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 software <- Sys.getenv("software")
@@ -55,14 +55,17 @@ cluster_info <- function(z, features=1:15, showClusters=TRUE)
    m <- lapply(clusters,"[")
    d <- data.frame(labels(clusters),exemplars,sizes,I(m))
    names(d) <- c("label","exemplar","size","nodes")
- # _fl_ in the name is undesirable
- # require(splitstackshape)
- # listCol_w(d,"nodes")
    M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("node",1:max(sizes))))
    M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["nodes"]],use.names=FALSE)
    names(clusters) <- labels(clusters)
    i <- data.frame(idx,stack(clusters))
    names(i) <- c("label","member","cluster")
+ # note that nodes is dropped below and _fl_ in the name is undesirable
+   require(splitstackshape)
+   dM <- listCol_w(d,"nodes")
+   names(dM)[4:(3+max(sizes))] <- paste0("node",1:max(sizes))
+   write.table(dM,file=paste0(db,"_cluster.txt"),quote=FALSE,row.names=FALSE)
+   write.table(i,file=paste0(db,"_info.txt"),quote=FALSE,row.names=FALSE)
    list(info=i,cluster=d,M=M)
 }
 apres_info <- cluster_info(apres)
