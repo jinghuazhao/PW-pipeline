@@ -1,4 +1,4 @@
-# 5-4-2018 MRC-Epid JHZ
+# 8-4-2018 MRC-Epid JHZ
 
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
@@ -31,7 +31,7 @@ for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodea
   dat <- get(file)
   writeDataTable(wb,paste0("DEPICT",tbl),dat)
 }
-addWorksheet(wb, "DEPICT_network_diagram")
-insertImage(wb, "DEPICT_network_diagram", paste0(db,"_network_diagram.png"), width=12,height=6)
+# addWorksheet(wb, "DEPICT_network_diagram")
+# insertImage(wb, "DEPICT_network_diagram", paste0(db,"_network_diagram.png"), width=12,height=6)
 cat("See\nhttps://github.com/perslab/depict/wiki/DEPICT-result-files-format\n for header information\n")
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
