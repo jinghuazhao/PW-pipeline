@@ -243,8 +243,8 @@ if [ $depict -eq 1 ]; then
          pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
          mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
       fi
-      R -q --no-save < collect.R > ${_db}_collect.log
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh depict; fi
+      R -q --no-save < collect.R > ${_db}_collect.log
    fi
    cd -
 fi
