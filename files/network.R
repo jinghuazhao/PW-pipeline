@@ -45,14 +45,15 @@ colnames(corRaw) <- rownames(corRaw) <- names(Raw)
 cat(";",file=paste0(software,".csv"))
 write.table(signif(corRaw,4),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
-r <- melt(corRaw)
-# the following is from DEPICT for value>0.3
-# l <- round(m$value,1)*10
-l <- as.numeric(cut(m$value,breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+r <- melt(corRaw-diag(nrow(corRaw)))
+# the DEPICT-way
+l <- round(r[3],1)*10
+# intuitive way
+# l <- as.numeric(cut(r[3],breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 e <- cbind(r[1],"interact",r[2],r[3],l)
 names(e) <- c("Source","interact","Target","Pearson_correlation", "Pearson_correlation_discrete")
 # Cytoscape sif
-write.table(e,file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
+write.table(subset(e,r[3]>0.3),file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
 {
