@@ -1,4 +1,4 @@
-# 8-4-2018 MRC-Epid JHZ
+# 9-4-2018 MRC-Epid JHZ
 
 cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
 {
@@ -46,6 +46,8 @@ cat(";",file=paste0(software,".csv"))
 write.table(signif(corRaw,4),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- melt(corRaw)
+# the following is from DEPICT for value>0.3
+# l <- round(m$value,1)*10
 l <- as.numeric(cut(m$value,breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 e <- cbind(r[1],"interact",r[2],r[3],l)
 names(e) <- c("Source","interact","Target","Pearson_correlation", "Pearson_correlation_discrete")
