@@ -41,19 +41,21 @@ rownames(Raw) <- nw[,1]
 corRaw <- cor(Raw)
 distance <- as.dist(1-abs(corRaw))
 colnames(corRaw) <- rownames(corRaw) <- names(Raw)
-# gephi csv
-cat(";",file=paste0(software,".csv"))
-write.table(signif(corRaw,4),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 require(reshape)
 r <- melt(corRaw-diag(nrow(corRaw)))
-# the DEPICT-way
-l <- round(r[3],1)*10
-# intuitive way
+# by intuition
 # l <- as.numeric(cut(r[3],breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
+# as DEPICT
+l <- round(r[3],1)*10
 e <- cbind(r[1],"interact",r[2],r[3],l)
-names(e) <- c("Source","interact","Target","Pearson_correlation", "Pearson_correlation_discrete")
+names(e) <- c("Source","interact","Target","Pearson_correlation","Pearson_correlation_discrete")
 # Cytoscape sif
-write.table(subset(e,r[3]>0.3),file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
+write.table(subset(e,Pearson_correlation>0.3),file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
+# gephi csv
+require(reshape2)
+a <- acast(subset(r,value>0.3),X1~X2,fill=0,value.var="value")
+cat(";",file=paste0(software,".csv"))
+write.table(signif(a,4),file=paste0(software,".csv"),append=TRUE,col.names=TRUE,row.names=TRUE,quote=FALSE,sep=";")
 z <- gzfile(paste0(PW_location,"/files/id_descrip.txt.gz"))
 id_descrip <- within(read.table(z,sep="\t",as.is=TRUE,header=TRUE,quote=""), 
 {
