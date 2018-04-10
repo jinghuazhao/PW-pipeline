@@ -1,4 +1,4 @@
-# 24-11-2017 MRC-Epid JHZ
+# 10-4-2018 MRC-Epid JHZ
 
 options(width=250)
 sets <- function(db)
@@ -21,3 +21,13 @@ magma <- sets(db)
 ord <- with(magma,order(P))
 set <- magma[ord,]
 save(set,file=paste0(db,".rda"))
+
+options(digits=3, scipen=20, width=200)
+library(openxlsx)
+xlsx <- paste0(db,".xlsx")
+unlink(xlsx, recursive = FALSE, force = FALSE)
+wb <- createWorkbook(xlsx)
+addWorksheet(wb, "MAGMA")
+writeDataTable(wb, "MAGMA", set)
+saveWorkbook(wb, file=xlsx, overwrite=TRUE)
+

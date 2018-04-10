@@ -1,4 +1,4 @@
-# 4-12-2017 MRC-Epid JHZ
+# 10-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 suffix <- Sys.getenv("suffix")
@@ -21,3 +21,12 @@ write.table(MAGENTA,paste0(db,".dat"),sep="\t",col.names=TRUE,row.names=FALSE,qu
 sp <- subset(MAGENTA,FDR_95PERC_CUTOFF<0.05,select="GS",drop=TRUE)
 write.table(sp,paste0(db,".colnames"),col.names=FALSE,quote=FALSE,row.names=FALSE)
 save(MAGENTA,file=paste0(db,".rda"))
+
+options(digits=3, scipen=20, width=200)
+library(openxlsx)
+xlsx <- paste0(db,".xlsx")
+unlink(xlsx, recursive = FALSE, force = FALSE)
+wb <- createWorkbook(xlsx)
+addWorksheet(wb, "MAGENTA")
+writeDataTable(wb, "MAGENTA", MAGENTA)
+saveWorkbook(wb, file=xlsx, overwrite=TRUE)

@@ -1,4 +1,4 @@
-# 24-11-2017 MRC-Epid JHZ
+# 10-4-2018 MRC-Epid JHZ
 
 gsps <- function(f,db="MAGENTA",method="sum")
 {
@@ -13,4 +13,15 @@ gsps <- function(f,db="MAGENTA",method="sum")
 
 db <- Sys.getenv("db")
 gsps("vegas2v2",db=db)
+
+options(digits=3, scipen=20, width=200)
+library(openxlsx)
+xlsx <- paste0(db,".xlsx")
+unlink(xlsx, recursive = FALSE, force = FALSE)
+wb <- createWorkbook(xlsx)
+addWorksheet(wb, "gs")
+writeDataTable(wb, "gs", gs)
+addWorksheet(wb, "ps")
+writeDataTable(wb, "ps", ps)
+saveWorkbook(wb, file=xlsx, overwrite=TRUE)
 
