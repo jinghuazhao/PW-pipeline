@@ -1,5 +1,5 @@
 #!/bin/bash
-# 8-4-2018 MRC-Epid JHZ
+#11-4-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -121,6 +121,20 @@ if [ $magenta -eq 1 ]; then
       export suffix=_10000perm_$(date +'%b%d_%y')
       qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
+      cut -f2,10,11 ${db}.dat | awk 'NR>1' | sort -k1,1 | \
+      awk '{
+          FS=OFS="\t"
+          fdr=$3
+          if(fdr>=0.2) { $3=">=0.2" }
+          else {
+            $3="<0.2"
+            if(fdr<0.05) $3="<0.05"
+            if(fdr<0.01) $3="<0.01"
+          }
+          print
+      }' > ${db}.txt
+      echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > ${db}_genesetenrichment.txt
+      gunzip -c $PW_location/files/id_descrip.txt.gz | awk 'NR>1' | sort -k1,1 | join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
       R -q --no-save < collect.R > ${_db}_collect.log
       if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
