@@ -1,4 +1,4 @@
-# 9-4-2018 MRC-Epid JHZ
+# 10-4-2018 MRC-Epid JHZ
 
 cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
 {
@@ -47,7 +47,7 @@ r <- melt(corRaw-diag(nrow(corRaw)))
 # l <- as.numeric(cut(r[3],breaks=c(-1,0.4,0.7,1),right=FALSE,include.lowest=TRUE))
 # as DEPICT
 l <- round(r[3],1)*10
-e <- cbind(r[1],"interact",r[2],r[3],l)
+e <- cbind(r[1],"interact",r[2],signif(r[3],4),l)
 names(e) <- c("Source","interact","Target","Pearson_correlation","Pearson_correlation_discrete")
 # Cytoscape sif
 write.table(subset(e,Pearson_correlation>0.3),file=paste0(software,".sif"),col.names=FALSE,row.names=FALSE,quote=FALSE)
