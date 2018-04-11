@@ -56,6 +56,43 @@ export _db=depict
 
 ## ANALYSIS
 
+# functions
+
+function fdr_cutoff()
+{
+   sort -k1,1 | \
+   awk '{
+       FS=OFS="\t";
+       fdr=$3;
+       if(fdr>=0.2) { $3=">=0.2" } else { 
+         $3="<0.2";
+         if(fdr<0.05) $3="<0.05";
+         if(fdr<0.01) $3="<0.01";
+       }
+       print
+    }' > ${db}.txt; \ 
+    echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > ${db}_genesetenrichment.txt; \
+    gunzip -c $PW_location/files/id_descrip.txt.gz | awk 'NR>1' | sort -k1,1 | join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
+}
+
+function network_plot()
+{
+     cp $PW_locatopm/files/network_plot*.cfg .
+   # minor changes to network_plot.py are necessary.
+     export file_genesetenrichment=${db}_genesetenrichment.txt
+     sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
+     sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
+     sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
+     sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
+     $PW_location/files/network_plot.py network_plot.cfg
+   # The old version requires addtional changes as follows,
+   # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
+   # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
+   # $PW_location/files/network_plot_2015.py network_plot_2015.cfg
+     pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
+     mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
+}
+
 if [ $collection_only -eq 0 ]; then
    if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
        echo "Usage: pwp.sh <input>"
@@ -121,20 +158,8 @@ if [ $magenta -eq 1 ]; then
       export suffix=_10000perm_$(date +'%b%d_%y')
       qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
-      cut -f2,10,11 ${db}.dat | awk 'NR>1' | sort -k1,1 | \
-      awk '{
-          FS=OFS="\t"
-          fdr=$3
-          if(fdr>=0.2) { $3=">=0.2" }
-          else {
-            $3="<0.2"
-            if(fdr<0.05) $3="<0.05"
-            if(fdr<0.01) $3="<0.01"
-          }
-          print
-      }' > ${db}.txt
-      echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > ${db}_genesetenrichment.txt
-      gunzip -c $PW_location/files/id_descrip.txt.gz | awk 'NR>1' | sort -k1,1 | join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
+      cut -f2,10,11 ${db}.dat | awk 'NR>1' | fdr_cutoff
+      network_plot
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
       R -q --no-save < collect.R > ${_db}_collect.log
       if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
@@ -245,19 +270,7 @@ if [ $depict -eq 1 ]; then
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh depict
       fi
-    # minor changes to network_plot.py are necessary.
-      export file_genesetenrichment=${db}_genesetenrichment.txt
-      sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
-      sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
-      sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
-      sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
-      ./network_plot.py network_plot.cfg
-    # The old version requires addtional changes as follows,
-    # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
-    # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
-    # ./network_plot_2015.py network_plot_2015.cfg
-      pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
-      mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
+      network_plot
       R -q --no-save < collect.R > ${_db}_collect.log
    fi
    cd -
