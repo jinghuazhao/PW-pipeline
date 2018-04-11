@@ -1,4 +1,4 @@
-# 10-4-2018 MRC-Epid JHZ
+# 11-4-2018 MRC-Epid JHZ
 
 db <- Sys.getenv("db")
 suffix <- Sys.getenv("suffix")
@@ -29,4 +29,18 @@ unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
 addWorksheet(wb, "MAGENTA")
 writeDataTable(wb, "MAGENTA", MAGENTA)
+
+if (db=="depict_discretized_cutoff3.2")
+{
+   for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
+   {
+     file <- paste0(db,tbl)
+     assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
+     addWorksheet(wb, paste0("MAGENTA",tbl))
+     dat <- get(file)
+     writeDataTable(wb,paste0("MAGENTA",tbl),dat)
+   }
+   # addWorksheet(wb, "MAGENTA_network_diagram")
+   # insertImage(wb, "MAGENTA_network_diagram", paste0(db,"_network_diagram.png"),width=12,height=6)
+}
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
