@@ -77,7 +77,7 @@ function fdr_cutoff()
 
 function network_plot()
 {
-     cp $PW_locatopm/files/network_plot*.cfg .
+     cp $PW_location/files/network_plot*.cfg $PW_location/files/network_plot_CytoscapeStyle_v1.xml .
    # minor changes to network_plot.py are necessary.
      export file_genesetenrichment=${db}_genesetenrichment.txt
      sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
