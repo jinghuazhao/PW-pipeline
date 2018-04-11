@@ -36,9 +36,10 @@ writeDataTable(wb, "MAGMA", set)
 
 if (db=="depict_discretized_cutoff3.2")
 {
+   prefix <- "depict"
    for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
    {
-     file <- paste0(db,tbl)
+     file <- paste0(prefix,tbl)
      assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
      addWorksheet(wb, paste0("MAGMA",tbl))
      dat <- get(file)
