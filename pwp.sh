@@ -89,8 +89,8 @@ function network_plot()
    # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
    # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
    # $PW_location/files/network_plot_2015.py network_plot_2015.cfg
-     pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
-     mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
+   # pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
+   # mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
 }
 
 if [ $collection_only -eq 0 ]; then
@@ -158,11 +158,13 @@ if [ $magenta -eq 1 ]; then
       export suffix=_10000perm_$(date +'%b%d_%y')
       qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
-      cut -f2,10,11 ${db}.dat | awk 'NR>1' | fdr_cutoff
-      network_plot
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
+      if [ $_db == "depict_discretized" ]; then
+         $PW_location/files/network.sh magenta
+         cut -f2,10,11 ${db}.dat | awk 'NR>1' | fdr_cutoff
+         network_plot
+      fi
       R -q --no-save < collect.R > ${_db}_collect.log
-      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magenta; fi
    fi
    cd -
 fi
@@ -197,8 +199,12 @@ if [ $magma -eq 1 ]; then
    if [ $collection_only -eq 0 ]; then
       qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
       export db=$(basename $db)
+      if [ $_db == "depict_discretized" ]; then
+         $PW_location/files/network.sh magma
+         fdr_cutoff
+         network_plot
+      fi
       R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
-      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh magma; fi
    fi
    cd -
 fi
@@ -232,8 +238,12 @@ if [ $pascal -eq 1 ]; then
    fi
    if [ $collection_only -eq 0 ]; then
       qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
+      if [ $_db == "depict_discretized" ]; then
+         $PW_location/files/network.sh pascal
+         fdr_cutoff
+         network_plot
+      fi
       R -q --no-save < collect.R > ${_db}_collect.log
-      if [ $_db == "depict_discretized" ]; then $PW_location/files/network.sh pascal; fi
    fi
    cd -
 fi
