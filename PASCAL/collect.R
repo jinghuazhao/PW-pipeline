@@ -1,4 +1,4 @@
-# 10-4-2018 MRC-Epid JHZ
+# 11-4-2018 MRC-Epid JHZ
 
 gsps <- function(f,db="MAGENTA",method="sum")
 {
@@ -9,6 +9,9 @@ gsps <- function(f,db="MAGENTA",method="sum")
   ord <- with(ps,order(chi2Pvalue))
   ps <- ps[ord,]
   save(gs,ps,file=paste0(db,".rda"))
+  n <- nrow(ps)
+  ps <- within(ps,{fdr <- p.adjust(chi2Pvalue,"fdr",n)})
+  write.table(ps[c("Name","chi2Pvalue","fdr")],file=paste0(db,".dat"),col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
 }
 
 db <- Sys.getenv("db")
@@ -23,5 +26,20 @@ addWorksheet(wb, "gs")
 writeDataTable(wb, "gs", gs)
 addWorksheet(wb, "ps")
 writeDataTable(wb, "ps", ps)
+
+if (db=="depict_discretized_cutoff3.2")
+{
+   for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
+   {
+     file <- paste0(db,tbl)
+     assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
+     addWorksheet(wb, paste0("PASCAL",tbl))
+     dat <- get(file)
+     writeDataTable(wb,paste0("PASCAL",tbl),dat)
+   }
+   # addWorksheet(wb, "PASCAL_network_diagram")
+   # insertImage(wb, "PASCAL_network_diagram", paste0(db,"_network_diagram.png"),width=12,height=6)
+}
+
 saveWorkbook(wb, file=xlsx, overwrite=TRUE)
 
