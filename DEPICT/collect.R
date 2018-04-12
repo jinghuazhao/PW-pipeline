@@ -25,7 +25,7 @@ for(s in c("cells","multiplot","system", "tissues"))
   insertImage(wb, i, paste0(db,"_genenetwork_",s,".png"), width=12, height=6)
 }
 
-for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid") 
+for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid"))
 {
   file <- paste0(prefix,tbl,".txt")
   assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))

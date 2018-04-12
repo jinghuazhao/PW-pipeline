@@ -29,7 +29,7 @@ writeDataTable(wb, "ps", ps)
 
 if (db=="depict_discretized_cutoff3.2")
 {
-   for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid") 
+   for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid"))
    {
      file <- paste0(prefix,tbl,".txt")
      assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
