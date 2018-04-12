@@ -1,4 +1,4 @@
-# 11-4-2018 MRC-Epid JHZ
+# 12-4-2018 MRC-Epid JHZ
 
 options(width=250)
 sets <- function(db)
@@ -36,6 +36,14 @@ writeDataTable(wb, "MAGMA", set)
 
 if (db=="depict_discretized_cutoff3.2")
 {
+   for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid") 
+   {
+     file <- paste0(prefix,tbl,".txt")
+     assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
+     addWorksheet(wb, paste0("MAGMA",tbl))
+     dat <- get(file)
+     writeDataTable(wb,paste0("MAGMA",tbl),dat)
+   }
    prefix <- "depict"
    for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
    {
