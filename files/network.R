@@ -4,28 +4,39 @@ cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="
 {
    if(showClusters) show(z)
  # plot(z,tRaw[,features])
+   l <- z@l
    exemplars <- z@exemplars
    idx <- z@idx
    clusters <- z@clusters
    sizes <- unlist(lapply(clusters,length),use.names=FALSE)
    m <- lapply(clusters,"[")
-   d <- data.frame(labels(clusters),exemplars,sizes,I(m))
-   names(d) <- c("label","exemplar","size","nodes")
-   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("node",1:max(sizes))))
-   M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["nodes"]],use.names=FALSE)
+   d <- data.frame(labels(clusters),exemplars,names(exemplars),sizes,I(m))
+   names(d) <- c("cluster","exemplar","exemplar.name","size","members")
+   rownames(d) <- NULL
+   M <- matrix(NA,nrow=nrow(d),ncol=max(sizes),dimnames=list(NULL,paste0("member",1:max(sizes))))
+   M[cbind(rep(sequence(nrow(d)),sizes),sequence(sizes))] <- unlist(d[["members"]])
    names(clusters) <- labels(clusters)
-   i <- data.frame(idx,stack(clusters))
-   names(i) <- c("label","member","cluster")
+   i <- stack(clusters)
+   i <- data.frame(i,member.name=rownames(i))
+   names(i) <- c("member","cluster","member.name")
+   rownames(i) <- NULL
+   i <- within(i, {
+     iid <- 1:l
+     iid.to.cluster <- idx
+     iid.cluster.name <- names(idx)
+   })[c("iid","iid.to.cluster","iid.cluster.name","cluster","member","member.name")]
    if (output)
    {
     # note that nodes is dropped below and _fl_ in the name is undesirable
-      require(splitstackshape)
-      dM <- listCol_w(d,"nodes")
-      names(dM)[4:(3+max(sizes))] <- paste0("node",1:max(sizes))
-      write.table(dM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE)
-      write.table(i,file=paste0(db,"_",tag,"_info.txt"),quote=FALSE,row.names=FALSE)
+    # require(splitstackshape)
+    # dM <- listCol_w(d,"members")
+    # lists <- 5:(4+max(sizes))
+    # names(dM)[lists] <- paste0("member",1:max(sizes))
+      dM <- cbind(d[,1:4],apply(M,2,function(x) descrip[x,3]))
+      write.table(dM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE,sep="\t")
+      write.table(i,file=paste0(db,"_",tag,"_info.txt"),quote=FALSE,row.names=FALSE,sep="\t")
    }
-   list(info=i,cluster=d,M=M)
+   list(info=i,cluster=d,M=apply(M,2,function(x) descrip[x,3]))
 }
 
 db <- Sys.getenv("db")
