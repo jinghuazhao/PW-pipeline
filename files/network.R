@@ -1,4 +1,4 @@
-# 10-4-2018 MRC-Epid JHZ
+# 12-4-2018 MRC-Epid JHZ
 
 cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
 {
@@ -70,7 +70,7 @@ tRaw <- t(Raw)
 pdf(paste0(software,".pdf"))
 require(apcluster)
 apres <- apcluster(corSimMat,tRaw,details=TRUE)
-heatmap(apres,Rowv=FALSE,Colv=FALSE,cexRow=0.25,cexCol=0.25)
+heatmap(apres,Rowv=FALSE,Colv=FALSE,cexRow=0.15,cexCol=0.15)
 aggres <- aggExCluster(x=apres)
 plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
 # visualisation
