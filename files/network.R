@@ -28,12 +28,13 @@ cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="
    if (output)
    {
     # note that nodes is dropped below and _fl_ in the name is undesirable
-    # require(splitstackshape)
-    # dM <- listCol_w(d,"members")
-    # lists <- 5:(4+max(sizes))
-    # names(dM)[lists] <- paste0("member",1:max(sizes))
-      dM <- cbind(d[,1:4],apply(M,2,function(x) descrip[x,3]))
-      write.table(dM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE,sep="\t")
+      require(splitstackshape)
+      dM <- listCol_w(d,"members")
+      lists <- 5:(4+max(sizes))
+      names(dM)[lists] <- paste0("member",1:max(sizes))
+      write.table(dM,file=paste0(db,"_",tag,"_iid.txt"),quote=FALSE,row.names=FALSE,sep="\t")
+      cM <- cbind(d[,1:4],apply(M,2,function(x) descrip[x,3]))
+      write.table(cM,file=paste0(db,"_",tag,"_cluster.txt"),quote=FALSE,row.names=FALSE,sep="\t")
       write.table(i,file=paste0(db,"_",tag,"_info.txt"),quote=FALSE,row.names=FALSE,sep="\t")
    }
    list(info=i,cluster=d,M=apply(M,2,function(x) descrip[x,3]))
