@@ -74,7 +74,7 @@ Column | Name | Description
 The output will be available from individual directories named after the software you choose, and optionally in case all software are used the output can also be
 an Excel workbook containing combined results.
 
-In case of DEPICT, it is possible to call [netowrk_plot.py](DEPICT/network_plot.py) to generate network diagram and perform cluster analysis.
+In case of DEPICT, it is possible to call [netowrk_plot.py](files/network_plot.py) to generate network diagram and perform cluster analysis.
 
 ## EXAMPLE
 
