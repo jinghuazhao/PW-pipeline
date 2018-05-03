@@ -1,11 +1,11 @@
 #!/bin/bash
-#11-4-2018 MRC-Epid JHZ
+#3-5-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
 export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/software/lib
-export PATH=/genetics/bin/anaconda2/bin:$PATH:/genetics/bin:/usr/local/bin:/genetics/data/software/bin
+export PATH=/genetics/bin/anaconda2/bin:/genetics/bin:/usr/local/bin:$PATH:/genetics/data/software/bin
 export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages:$PYTHONPATH
 
 export PW_location=/genetics/bin/PW-pipeline
