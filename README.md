@@ -57,13 +57,11 @@ In case of DEPICT database, it is possible to call [netowrk_plot.py](files/netwo
 
 ## EXAMPLES
 
-The two inputs from SUMSTATS can be called as follows,
-
-We use `bmi.txt`
+The `bmi.txt` and `ST4` from SUMSTATS can be called as follows,
 ```
 pwp.sh bmi.txt
 ```
-We now use `ST4`,
+and
 ```
 pwp.sh ST4 &
 ```
