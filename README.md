@@ -43,7 +43,7 @@ bash pwp.sh <input file>
 ```
 ### Input
 
-The input will be GWAS summary statistics [described here](https://github.com/jinghuazhao/SUMSTATS) **in that order without the header**,
+The input will be GWAS summary statistics described at [SUMSTATS](https://github.com/jinghuazhao/SUMSTATS) **in that order without the header**,
 
 ### Output
 
@@ -52,9 +52,9 @@ an Excel workbook containing combined results.
 
 In case of DEPICT database, it is possible to call [netowrk_plot.py](files/network_plot.py) to generate network diagram and perform cluster analysis.
 
-## EXAMPLE
+## EXAMPLES
 
-The two inputs can be prepared [here](https://github.com/jinghuazhao/SUMSTATS).
+The two inputs from SUMSTATS can be called as follows,
 
 We use `bmi.txt`
 ```
