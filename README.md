@@ -31,6 +31,9 @@ as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env t
 [R](https://www.r-project.org/) is required.
 
 The pipeline itself can be installed from GitHub in the usual way.
+```
+git clone https://github.com/jinghuazhao/PW-pipeline
+```
 
 ## USAGE
 
