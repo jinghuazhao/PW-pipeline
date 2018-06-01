@@ -258,6 +258,7 @@ here was due to PASCAL developer(s). At the end of our implementation it came to
 * [BioGRID](https://thebiogrid.org/): an interaction repository with data compiled through comprehensive curation efforts.
 * [Osprey](https://osprey.thebiogrid.org/): Network Visualization System.
 * [GeneMANIA](http://genemania.org/): Imports interaction networks from public databases from a list of genes with their annotations and putative functions.
+* [rGREAT](https://github.com/jokergoo): Client for GREAT Analysis
 * [VisANT](http://visant.bu.edu/): Visual analyses of metabolic networks in cells and ecosystems.
 
 ## SOFTWARE AND REFERENCES
