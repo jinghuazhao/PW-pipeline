@@ -54,7 +54,7 @@ The input will be GWAS summary statistics described at [SUMSTATS](https://github
 The output will be available from individual directories named after the software you choose, and optionally in case all software are used the output can also be
 an Excel workbook containing combined results.
 
-In case of DEPICT database, it is possible to call [netowrk_plot.py](files/network_plot.py) to generate network diagram and perform cluster analysis.
+For DEPICT database, it is possible to call [netowrk_plot.py](files/network_plot.py) to generate network diagram and perform cluster analysis.
 
 ## EXAMPLES
 
