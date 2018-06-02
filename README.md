@@ -34,6 +34,7 @@ The pipeline itself can be installed from GitHub in the usual way.
 ```
 git clone https://github.com/jinghuazhao/PW-pipeline
 ```
+Features and databases are described at the repository's [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki).
 
 ## USAGE
 
@@ -65,8 +66,6 @@ and
 ```
 pwp.sh ST4 &
 ```
-
-Features and databases are described at the repository's [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki).
 
 ## ACKNOWLEDGEMENTS
 
