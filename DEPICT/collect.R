@@ -3,7 +3,7 @@
 options(digits=3, scipen=20, width=200)
 library(openxlsx)
 db <- Sys.getenv("db")
-software <- Sys.getenv("depict")
+software <- "depict"
 xlsx <- paste0(db,".xlsx")
 unlink(xlsx, recursive = FALSE, force = FALSE)
 wb <- createWorkbook(xlsx)
@@ -34,6 +34,8 @@ for (tbl in c("_APCluster_info","_APCluster_cluster","_APCluster_iid"))
     dat <- get(file)
     writeDataTable(wb,paste0("DEPICT",tbl),dat)
 }
+
+system(paste("pdftopng -r 300", paste0(software, ".pdf"), software))
 
 n <- c("heatmap","dendrogram")
 for (s in 1:2)
