@@ -76,12 +76,6 @@ This wiki document contains the following information,
 * [Tissue and network plots](https://github.com/jinghuazhao/PW-pipeline/wiki/Tissue-and-network-plots)
 * [Result collection](https://github.com/jinghuazhao/PW-pipeline/wiki/Result-collection)
 
-## ACKNOWLEDGEMENTS
-
-The work drives from comparison of software performances using our own GWAS data. The practicality of a common DEPICT database to all software 
-here was due to PASCAL developer(s). At the end of our implementation it came to our attention that similar effort has been made, e.g., 
-[DEPICT-pipeline](https://github.com/RebeccaFine/DEPICT-pipeline) and other adaptations.
-
 ## RELATED LINKS
 
 * [BioGRID](https://thebiogrid.org/): an interaction repository with data compiled through comprehensive curation efforts.
@@ -89,6 +83,12 @@ here was due to PASCAL developer(s). At the end of our implementation it came to
 * [GeneMANIA](http://genemania.org/): Imports interaction networks from public databases from a list of genes with their annotations and putative functions.
 * [rGREAT](https://github.com/jokergoo): Client for GREAT Analysis
 * [VisANT](http://visant.bu.edu/): Visual analyses of metabolic networks in cells and ecosystems.
+
+## ACKNOWLEDGEMENTS
+
+The work drives from comparison of software performances using our own GWAS data. The practicality of a common DEPICT database to all software 
+here was due to PASCAL developer(s). At the end of our implementation it came to our attention that similar effort has been made, e.g., 
+[DEPICT-pipeline](https://github.com/RebeccaFine/DEPICT-pipeline) and other adaptations.
 
 ## SOFTWARE AND REFERENCES
 
