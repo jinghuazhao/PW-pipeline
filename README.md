@@ -68,7 +68,7 @@ pwp.sh ST4 &
 
 ## ADDITIONAL TOPICS
 
-Thw [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki) contains the following information,
+The [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki) contains the following information,
 
 * [Databases](https://github.com/jinghuazhao/PW-pipeline/wiki/Databases)
 * [Features](https://github.com/jinghuazhao/PW-pipeline/wiki/Features)
