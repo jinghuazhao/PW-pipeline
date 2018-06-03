@@ -67,6 +67,15 @@ and
 pwp.sh ST4 &
 ```
 
+## ADDITIONAL TOPICS
+
+This wiki document contains the following information,
+
+* [Databases](https://github.com/jinghuazhao/PW-pipeline/wiki/Databases)
+* [Features](https://github.com/jinghuazhao/PW-pipeline/wiki/Features)
+* [Tissue and network plots](https://github.com/jinghuazhao/PW-pipeline/wiki/Tissue-and-network-plots)
+* [Result collection](https://github.com/jinghuazhao/PW-pipeline/wiki/Result-collection)
+
 ## ACKNOWLEDGEMENTS
 
 The work drives from comparison of software performances using our own GWAS data. The practicality of a common DEPICT database to all software 
