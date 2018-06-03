@@ -1,4 +1,4 @@
-# 5-4-2018 MRC-Epid JHZ
+# 3-6-2018 MRC-Epid JHZ
 
 export prefix=/genetics/bin/DEPICT/data/reconstituted_genesets
 export BP=${prefix}/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -37,6 +37,7 @@ depict)
 esac
 
 zgrep -n -T -x -f ${_db}.colnames ${columns} | \
+sed 's/://g' | \
 cut -f1 > ${_db}.colid
 fn=$(cat ${_db}.colid)
 echo $fn > ${_db}.cat
