@@ -46,7 +46,7 @@ bash pwp.sh <input file>
 ```
 ### Input
 
-The input will be GWAS summary statistics described at [SUMSTATS](https://github.com/jinghuazhao/SUMSTATS) **in that order without the header**,
+The input will be GWAS summary statistics described at https://github.com/jinghuazhao/SUMSTATS **in that order without the header**,
 
 ### Output
 
@@ -57,7 +57,7 @@ For DEPICT databases, it is possible to call [netowrk_plot.py](files/network_plo
 
 ## EXAMPLES
 
-The `bmi.txt` and `ST4` from SUMSTATS can be called as follows,
+The `bmi.txt` and `ST4` from https://github.com/jinghuazhao/SUMSTATS can be called as follows,
 ```
 pwp.sh bmi.txt
 ```
