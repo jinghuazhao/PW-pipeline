@@ -128,6 +128,8 @@ The [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki) contains the fo
 * [Tissue and network plots](https://github.com/jinghuazhao/PW-pipeline/wiki/Tissue-and-network-plots)
 * [Result collection](https://github.com/jinghuazhao/PW-pipeline/wiki/Result-collection)
 
+See [software-notes](https://github.com/jinghuazhao/software-notes) on how to set up VEGAS2, as in [vegas2v2.sh](vegas2v2.sh).
+
 ## RELATED LINKS
 
 * [BioGRID](https://thebiogrid.org/): an interaction repository with data compiled through comprehensive curation efforts.
@@ -162,6 +164,6 @@ de Leeuw C, et al. (2015) MAGMA: Generalized Gene-Set Analysis of GWAS Data. PLo
 Lamparter D, et al. (2016) Fast and Rigorous Computation of Gene and Pathway Scores from SNP-Based Summary Statistics. PLoS Comput Biol. 2016 Jan 25;12(1):e1004714. 
 doi: 10.1371/journal.pcbi.1004714
 
-**[VEGAS](https://vegas2.qimrberghofer.edu.au/)** (Versatile Gene-based Association Study)
+**[VEGAS2](https://vegas2.qimrberghofer.edu.au/)** (Versatile Gene-based Association Study)
 
 Liu JZ, et al. (2010). A versatile gene-based test for genome-wide association studies. Am J Hum Genet 87:139–145.
