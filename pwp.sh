@@ -9,13 +9,13 @@ export p_threshold=0.00000005
 export nr_repititions=200
 export cutoff_type=fdr
 export pvalue_cutoff=0.00001
-
 # MAGENTA
 export magenta=0
 export min_gs_size=5
 export max_gs_size=2000
-
+# MAGMA
 export magma=0
+# PASCAL
 export pascal=0
 
 ## database (magenta, c2, msigdb, depict_discretized, depict), multiple precision, result collection
