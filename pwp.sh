@@ -2,7 +2,7 @@
 # 28-7-2018 MRC-Epid JHZ
 
 ## software flags: 1=enable
-# options for DEPICT
+# DEPICT
 export depict=1
 export number_of_threads=5
 export p_threshold=0.00000005
