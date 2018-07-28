@@ -1,5 +1,31 @@
 #!/bin/bash
-#3-5-2018 MRC-Epid JHZ
+#28-7-2018 MRC-Epid JHZ
+
+# software flags: 1=enable
+# options for DEPICT
+export depict=1
+export number_of_threads=5
+export p_threshold=0.00000005
+export nr_repititions=200
+export cutoff_type=fdr
+export pvalue_cutoff=0.00001
+
+# MAGENTA
+export magenta=0
+export min_gs_size=5
+export max_gs_size=2000
+
+export magma=0
+export pascal=0
+
+# database flag (magenta, c2, msigdb, depict_discretized, depict)
+export _db=depict
+
+# multiple precision flag; setting to 1 if needed
+export mp=0
+
+# result collection only
+export collection_only=0
 
 ## SETTINGS
 
@@ -19,40 +45,6 @@ export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
-
-## OPTIONS
-
-# multiple precision flag; setting to 1 if needed
-
-export mp=0
-
-# result collection only
-
-export collection_only=0
-
-# software flags
-
-export magenta=0
-export magma=0
-export pascal=0
-export depict=1
-
-# options for MAGENTA with min_gs_size in line with other software
-
-export min_gs_size=5
-export max_gs_size=2000
-
-# options for DEPICT
-
-export number_of_threads=5
-export p_threshold=0.00000005
-export nr_repititions=200
-export cutoff_type=fdr
-export pvalue_cutoff=0.00001
-
-# database flag (magenta, c2, msigdb, depict_discretized, depict)
-
-export _db=depict
 
 ## ANALYSIS
 
