@@ -40,7 +40,7 @@ git clone https://github.com/jinghuazhao/PW-pipeline
 The pipeline requires users to specify both software and database to be used. It is possible that a given database can be used for several software when appropriate. The beginning of the main program, [pwp.sh](pwp.sh), is as follows,
 ```bash
 ## software flags: 1=enable
-# options for DEPICT
+# DEPICT
 export depict=1
 export number_of_threads=5
 export p_threshold=0.00000005
