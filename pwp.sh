@@ -1,7 +1,7 @@
 #!/bin/bash
-#28-7-2018 MRC-Epid JHZ
+# 28-7-2018 MRC-Epid JHZ
 
-# software flags: 1=enable
+## software flags: 1=enable
 # options for DEPICT
 export depict=1
 export number_of_threads=5
@@ -18,22 +18,12 @@ export max_gs_size=2000
 export magma=0
 export pascal=0
 
-# database flag (magenta, c2, msigdb, depict_discretized, depict)
+## database (magenta, c2, msigdb, depict_discretized, depict), multiple precision, result collection
 export _db=depict
-
-# multiple precision flag; setting to 1 if needed
 export mp=0
-
-# result collection only
 export collection_only=0
 
-## SETTINGS
-
-export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/software/lib
-export PATH=/genetics/bin/anaconda2/bin:/genetics/bin:/usr/local/bin:$PATH:/genetics/data/software/bin
-export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages:$PYTHONPATH
-
+## Environmental variables
 export PW_location=/genetics/bin/PW-pipeline
 export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
 export MAGMA=/genetics/bin/MAGMA
@@ -45,6 +35,11 @@ export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
 export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
 export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
 export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
+
+export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/software/lib
+export PATH=/genetics/bin/anaconda2/bin:/genetics/bin:/usr/local/bin:$PATH:/genetics/data/software/bin
+export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages:$PYTHONPATH
 
 ## ANALYSIS
 
