@@ -114,7 +114,7 @@ The [wiki page](https://github.com/jinghuazhao/PW-pipeline/wiki) contains the fo
 * [Tissue and network plots](https://github.com/jinghuazhao/PW-pipeline/wiki/Tissue-and-network-plots)
 * [Result collection](https://github.com/jinghuazhao/PW-pipeline/wiki/Result-collection)
 
-You can make changes to the configuration files for each software in their respective direcories. See also [software-notes](https://github.com/jinghuazhao/software-notes) on how to set up VEGAS2, as in [vegas2v2.sh](vegas2v2.sh).
+You can make changes to the configuration files for each software in their own direcories. See also [software-notes](https://github.com/jinghuazhao/software-notes) on how to set up VEGAS2, as in [vegas2v2.sh](vegas2v2.sh).
 
 ## RELATED LINKS
 
