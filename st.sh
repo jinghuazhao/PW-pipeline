@@ -1,4 +1,4 @@
-# 28-7-2018 MRC-Epid JHZ
+# 10-9-2018 MRC-Epid JHZ
 
 git add .gitignore
 git commit -m "Don't process these"
@@ -6,6 +6,8 @@ git add files
 git commit -m "auxiliary files"
 git add MAGENTA MAGMA PASCAL DEPICT
 git commit -m "auxiliary directories"
+git add PWP.ini
+git commit -m "settings"
 git add pwp.sh
 git commit -m "main program"
 git add vegas2v2.sh
