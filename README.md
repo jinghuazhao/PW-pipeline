@@ -37,49 +37,9 @@ git clone https://github.com/jinghuazhao/PW-pipeline
 
 ## USAGE
 
-The pipeline requires users to specify both software and database to be used. It is possible that a given database can be used for several software when appropriate. The beginning of the main program, [pwp.sh](pwp.sh), is as follows,
-```bash
-## software flags: 1=enable
-# DEPICT
-export depict=1
-export number_of_threads=5
-export p_threshold=0.00000005
-export nr_repititions=200
-export cutoff_type=fdr
-export pvalue_cutoff=0.00001
-# MAGENTA
-export magenta=0
-export min_gs_size=5
-export max_gs_size=2000
-# MAGMA
-export magma=0
-# PASCAL
-export pascal=0
-
-## database (magenta, c2, msigdb, depict_discretized, depict), multiple precision, result collection
-export _db=depict
-export mp=0
-export collection_only=0
-
-## Environmental variables
-export PW_location=/genetics/bin/PW-pipeline
-export MAGENTA=/genetics/bin/MAGENTA_software_package_vs2_July2011
-export MAGMA=/genetics/bin/MAGMA
-export PASCAL=/genetics/bin/PASCAL
-export DEPICT=/genetics/bin/depict/src/python
-export PLINK_EXECUTABLE=/genetics/bin/plink-1.9
-
-export MSigDB=/genetics/src/MSigDB/msigdb_v6.0_GMTs
-export c2_db=$MSigDB/c2.all.v6.0.entrez.gmt
-export msigdb_db=$MSigDB/msigdb.v6.0.entrez.gmt
-export depict_discretized=$PASCAL/resources/genesets/depict_discretized_cutoff3.2.gmt
-
-export R_LIBS=/genetics/bin/R:/usr/local/lib64/R/library
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64/R/lib:/genetics/data/software/lib
-export PATH=/genetics/bin/anaconda2/bin:/genetics/bin:/usr/local/bin:$PATH:/genetics/data/software/bin
-export PYTHONPATH=/genetics/bin/anaconda2/lib/python2.7/site-packages:$PYTHONPATH
+The pipeline requires users to specify both software and database to be used, which is now through PWP.ini in the working directory.
 ```
-The syntax is
+The syntax is then
 ```
 bash pwp.sh <input file>
 ```
