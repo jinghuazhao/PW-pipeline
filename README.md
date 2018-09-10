@@ -37,7 +37,7 @@ git clone https://github.com/jinghuazhao/PW-pipeline
 
 ## USAGE
 
-The pipeline requires users to specify both software and database to be used, which is now through PWP.ini in the working directory.
+The pipeline requires users to specify both software and database to be used, which is now through [PWP.ini](PWP.ini) in the working directory.
 
 The syntax is then
 ```bash
