@@ -38,9 +38,9 @@ git clone https://github.com/jinghuazhao/PW-pipeline
 ## USAGE
 
 The pipeline requires users to specify both software and database to be used, which is now through PWP.ini in the working directory.
-```
+
 The syntax is then
-```
+```bash
 bash pwp.sh <input file>
 ```
 ### Input
@@ -57,7 +57,7 @@ For DEPICT databases, it is possible to call [netowrk_plot.py](files/network_plo
 ## EXAMPLES
 
 The `bmi.txt` and `ST4` from https://github.com/jinghuazhao/SUMSTATS can be called as follows,
-```
+```bash
 pwp.sh bmi.txt
 ```
 and
