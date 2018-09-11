@@ -107,8 +107,11 @@ if [ $magenta -eq 1 ]; then
       sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
       sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
       export suffix=_10000perm_$(date +'%b%d_%y')
-#     qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
-      ${PW_location}/MAGENTA/magenta.sh
+      if [ $use_seq -eq 1 ]; then 
+         qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
+      else
+         ${PW_location}/MAGENTA/magenta.sh
+      fi
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
       if [ $_db == "depict_discretized" ]; then
@@ -149,8 +152,11 @@ if [ $magma -eq 1 ]; then
    fi
    # Gene-set analysis
    if [ $collection_only -eq 0 ]; then
-#     qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
-      ${PW_location}/MAGMA/magma.sh
+      if [ $use_sge -eq 1 ]; then
+         qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
+      else
+         ${PW_location}/MAGMA/magma.sh
+      fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh magma
@@ -190,8 +196,11 @@ if [ $pascal -eq 1 ]; then
       sed -i 's|GENESETFILE|'"${depict_discretized}"'|g' settings.txt
    fi
    if [ $collection_only -eq 0 ]; then
-#     qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
-      ${PW_location}/PASCAL/pascal.sh
+      if [ $use_sge -eq 1 ]; then
+         qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
+      else
+         ${PW_location}/PASCAL/pascal.sh
+      fi
       if [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh pascal
          fdr_cutoff
@@ -229,8 +238,11 @@ if [ $depict -eq 1 ]; then
       sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.cfg
       sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
-#     qsub -cwd -N DEPICT -V -sync y ./depict.sh
-      ./depict.sh
+      if [ $use_sge -eq 1 ]; then
+         qsub -cwd -N DEPICT -V -sync y ./depict.sh
+      else
+         ./depict.sh
+      fi
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh depict
