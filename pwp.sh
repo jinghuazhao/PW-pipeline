@@ -3,7 +3,7 @@
 
 ## SETTINGS
 
-source PWP.ini
+source pwp.ini
 
 ## ANALYSIS
 
