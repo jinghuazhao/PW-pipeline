@@ -7,4 +7,4 @@
 #$ -q all.q
 #$ -t 1
 
-$DEPICT/depict.py depict.cfg
+$DEPICT/src/python/depict.py depict.cfg
