@@ -116,7 +116,7 @@ if [ $magenta -eq 1 ]; then
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh magenta $PW_location
+         $PW_location/files/network.sh magenta $DEPICT
          cut -f2,10,11 ${db}.dat | awk 'NR>1' | fdr_cutoff
          network_plot
       fi
@@ -160,7 +160,7 @@ if [ $magma -eq 1 ]; then
       fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh magma $PW_location
+         $PW_location/files/network.sh magma $DEPICT
          fdr_cutoff
          network_plot
       fi
@@ -203,7 +203,7 @@ if [ $pascal -eq 1 ]; then
          ${PW_location}/PASCAL/pascal.sh
       fi
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh pascal $PW_location
+         $PW_location/files/network.sh pascal $DEPICT
          fdr_cutoff
          network_plot
       fi
@@ -246,7 +246,7 @@ if [ $depict -eq 1 ]; then
       fi
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh depict $PW_location
+         $PW_location/files/network.sh depict $DEPICT
       fi
       network_plot
       R -q --no-save < collect.R > ${_db}_collect.log
