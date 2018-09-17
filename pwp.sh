@@ -15,13 +15,13 @@ function fdr_cutoff()
    awk '{
        FS=OFS="\t";
        fdr=$3;
-       if(fdr>=0.2) { $3=">=0.2" } else { 
+       if(fdr>=0.2) { $3=">=0.2" } else {
          $3="<0.2";
          if(fdr<0.05) $3="<0.05";
          if(fdr<0.01) $3="<0.01";
        }
        print
-    }' > ${db}.txt; \ 
+    }' > ${db}.txt; \
     echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > ${db}_genesetenrichment.txt; \
     gunzip -c $PW_location/files/id_descrip.txt.gz | awk 'NR>1' | sort -k1,1 | join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
 }
