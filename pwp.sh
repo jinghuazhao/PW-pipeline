@@ -111,7 +111,7 @@ if [ $magenta -eq 1 ]; then
       if [ $use_seq -eq 1 ]; then 
          qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       else
-         ${PW_location}/MAGENTA/magenta.sh
+         . ${PW_location}/MAGENTA/magenta.sh
       fi
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
@@ -156,7 +156,7 @@ if [ $magma -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
       else
-         ${PW_location}/MAGMA/magma.sh
+         . ${PW_location}/MAGMA/magma.sh
       fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
@@ -200,7 +200,7 @@ if [ $pascal -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
       else
-         ${PW_location}/PASCAL/pascal.sh
+         . ${PW_location}/PASCAL/pascal.sh
       fi
       if [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh pascal $DEPICT
@@ -242,7 +242,7 @@ if [ $depict -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N DEPICT -V -sync y ./depict.sh
       else
-         ./depict.sh
+         . ./depict.sh
       fi
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
