@@ -1,4 +1,4 @@
-# 12-4-2018 MRC-Epid JHZ
+# 17-9-2018 MRC-Epid JHZ
 
 cluster_info <- function(z, features=1:15, showClusters=TRUE, output=TRUE, tag="APCluster")
 {
@@ -87,7 +87,7 @@ aggres <- aggExCluster(x=apres)
 plot(aggres, cex=0.3, horiz=TRUE, nodePar=list(pch=NA, lab.cex=0.25))
 # visualisation
 # for (k in 20:2) plot(aggres, tRaw[,features], k=k, main=paste(k, "clusters"))
-cutres <- cutree(aggres,k=13)
+cutres <- cutree(aggres,k=5)
 # apresK <- apclusterK(corSimMat, tRaw, K=13, details=TRUE)
 apres_info <- cluster_info(apres)
 cutres_info <- cluster_info(cutres,tag="cutree")
