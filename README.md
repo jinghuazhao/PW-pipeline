@@ -34,13 +34,13 @@ The pipeline itself can be installed from GitHub in the usual way.
 ```
 git clone https://github.com/jinghuazhao/PW-pipeline
 ```
-On systems supporting modules, it is recommended that appropriate module is loaded seamlessly, e.g.,
+On systems supporting modules, they can be loaded before hand but it is possible that appropriate module is loaded seamlessly, e.g.,
 ```bash
 echo module load matlab/r2017b > matlab
 echo matlab \$\@ >> matlab
 chmod +x matlab
 ```
-NB "$@" enables matlab to be called as usual.
+NB "$@" enables matlab to be called as usual. Alternatively, the module coammands can be part of pwp.ini which is sourced with pwp.sh.
 
 ## USAGE
 
