@@ -6,7 +6,7 @@ git add files
 git commit -m "auxiliary files"
 git add MAGENTA MAGMA PASCAL DEPICT
 git commit -m "auxiliary directories"
-git add PWP.ini
+git add pwp.ini
 git commit -m "settings"
 git add pwp.sh
 git commit -m "main program"
