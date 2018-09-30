@@ -108,7 +108,7 @@ if [ $magenta -eq 1 ]; then
       sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
       sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
       export suffix=_10000perm_$(date +'%b%d_%y')
-      if [ $use_seq -eq 1 ]; then 
+      if [ $use_sge -eq 1 ]; then 
          qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sh
       else
          . ${PW_location}/MAGENTA/magenta.sh
