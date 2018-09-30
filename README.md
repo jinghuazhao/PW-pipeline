@@ -23,9 +23,12 @@ Multi-marker Analysis of GenoMic Annotation | MAGMA | de Leeuw, et al. (2015)
 PAthway SCoring ALgorithm | PASCAL | Lamparter, et al. (2016)
 Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Pers, et al.(2015)
 
-The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil 
-their requirements, e.g., [Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. For PASCAL, minor changes need to be made with Pascal in that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added. It is useful to 
-install [XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
+The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil
+their requirements, e.g., [Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. For PASCAL, minor changes
+need to be made with Pascal in that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added.
+The current version of pipeline also uses DEPICT from the GitHub but also with data from 
+[https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). It is useful to install
+[XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
 default [Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but this can be any other mechanism such 
 as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, 
 [R](https://www.r-project.org/) is required.
