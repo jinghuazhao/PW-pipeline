@@ -40,7 +40,8 @@ git clone https://github.com/jinghuazhao/PW-pipeline
 ```
 On systems supporting modules, they can be loaded before hand but it is possible that appropriate module is loaded seamlessly, e.g.,
 ```bash
-echo module load matlab/r2017b > matlab
+echo -e "function module (){eval \`/usr/bin/modulecmd bash $*\`}" > matlab
+echo module load matlab/r2017b >> matlab
 echo matlab \$\@ >> matlab
 chmod +x matlab
 ```
