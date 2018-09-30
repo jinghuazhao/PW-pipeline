@@ -25,7 +25,8 @@ Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Per
 
 The full functionality of the pipeline requires availability of individual software for pathway analysis, which should fulfil
 their requirements, e.g., [Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA, PLINK. For PASCAL, minor changes
-need to be made with Pascal in that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added.
+need to be made with Pascal in that by default DIR is where it is called so can be changed into PASCAL installation directory 
+and that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added.
 The current version of pipeline also uses DEPICT from the GitHub but also with data from 
 [https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). It is useful to install
 [XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
