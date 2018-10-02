@@ -111,7 +111,7 @@ if [ $magenta -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then 
          qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch ${PW_location}/MAGENTA/magenta.slurm
+         sbatch --wait ${PW_location}/MAGENTA/magenta.slurm
       else
          . ${PW_location}/MAGENTA/magenta.sge
       fi
@@ -158,7 +158,7 @@ if [ $magma -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sge
       elif [ $use_slrum -eq 1 ]; then
-         abatch $(PW_location)/MAGMA/magma.slurm
+         sbatch --wait $(PW_location)/MAGMA/magma.slurm
       else
          . ${PW_location}/MAGMA/magma.sge
       fi
@@ -204,7 +204,7 @@ if [ $pascal -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch $(PW_location)/PASCAL/pascal.slurm
+         sbatch --wait $(PW_location)/PASCAL/pascal.slurm
       else
          . ${PW_location}/PASCAL/pascal.sge
       fi
@@ -249,7 +249,7 @@ if [ $depict -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N DEPICT -V -sync y ./depict.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch ./depict.slurm
+         sbatch --wait ./depict.slurm
       else
          . ./depict.sge
       fi
