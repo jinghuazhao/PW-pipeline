@@ -1,5 +1,5 @@
 #!/bin/bash
-# 17-9-2018 MRC-Epid JHZ
+# 2-10-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -157,8 +157,10 @@ if [ $magma -eq 1 ]; then
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
+      elif [ $use_slrum -eq 1 ]; then
+         abatch $(PW_location)/MAGMA/magma.slurm
       else
-         . ${PW_location}/MAGMA/magma.sh
+         . ${PW_location}/MAGMA/magma.sge
       fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
@@ -200,9 +202,11 @@ if [ $pascal -eq 1 ]; then
    fi
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sh
+         qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sge
+      elif [ $use_slurm -eq 1 ]; then
+         sbatch $(PW_location)/PASCAL/pascal.slurm
       else
-         . ${PW_location}/PASCAL/pascal.sh
+         . ${PW_location}/PASCAL/pascal.sge
       fi
       if [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh pascal $DEPICT
@@ -237,14 +241,17 @@ if [ $depict -eq 1 ]; then
       sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
    fi
    if [ $collection_only -eq 0 ]; then
-      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.sh
+      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.sge
+      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.slurm
       sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.cfg
       sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -N DEPICT -V -sync y ./depict.sh
+         qsub -cwd -N DEPICT -V -sync y ./depict.sge
+      elif [ $use_slurm -eq 1 ]; then
+         sbatch ./depict.slurm
       else
-         . ./depict.sh
+         . ./depict.sge
       fi
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
