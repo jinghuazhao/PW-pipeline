@@ -156,7 +156,7 @@ if [ $magma -eq 1 ]; then
    # Gene-set analysis
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sh
+         qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sge
       elif [ $use_slrum -eq 1 ]; then
          abatch $(PW_location)/MAGMA/magma.slurm
       else
