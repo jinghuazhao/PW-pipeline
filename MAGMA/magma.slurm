@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#SBATCH -J MAGMA
 #SBATCH -n 5
 #SBATCH -o magma.out
 #SBATCH -e magma.err

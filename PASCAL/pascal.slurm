@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#SBATCH -J PASCAL
 #SBATCH -n 5
 #SBATCH -o pascal.out
 #SBATCH -e pascal.err

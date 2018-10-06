@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#SBATCH -J DEPICT
 #SBATCH -n NUMBER_OF_THREADS
 #SBATCH -o depict.out
 #SBATCH -e depict.err

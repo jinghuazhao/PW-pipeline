@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#SBATCH -J MAGENTA
 #SBATCH -n 5
 #SBATCH -o magenta.out
 #SBATCH -e magenta.err
