@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2-10-2018 MRC-Epid JHZ
+# 8-10-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
@@ -114,6 +114,7 @@ if [ $magenta -eq 1 ]; then
          sbatch --wait ${PW_location}/MAGENTA/magenta.slurm
       else
          . ${PW_location}/MAGENTA/magenta.sge
+         wait
       fi
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
@@ -161,6 +162,7 @@ if [ $magma -eq 1 ]; then
          sbatch --wait $(PW_location)/MAGMA/magma.slurm
       else
          . ${PW_location}/MAGMA/magma.sge
+         wait
       fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
@@ -207,6 +209,7 @@ if [ $pascal -eq 1 ]; then
          sbatch --wait $(PW_location)/PASCAL/pascal.slurm
       else
          . ${PW_location}/PASCAL/pascal.sge
+         wait
       fi
       if [ $_db == "depict_discretized" ]; then
          $PW_location/files/network.sh pascal $DEPICT
@@ -252,6 +255,7 @@ if [ $depict -eq 1 ]; then
          sbatch --wait ./depict.slurm
       else
          . ./depict.sge
+         wait
       fi
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
