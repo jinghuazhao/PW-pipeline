@@ -31,7 +31,9 @@ function network_plot()
      cp $PW_location/files/network_plot*.cfg $PW_location/files/network_plot_CytoscapeStyle_v1.xml .
    # minor changes to network_plot.py are necessary.
      export file_genesetenrichment=${db}_genesetenrichment.txt
+     export frgm=$DEPICT/data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
      sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
+     sed -i 's|FILE_RECONSTITUTED_GENESETS_MATRIX|'"$frgm"'|g' network_plot.cfg
      sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
      sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
      sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
