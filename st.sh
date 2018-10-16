@@ -1,7 +1,7 @@
-# 10-9-2018 MRC-Epid JHZ
+# 16-10-2018 MRC-Epid JHZ
 
 git add .gitignore
-git commit -m "Don't process these"
+git commit -m "ignored files"
 git add files
 git commit -m "auxiliary files"
 git add MAGENTA MAGMA PASCAL DEPICT
