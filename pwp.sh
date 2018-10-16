@@ -1,11 +1,9 @@
 #!/bin/bash
 # 16-10-2018 MRC-Epid JHZ
 
-## SETTINGS
+## SETTINGS and FUNCTIONS
 
 source pwp.ini
-
-## FUNCTIONS
 
 function fdr_cutoff()
 {
