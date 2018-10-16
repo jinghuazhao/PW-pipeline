@@ -1,13 +1,11 @@
 #!/bin/bash
-# 15-10-2018 MRC-Epid JHZ
+# 16-10-2018 MRC-Epid JHZ
 
 ## SETTINGS
 
 source pwp.ini
 
-## ANALYSIS
-
-# functions
+## FUNCTIONS
 
 function fdr_cutoff()
 {
@@ -44,6 +42,8 @@ function network_plot()
    # pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
    # mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
 }
+
+## ANALYSIS
 
 if [ $collection_only -eq 0 ]; then
    if [ $# -lt 1 ] || [ "$args" == "-h" ]; then
