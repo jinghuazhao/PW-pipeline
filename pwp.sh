@@ -20,8 +20,12 @@ function fdr_cutoff()
        }
        print
     }' > ${db}.txt; \
-    echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > ${db}_genesetenrichment.txt; \
-    gunzip -c $PW_location/files/id_descrip.txt.gz | awk 'NR>1' | sort -k1,1 | join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
+    echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > \
+         ${db}_genesetenrichment.txt; \
+    gunzip -c $PW_location/files/id_descrip.txt.gz | \
+    awk 'NR>1' | \
+    sort -k1,1 | \
+    join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
 }
 
 function network_plot()
@@ -70,7 +74,12 @@ if [ $_db == "magenta" ]; then
    cd MAGENTA
    if [ $collection_only -eq 0 ]; then
       for f in $(ls $MAGENTA/*_db); do ln -sf $f; done
-      cat GO_terms_BioProc_MolFunc_db Ingenuity_pathways_db KEGG_pathways_db PANTHER_BioProc_db PANTHER_MolFunc_db PANTHER_pathways_db | \
+      cat GO_terms_BioProc_MolFunc_db \
+          Ingenuity_pathways_db \
+          KEGG_pathways_db \
+          PANTHER_BioProc_db \
+          PANTHER_MolFunc_db \
+          PANTHER_pathways_db | \
       awk '{$1="magenta";gsub(/ /,"_",$2);$2=NR ":" $2};1' FS="\t" OFS="\t" > magenta.db
    fi
    export magenta_db=${PWD}/magenta.db
@@ -258,7 +267,8 @@ if [ $depict -eq 1 ]; then
          wait
       fi
       bash tissue_plot.sh $db
-      if [ _db == "depict" ] || [ $_db == "depict_discretized" ]; then
+      if [ _db == "depict" ] || [ $_db == "depict_discretized" ];
+      then
          $PW_location/files/network.sh depict $DEPICT
       fi
       network_plot
@@ -269,7 +279,8 @@ fi
 
 # collection into Excel workbook(s)
 
-if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict_discretized" ]; then
+if [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ] && [ $depict -eq 1 ] && [ $_db == "depict_discretized" ];
+then
     R -q --no-save < ${PW_location}/files/mmpd.R > ${_db}.mmpd.log
     R -q --no-save < ${PW_location}/files/summary.R > ${_db}.summary.log
 elif [ $magenta -eq 1 ] && [ $magma -eq 1 ] && [ $pascal -eq 1 ]; then
