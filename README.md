@@ -42,7 +42,7 @@ echo module load matlab/r2017b >> matlab
 echo matlab \"\$\@\" >> matlab
 chmod +x matlab
 ```
-NB "$@" enables matlab to be called as usual. Alternatively, the module coammands can be part of pwp.ini which is sourced with pwp.sh.
+NB "$@" enables matlab to be called as usual. Alternatively, the module commands can be part of pwp.ini which is sourced with pwp.sh.
 
 The pipeline itself can be installed from GitHub in the usual way.
 ```
