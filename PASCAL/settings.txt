@@ -43,6 +43,7 @@ refPopFileExtension = txt.gz
 
 # snpPvalFile = /Users/dlampart/Documents/workspace/genescore/resources/gwas/dbgap/EUR.CARDIoGRAM_2010_lipids.LDL_ONE.txt
 # snpPvalFile = /Users/dlampart/Documents/workspace/genescore/AnalysisPipelines/compareToOrigVegas/HDL_chr22_only_pval
+snpPvalFile = vegas2v2
 
 # The column in the tab-separated text file with the p-value (usually column 2)
 pvalCol = 2
