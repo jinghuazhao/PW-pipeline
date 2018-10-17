@@ -26,7 +26,8 @@ Data-Driven Expression Prioritized Integration for Complex Traits | DEPICT | Per
 The full functionality of the pipeline requires availability of individual software for pathway analysis, whose requirements should be
 fulfiled, e.g., [Matlab](https://www.mathworks.com/products/matlab.html) for MAGENTA. For PASCAL, minor changes
 need to be made with Pascal in that by default DIR is where it is called so it needs to be changed into PASCAL installation directory 
-and that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added.
+and that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added. Although PASCAL was designed to handle
+LD with many SNPs, it fails to run when very large number of SNPs are involved in which case it would help to shorten the list.
 The current version of pipeline also uses DEPICT from the GitHub but with data in the release version from the Broad,
 [https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). It is useful to install
 [XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
@@ -38,7 +39,7 @@ On systems supporting modules, they can be loaded before hand but it is possible
 ```bash
 echo -e "function module (){eval \`/usr/bin/modulecmd bash $*\`}" > matlab
 echo module load matlab/r2017b >> matlab
-echo matlab \$\@ >> matlab
+echo matlab \"\$\@\" >> matlab
 chmod +x matlab
 ```
 NB "$@" enables matlab to be called as usual. Alternatively, the module coammands can be part of pwp.ini which is sourced with pwp.sh.
