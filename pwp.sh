@@ -1,5 +1,5 @@
 #!/bin/bash
-# 16-10-2018 MRC-Epid JHZ
+# 17-10-2018 MRC-Epid JHZ
 
 ## SETTINGS and FUNCTIONS
 
@@ -145,6 +145,7 @@ if [ $magma -eq 1 ]; then
       mkdir MAGMA
    fi
    cd MAGMA
+   cp ${PW_location}/MAGMA/sets.R .
    if [ $collection_only -eq 0 ]; then
       R -q --no-save < ${PW_location}/MAGMA/data.R > ${_db}.data.log
       # Annotation
@@ -179,7 +180,7 @@ if [ $magma -eq 1 ]; then
          fdr_cutoff
          network_plot
       fi
-      R -q --no-save < ${PW_location}/MAGMA/sets.R > ${_db}.sets.log
+      R -q --no-save < sets.R > ${_db}.sets.log
    fi
    cd -
 fi
