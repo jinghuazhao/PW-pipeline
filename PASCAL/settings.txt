@@ -41,8 +41,7 @@ refPopFileExtension = txt.gz
 
 # SNP p-values text file: ID in column 1; p-value in column snpPvalCol (see below) 
 
-snpPvalFile = /Users/dlampart/Documents/workspace/genescore/resources/gwas/dbgap/EUR.CARDIoGRAM_2010_lipids.LDL_ONE.txt
-
+# snpPvalFile = /Users/dlampart/Documents/workspace/genescore/resources/gwas/dbgap/EUR.CARDIoGRAM_2010_lipids.LDL_ONE.txt
 # snpPvalFile = /Users/dlampart/Documents/workspace/genescore/AnalysisPipelines/compareToOrigVegas/HDL_chr22_only_pval
 
 # The column in the tab-separated text file with the p-value (usually column 2)
