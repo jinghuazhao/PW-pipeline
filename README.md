@@ -69,7 +69,7 @@ For DEPICT databases, it is possible to call [netowrk_plot.py](files/network_plo
 
 ## EXAMPLES
 
-The `BMI` and `ST4` from https://github.com/jinghuazhao/SUMSTATS can be called as follows,
+The `bmi.tsv.gz` and `ST4` from https://github.com/jinghuazhao/SUMSTATS can be called as follows,
 ```bash
 gunzip -c bmi.tsv.gz > BMI
 pwp.sh BMI
