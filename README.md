@@ -30,10 +30,8 @@ and that instead of the relative path jars/pascalDeployed.jar an absolute prefix
 LD with many SNPs, it fails to run when very large number of SNPs are involved in which case it would help to shorten the list.
 The current version of pipeline also uses DEPICT from the GitHub but with data in the release version from the Broad,
 [https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). It is useful to install
-[XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. By 
-default [Sun grid engine](https://en.wikipedia.org/wiki/Oracle_Grid_Engine) is used but this can be any other mechanism such 
-as [GNU parallel](https://www.gnu.org/software/parallel/) [note with its --env to pass environment variables]. As usual, 
-[R](https://www.r-project.org/) is required.
+[XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. Some information on
+job scheduling software as with [R](https://www.r-project.org/) is given at https://github.com/jinghuazhao/Computational-Statistics.
 
 On systems supporting modules, they can be loaded before hand but it is possible that appropriate module is loaded seamlessly, e.g.,
 ```bash
