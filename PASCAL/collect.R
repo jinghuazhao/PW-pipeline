@@ -1,4 +1,4 @@
-# 12-4-2018 MRC-Epid JHZ
+# 18-4-2018 MRC-Epid JHZ
 
 gsps <- function(f,db="MAGENTA",method="sum")
 {
@@ -37,10 +37,9 @@ if (db=="depict_discretized_cutoff3.2")
      dat <- get(file)
      writeDataTable(wb,paste0("PASCAL",tbl),dat)
    }
-   prefix <- "depict"
    for (tbl in c("_cluster_results.txt","_summary.txt","_network_table.txt","_nodeattributes.txt"))
    {
-     file <- paste0(prefix,tbl)
+     file <- paste0(db,tbl)
      assign(file,read.table(file,as.is=TRUE,header=TRUE,sep="\t",quote=""))
      addWorksheet(wb, paste0("PASCAL",tbl))
      dat <- get(file)
