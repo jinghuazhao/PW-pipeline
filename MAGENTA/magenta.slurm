@@ -3,7 +3,8 @@
 #SBATCH -n 5
 #SBATCH -o magenta.out
 #SBATCH -e magenta.err
-#SBATCH -p medium
+#SBATCH -p long
+#SBATCH -t 3-0:0
 #SBATCH --export ALL
 
 matlab -nodisplay -nodesktop -nosplash -nojvm -r "Run_MAGENTA_vs2_July_2011, exit"
