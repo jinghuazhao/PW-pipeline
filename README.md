@@ -111,16 +111,16 @@ Pers TH et al.(2015) Biological interpretation of genome-wide association studie
 
 **[MAGENTA](https://software.broadinstitute.org/mpg/magenta/)**
 
-Segre AV, et al (2010). Common Inherited Variation in Mitochondrial Genes Is Not Enriched for Associations with Type 2 Diabetes or Related Glycemic Traits. *PLoS 
+Segre AV, et al (2010). Common inherited variation in mitochondrial genes is not enriched for associations with type 2 diabetes or related glycemic traits. *PLoS 
 Genet* 12;6(8). pii: e1001058. doi: 10.1371/journal.pgen.1001058
 
 **[MAGMA](http://ctg.cncr.nl/software/magma)**
 
-de Leeuw C, et al. (2015) MAGMA: Generalized Gene-Set Analysis of GWAS Data. *PLoS Comput Biol* 11(4): e1004219. doi:  10.1371/journal.pcbi.1004219
+de Leeuw C, et al. (2015) MAGMA: Generalized gene-set analysis of GWAS data. *PLoS Comput Biol* 11(4): e1004219. doi:  10.1371/journal.pcbi.1004219
 
 **[PASCAL](http://www2.unil.ch/cbg/images/3/3d/PASCAL.zip)** (**[GitHub](https://github.com/dlampart/Pascal)**)
 
-Lamparter D, et al. (2016) Fast and Rigorous Computation of Gene and Pathway Scores from SNP-Based Summary Statistics. *PLoS Comput Biol* 12(1):e1004714. 
+Lamparter D, et al. (2016) Fast and rigorous computation of gene and pathway scores from SNP-based summary statistics. *PLoS Comput Biol* 12(1):e1004714. 
 doi: 10.1371/journal.pcbi.1004714
 
 **[VEGAS2](https://vegas2.qimrberghofer.edu.au/)** (Versatile Gene-based Association Study)
