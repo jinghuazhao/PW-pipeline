@@ -3,6 +3,7 @@
 #SBATCH -n NUMBER_OF_THREADS
 #SBATCH -o depict.out
 #SBATCH -e depict.err
+#SBATCH -p PARTITION
 #SBATCH -t 3-0:0
 #SBATCH --export ALL
 

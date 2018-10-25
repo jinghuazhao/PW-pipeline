@@ -3,7 +3,7 @@
 #SBATCH -n 5
 #SBATCH -o pascal.out
 #SBATCH -e pascal.err
-#SBATCH -p long
+#SBATCH -p PARTITION
 #SBATCH -t 3-0:0
 #SBATCH --export ALL
 

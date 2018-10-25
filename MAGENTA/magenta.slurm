@@ -3,7 +3,7 @@
 #SBATCH -n 5
 #SBATCH -o magenta.out
 #SBATCH -e magenta.err
-#SBATCH -p long
+#SBATCH -p PARTITION
 #SBATCH -t 4-0:0
 #SBATCH --export ALL
 

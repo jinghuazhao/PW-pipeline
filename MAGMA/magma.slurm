@@ -3,6 +3,7 @@
 #SBATCH -n 5
 #SBATCH -o magma.out
 #SBATCH -e magma.err
+#SBATCH -p PARTITION
 #SBATCH -t 3-0:0
 #SBATCH -export ALL
 
