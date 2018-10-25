@@ -1,5 +1,5 @@
 #!/bin/bash
-# 17-10-2018 MRC-Epid JHZ
+# 25-10-2018 MRC-Epid JHZ
 
 ## SETTINGS and FUNCTIONS
 
@@ -95,6 +95,7 @@ if [ $magenta -eq 1 ]; then
    fi
    cd MAGENTA
    if [ $collection_only -eq 0 ]; then
+      cp ${PW_location}/MAGENTA/* .
       for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
       for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
       R -q --no-save < data.R > ${_db}.data.log
@@ -118,11 +119,12 @@ if [ $magenta -eq 1 ]; then
       sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
       export suffix=_10000perm_$(date +'%b%d_%y')
       if [ $use_sge -eq 1 ]; then 
-         qsub -cwd -N MAGENTA_${db} -V -sync y ${PW_location}/MAGENTA/magenta.sge
+         qsub -cwd -N MAGENTA_${db} -V -sync y magenta.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch --wait ${PW_location}/MAGENTA/magenta.slurm
+         sed -i 's|PARTITION|'"$PARTITION"'|g' magenta.slurm
+         sbatch --wait magenta.slurm
       else
-         . ${PW_location}/MAGENTA/magenta.sge
+         . ./magenta.sge
          wait
       fi
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
@@ -147,7 +149,8 @@ if [ $magma -eq 1 ]; then
    cd MAGMA
    cp ${PW_location}/MAGMA/sets.R .
    if [ $collection_only -eq 0 ]; then
-      R -q --no-save < ${PW_location}/MAGMA/data.R > ${_db}.data.log
+      cp ${PW_location}/MAGMA/* .
+      R -q --no-save < data.R > ${_db}.data.log
       # Annotation
       magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
       # Gene analysis - SNP p-values
@@ -167,11 +170,12 @@ if [ $magma -eq 1 ]; then
    # Gene-set analysis
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -N MAGMA_${_db} -V -sync y ${PW_location}/MAGMA/magma.sge
+         qsub -cwd -N MAGMA_${_db} -V -sync y magma.sge
       elif [ $use_slrum -eq 1 ]; then
-         sbatch --wait $(PW_location)/MAGMA/magma.slurm
+         sed -i 's|PARTITION|'"$PARTITION"'|g' magma.slurm
+         sbatch --wait magma.slurm
       else
-         . ${PW_location}/MAGMA/magma.sge
+         . ./magma.sge
          wait
       fi
       export db=$(basename $db)
@@ -214,11 +218,12 @@ if [ $pascal -eq 1 ]; then
    fi
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -V -N PASCAL_${_db} -sync y ${PW_location}/PASCAL/pascal.sge
+         qsub -cwd -V -N PASCAL_${_db} -sync y pascal.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch --wait $(PW_location)/PASCAL/pascal.slurm
+         sed -i 's|PARTITION|'"$PARTITION"'|g' pascal.slurm
+         sbatch --wait pascal.slurm
       else
-         . ${PW_location}/PASCAL/pascal.sge
+         . ./pascal.sge
          wait
       fi
       if [ $_db == "depict_discretized" ]; then
@@ -260,9 +265,10 @@ if [ $depict -eq 1 ]; then
       sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
       sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
       if [ $use_sge -eq 1 ]; then
-         qsub -cwd -N DEPICT -V -sync y ./depict.sge
+         qsub -cwd -N DEPICT -V -sync y depict.sge
       elif [ $use_slurm -eq 1 ]; then
-         sbatch --wait ./depict.slurm
+         sed -i 's|PARTITION|'"$PARTITION"'|g' depict.slurm
+         sbatch --wait depict.slurm
       else
          . ./depict.sge
          wait
