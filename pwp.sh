@@ -1,5 +1,5 @@
 #!/bin/bash
-# 25-10-2018 MRC-Epid JHZ
+# 26-10-2018 MRC-Epid JHZ
 
 ## SETTINGS and FUNCTIONS
 
@@ -20,7 +20,7 @@ function fdr_cutoff()
     }' > ${db}.txt; \
     echo -e "Original gene set ID\tOriginal gene set description\tNominal P value\tFalse discovery rate" > \
          ${db}_genesetenrichment.txt; \
-    gunzip -c $PW_location/files/id_descrip.txt.gz | \
+    gunzip -c ${PW_location}/files/id_descrip.txt.gz | \
     awk 'NR>1' | \
     sort -k1,1 | \
     join -t $'\t' -j1 - ${db}.txt >> ${db}_genesetenrichment.txt
@@ -28,7 +28,7 @@ function fdr_cutoff()
 
 function network_plot()
 {
-     cp $PW_location/files/network_plot*.cfg $PW_location/files/network_plot_CytoscapeStyle_v1.xml .
+     cp ${PW_location}/files/network_plot*.cfg ${PW_location}/files/network_plot_CytoscapeStyle_v1.xml .
    # minor changes to network_plot.py are necessary.
      export file_genesetenrichment=${db}_genesetenrichment.txt
      export frgm=$DEPICT/data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
@@ -38,11 +38,11 @@ function network_plot()
      sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
      sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
      sed -i 's|CYTOSCAPE_LOC|'"$CYTOSCAPE"'|g' network_plot.cfg
-     $PW_location/files/network_plot.py network_plot.cfg
+     ${PW_location}/files/network_plot.py network_plot.cfg
    # The old version requires addtional changes as follows,
    # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
    # sed -i 's|output_label: ./'"$db"'|output_label: network_plot_2015/'"$db"'|g' network_plot_2015.cfg
-   # $PW_location/files/network_plot_2015.py network_plot_2015.cfg
+   # ${PW_location}/files/network_plot_2015.py network_plot_2015.cfg
    # pdftopng -r 300 ${db}_network_diagram.pdf ${db}_network_diagram
    # mv ${db}_network_diagram-000001.png ${db}_network_diagram.png
 }
@@ -97,7 +97,6 @@ if [ $magenta -eq 1 ]; then
    if [ $collection_only -eq 0 ]; then
       cp ${PW_location}/MAGENTA/* .
       for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
-      for f in $(find $PW_location/MAGENTA -name "*"); do ln -sf $f; done
       R -q --no-save < data.R > ${_db}.data.log
    fi
    if [ $_db == "magenta" ]; then
@@ -130,7 +129,7 @@ if [ $magenta -eq 1 ]; then
       awk '(NR==1){gsub(/\#/,"",$0);print}' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results > ${db}.dat
       #  sed -i 's/[[:digiti:]]\+\://g' ${db}${suffix}/MAGENTA_pval_GeneSetEnrichAnalysis_${db}_110kb_upstr_40kb_downstr${suffix}.results
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh magenta $DEPICT
+         ${PW_location}/files/network.sh magenta $DEPICT
          cut -f2,10,11 ${db}.dat | awk 'NR>1' | fdr_cutoff
          network_plot
       fi
@@ -147,9 +146,8 @@ if [ $magma -eq 1 ]; then
       mkdir MAGMA
    fi
    cd MAGMA
-   cp ${PW_location}/MAGMA/sets.R .
+   cp ${PW_location}/MAGMA/* .
    if [ $collection_only -eq 0 ]; then
-      cp ${PW_location}/MAGMA/* .
       R -q --no-save < data.R > ${_db}.data.log
       # Annotation
       magma --annotate window=50,50 --snp-loc ${_db}.snploc --gene-loc $MAGMA/NCBI37.3.gene.loc --out ${_db}
@@ -180,7 +178,7 @@ if [ $magma -eq 1 ]; then
       fi
       export db=$(basename $db)
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh magma $DEPICT
+         ${PW_location}/files/network.sh magma $DEPICT
          fdr_cutoff
          network_plot
       fi
@@ -198,7 +196,7 @@ if [ $pascal -eq 1 ]; then
    fi
    cd PASCAL
    if [ $collection_only -eq 0 ]; then
-      cp $PW_location/PASCAL/* .
+      cp ${PW_location}/PASCAL/* .
       R -q --no-save < data.R > ${_db}.data.log
       sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
    fi
@@ -227,7 +225,7 @@ if [ $pascal -eq 1 ]; then
          wait
       fi
       if [ $_db == "depict_discretized" ]; then
-         $PW_location/files/network.sh pascal $DEPICT
+         ${PW_location}/files/network.sh pascal $DEPICT
          fdr_cutoff
          network_plot
       fi
@@ -245,7 +243,7 @@ if [ $depict -eq 1 ]; then
    fi
    cd DEPICT
    if [ $collection_only -eq 0 ]; then
-      cp $PW_location/DEPICT/* .
+      cp ${PW_location}/DEPICT/* .
       R -q --no-save < data.R > ${_db}.data.log
       sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
    fi
@@ -276,7 +274,7 @@ if [ $depict -eq 1 ]; then
       bash tissue_plot.sh $db
       if [ _db == "depict" ] || [ $_db == "depict_discretized" ];
       then
-         $PW_location/files/network.sh depict $DEPICT
+         ${PW_location}/files/network.sh depict $DEPICT
       fi
       network_plot
       R -q --no-save < collect.R > ${_db}_collect.log
