@@ -29,7 +29,7 @@ need to be made with Pascal in that by default DIR is where it is called so it n
 and that instead of the relative path jars/pascalDeployed.jar an absolute prefix should be added. Although PASCAL was designed to handle
 LD with many SNPs, it fails to run when very large number of SNPs are involved in which case it would help to shorten the list.
 The current version of pipeline also uses DEPICT from the GitHub but with data in the release version from the Broad,
-[https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). It is useful to install
+[https://data.broadinstitute.org/mpg/depict/](https://data.broadinstitute.org/mpg/depict/depict_140721.tar.bz2). Under Python 2.7.x, amendment needs to be made from `sort()` to `sort_values()` in `src/python/depict_library.py` as described in http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html. It may also complain about too few background files in `depict/data/backgrounds` so a repetitive run is necessary. Finally, it is useful to install
 [XpdfReader](https://www.xpdfreader.com/) or [ImageMagick](https://www.imagemagick.org/) to produce Excel workbook. Some information on
 job scheduling software as with [R](https://www.r-project.org/) is given at https://github.com/jinghuazhao/Computational-Statistics.
 
