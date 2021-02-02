@@ -120,6 +120,7 @@ if [ $magenta -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then 
          qsub -cwd -N MAGENTA_${db} -V -sync y magenta.sge
       elif [ $use_slurm -eq 1 ]; then
+         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' magenta.slurm
          sed -i 's|PARTITION|'"$PARTITION"'|g' magenta.slurm
          sbatch --wait magenta.slurm
       else
@@ -170,6 +171,7 @@ if [ $magma -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y magma.sge
       elif [ $use_slrum -eq 1 ]; then
+         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' magma.slurm
          sed -i 's|PARTITION|'"$PARTITION"'|g' magma.slurm
          sbatch --wait magma.slurm
       else
@@ -218,6 +220,7 @@ if [ $pascal -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -V -N PASCAL_${_db} -sync y pascal.sge
       elif [ $use_slurm -eq 1 ]; then
+         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' pascal.slurm
          sed -i 's|PARTITION|'"$PARTITION"'|g' pascal.slurm
          sbatch --wait pascal.slurm
       else
@@ -265,6 +268,7 @@ if [ $depict -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N DEPICT -V -sync y depict.sge
       elif [ $use_slurm -eq 1 ]; then
+         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' depict.slurm
          sed -i 's|PARTITION|'"$PARTITION"'|g' depict.slurm
          sbatch --wait depict.slurm
       else
