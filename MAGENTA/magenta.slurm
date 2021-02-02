@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH -A ACCOUNT
 #SBATCH -J MAGENTA
 #SBATCH -n 5
 #SBATCH -o magenta.out

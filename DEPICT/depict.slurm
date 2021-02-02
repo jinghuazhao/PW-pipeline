@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH -A ACCOUNT
 #SBATCH -J DEPICT
 #SBATCH -n NUMBER_OF_THREADS
 #SBATCH -o depict.out

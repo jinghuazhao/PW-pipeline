@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH -A ACCOUNT
 #SBATCH -J PASCAL
 #SBATCH -n 5
 #SBATCH -o pascal.out

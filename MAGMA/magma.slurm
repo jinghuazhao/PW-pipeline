@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH -A ACCOUNT
 #SBATCH -J MAGMA
 #SBATCH -n 5
 #SBATCH -o magma.out
