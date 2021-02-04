@@ -95,7 +95,7 @@ if [ $magenta -eq 1 ]; then
    cd MAGENTA
    if [ $collection_only -eq 0 ]; then
       cp ${PW_location}/MAGENTA/* .
-      for f in $(find $MAGENTA -name "*"); do ln -sf $f; done
+      for f in $(ls $MAGENTA); do if [ ! -f ${f} ];then ln -sf ${MAGENTA}/$f; fi; done
       R -q --no-save < data.R > ${_db}.data.log
    fi
    if [ $_db == "magenta" ]; then
