@@ -1,5 +1,4 @@
-#!/bin/bash
-# 26-10-2018 MRC-Epid JHZ
+#!/usr/bin/bash
 
 ## SETTINGS and FUNCTIONS
 
@@ -32,12 +31,12 @@ function network_plot()
    # minor changes to network_plot.py are necessary.
      export file_genesetenrichment=${db}_genesetenrichment.txt
      export frgm=$DEPICT/data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.txt.gz
-     sed -i 's|FILE_GENESETENRICHMENT|'"$file_genesetenrichment"'|g' network_plot.cfg
-     sed -i 's|FILE_RECONSTITUTED_GENESETS_MATRIX|'"$frgm"'|g' network_plot.cfg
-     sed -i 's|OUTPUT_LABEL|'"$db"'|g' network_plot.cfg
-     sed -i 's|CUTOFF_TYPE|'"$cutoff_type"'|g' network_plot.cfg
-     sed -i 's|PVALUE_CUTOFF|'"$pvalue_cutoff"'|g' network_plot.cfg
-     sed -i 's|CYTOSCAPE_LOC|'"$CYTOSCAPE"'|g' network_plot.cfg
+     sed -i "s|FILE_GENESETENRICHMENT|${file_genesetenrichment}|g" network_plot.cfg
+     sed -i "s|FILE_RECONSTITUTED_GENESETS_MATRIX|${frgm}|g" network_plot.cfg
+     sed -i "s|OUTPUT_LABEL|${db}|g" network_plot.cfg
+     sed -i "s|CUTOFF_TYPE|${cutoff_type}|g" network_plot.cfg
+     sed -i "s|PVALUE_CUTOFF|${pvalue_cutoff}|g" network_plot.cfg
+     sed -i "s|CYTOSCAPE_LOC|${CYTOSCAPE}|g" network_plot.cfg
      ${PW_location}/files/network_plot.py network_plot.cfg
    # The old version requires addtional changes as follows,
    # sed 's/flag_interactive_cytoscape_session/interactive_cytoscape_session/g' network_plot.cfg > network_plot_2015.cfg
@@ -112,16 +111,16 @@ if [ $magenta -eq 1 ]; then
       awk '{$2=$1;$1="depict";print}' FS="\t" OFS="\t" ${depict_discretized} > $db
    fi
    if [ $collection_only -eq 0 ]; then
-      sed -i 's|GWAS_SNP_SCORE_FILE_NAME|magenta|g' Run_MAGENTA_vs2_July_2011.m
-      sed -i 's|GENESET_DB_FILE_NAME|'"$db"'|g' Run_MAGENTA_vs2_July_2011.m
-      sed -i 's|MIN_GS_SIZE|'"$min_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
-      sed -i 's|MAX_GS_SIZE|'"$max_gs_size"'|g' Run_MAGENTA_vs2_July_2011.m
+      sed -i "s|GWAS_SNP_SCORE_FILE_NAME|magenta|g" Run_MAGENTA_vs2_July_2011.m
+      sed -i "s|GENESET_DB_FILE_NAME|${db}|g" Run_MAGENTA_vs2_July_2011.m
+      sed -i "s|MIN_GS_SIZE|${min_gs_size}|g" Run_MAGENTA_vs2_July_2011.m
+      sed -i "s|MAX_GS_SIZE|${max_gs_size}|g" Run_MAGENTA_vs2_July_2011.m
       export suffix=_10000perm_$(date +'%b%d_%y')
       if [ $use_sge -eq 1 ]; then 
          qsub -cwd -N MAGENTA_${db} -V -sync y magenta.sge
       elif [ $use_slurm -eq 1 ]; then
-         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' magenta.slurm
-         sed -i 's|PARTITION|'"$PARTITION"'|g' magenta.slurm
+         sed -i "s|ACCOUNT|${ACCOUNT}|g" magenta.slurm
+         sed -i "s|PARTITION|${PARTITION}|g" magenta.slurm
          sbatch --wait magenta.slurm
       else
          . ./magenta.sge
@@ -171,8 +170,8 @@ if [ $magma -eq 1 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y magma.sge
       elif [ $use_slrum -eq 1 ]; then
-         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' magma.slurm
-         sed -i 's|PARTITION|'"$PARTITION"'|g' magma.slurm
+         sed -i "s|ACCOUNT|${ACCOUNT}|g" magma.slurm
+         sed -i "s|PARTITION|${PARTITION}|g" magma.slurm
          sbatch --wait magma.slurm
       else
          . ./magma.sge
@@ -200,28 +199,28 @@ if [ $pascal -eq 1 ]; then
    if [ $collection_only -eq 0 ]; then
       cp ${PW_location}/PASCAL/* .
       R -q --no-save < data.R > ${_db}.data.log
-      sed -i 's|OUTPUTDIRECTORY|'"$PWD"'|g; s|PASCAL_location|'"$PASCAL"'|g' settings.txt
+      sed -i "s|OUTPUTDIRECTORY|${PWD}|g; s|PASCAL_location|${PASCAL}|g" settings.txt
    fi
    if [ $_db == "magenta" ]; then
       awk '{$1=$2;$2="."};1' FS="\t" ${magenta_db} > magenta.db
       export db=${PWD}/magenta.db
-      sed -i 's|GENESETFILE|'"${db}"'|g' settings.txt
+      sed -i "s|GENESETFILE|${db}|g" settings.txt
    elif [ $_db == "c2" ]; then
       export db=$(basename $c2_db .gmt)
-      sed -i 's|GENESETFILE|'"${c2_db}"'|g' settings.txt
+      sed -i "s|GENESETFILE|${c2_db}|g" settings.txt
    elif [ $_db == "msigdb" ]; then
       export db=$(basename $msigdb_db .gmt)
-      sed -i 's|GENESETFILE|'"${msigdb_db}"'|g' settings.txt
+      sed -i "s|GENESETFILE|${msigdb_db}|g" settings.txt
    else
       export db=$(basename $depict_discretized .gmt)
-      sed -i 's|GENESETFILE|'"${depict_discretized}"'|g' settings.txt
+      sed -i "s|GENESETFILE|${depict_discretized}|g" settings.txt
    fi
    if [ $collection_only -eq 0 ]; then
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -V -N PASCAL_${_db} -sync y pascal.sge
       elif [ $use_slurm -eq 1 ]; then
-         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' pascal.slurm
-         sed -i 's|PARTITION|'"$PARTITION"'|g' pascal.slurm
+         sed -i "s|ACCOUNT|${ACCOUNT}|g" pascal.slurm
+         sed -i "s|PARTITION|${PARTITION}|g" pascal.slurm
          sbatch --wait pascal.slurm
       else
          . ./pascal.sge
@@ -233,7 +232,7 @@ if [ $pascal -eq 1 ]; then
          network_plot
       fi
       R -q --no-save < collect.R > ${_db}_collect.log
-   fi
+  fi
    cd -
 fi
 
@@ -248,28 +247,28 @@ if [ $depict -eq 1 ]; then
    if [ $collection_only -eq 0 ]; then
       cp ${PW_location}/DEPICT/* .
       R -q --no-save < data.R > ${_db}.data.log
-      sed -i 's|ANALYSIS_PATH|'"$PWD"'|g; s|PLINK_EXECUTABLE|'"$PLINK_EXECUTABLE"'|g' depict.cfg
+      sed -i "s|ANALYSIS_PATH|${PWD}|g; s|PLINK_EXECUTABLE|${PLINK_EXECUTABLE}|g" depict.cfg
    fi
    if [ $_db == "depict" ]; then
       export db=depict
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g' depict.cfg
-      sed -i 's|LABEL_FOR_OUTPUT_FILES|depict|g' depict.cfg
+      sed -i "s|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/reconstituted_genesets_150901.binary|g" depict.cfg
+      sed -i "s|LABEL_FOR_OUTPUT_FILES|depict|g" depict.cfg
    elif [ $_db == "depict_discretized" ]; then
       export db=$(basename $depict_discretized .gmt)
-      sed -i 's|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g' depict.cfg
-      sed -i 's|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g' depict.cfg
+      sed -i "s|RECONSTITUTED_GENESETS_FILE|data/reconstituted_genesets/GPL570-GPL96-GPL1261-GPL1355TermGeneZScores-MGI_MF_CC_RT_IW_BP_KEGG_z_z.binary|g" depict.cfg
+      sed -i "s|LABEL_FOR_OUTPUT_FILES|depict_discretized_cutoff3.2|g" depict.cfg
    fi
    if [ $collection_only -eq 0 ]; then
-      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.sge
-      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.slurm
-      sed -i 's|NUMBER_OF_THREADS|'"$number_of_threads"'|g' depict.cfg
-      sed -i 's|ASSOCIATION_PVALUE_CUTOFF|'"$p_threshold"'|g' depict.cfg
-      sed -i 's|NR_REPITITIONS|'"$nr_repititions"'|g' depict.cfg
+      sed -i "s|NUMBER_OF_THREADS|${number_of_threads}|g" depict.sge
+      sed -i "s|NUMBER_OF_THREADS|${number_of_threads}|g" depict.slurm
+      sed -i "s|NUMBER_OF_THREADS|${number_of_threads}|g" depict.cfg
+      sed -i "s|ASSOCIATION_PVALUE_CUTOFF|${p_threshold}|g" depict.cfg
+      sed -i "s|NR_REPITITIONS|${nr_repititions}|g" depict.cfg
       if [ $use_sge -eq 1 ]; then
          qsub -cwd -N DEPICT -V -sync y depict.sge
       elif [ $use_slurm -eq 1 ]; then
-         sed -i 's|ACCOUNT|'"$ACCOUNT"'|g' depict.slurm
-         sed -i 's|PARTITION|'"$PARTITION"'|g' depict.slurm
+         sed -i "s|ACCOUNT|${ACCOUNT}|g" depict.slurm
+         sed -i "s|PARTITION|${PARTITION}|g" depict.slurm
          sbatch --wait depict.slurm
       else
          . ./depict.sge
