@@ -171,6 +171,7 @@ if [ $magma -eq 1 ]; then
          qsub -cwd -N MAGMA_${_db} -V -sync y magma.sge
       elif [ $use_slrum -eq 1 ]; then
          sed -i "s|ACCOUNT|${ACCOUNT}|g" magma.slurm
+         sed -i "s|NUMBER_OF_THREADS|${number_of_threads}|g" magma.slurm
          sed -i "s|PARTITION|${PARTITION}|g" magma.slurm
          sbatch --wait magma.slurm
       else
@@ -220,6 +221,7 @@ if [ $pascal -eq 1 ]; then
          qsub -cwd -V -N PASCAL_${_db} -sync y pascal.sge
       elif [ $use_slurm -eq 1 ]; then
          sed -i "s|ACCOUNT|${ACCOUNT}|g" pascal.slurm
+         sed -i "s|NUMBER_OF_THREADS|${number_of_threads}|g" pascal.slurm
          sed -i "s|PARTITION|${PARTITION}|g" pascal.slurm
          sbatch --wait pascal.slurm
       else
